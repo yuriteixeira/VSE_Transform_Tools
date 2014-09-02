@@ -30,13 +30,14 @@ class TF_Add_Transform(bpy.types.Operator):
         return ret and context.space_data.type == 'SEQUENCE_EDITOR'
                 
     def execute(self, context):   
-        selection = [seq for seq in context.scene.sequence_editor.sequences if seq.select and seq.type not in ['SOUND','TRANSFORM']]
-        
+        sequences = context.selected_editable_sequences
+        selection = [seq for seq in sequences if seq.select and seq.type not in ['SOUND','TRANSFORM']]
+
         fc = context.scene.frame_current
         lower = 1000
         
         lower_seq = -1
-        for seq in context.scene.sequence_editor.sequences:
+        for seq in sequences:
             if seq.channel < lower and seq.frame_start <= fc and (seq.frame_start + seq.frame_final_duration) >= fc:
                 lower = seq.channel
                 lower_seq = seq
