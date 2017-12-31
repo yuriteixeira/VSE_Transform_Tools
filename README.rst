@@ -51,7 +51,7 @@ Fine Tuning & Snapping
 When Grabbing, Rotating, or Scaling, hold the **Shift** key to fine tune
 movement, or hold the **Ctrl** key to snap movement.
 
-.. image:: https://i.imgur.com/3oHYXa6.gif
+.. image:: https://i.imgur.com/JASD9gM.gif
 
 Exact Input
 -----------
