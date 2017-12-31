@@ -13,25 +13,11 @@ image_size = 200
 fframe = 0
 
 def draw_callback_px_crop(self, context):
+    global image_size, origin, vec_bl, vec_tr, vec_ct
     parent_seq =  context.scene.sequence_editor.active_strip
     active_seq = parent_seq.input_1
 
-    global image_size, origin, vec_bl, vec_tr, vec_ct
-    
-    width = context.region.width - (context.region.width * .05)
-    height = context.region.height - (context.region.width * .05)
-    
-    clip_width = active_seq.elements[0].orig_width
-    clip_height = active_seq.elements[0].orig_height
-    
-    if width / height >= clip_width / clip_height:
-        clip_ratio = height / clip_height
-    else:
-        clip_ratio = width / clip_width
-    
-    image_size = (clip_ratio * clip_width) / 2
-    
-    bpy.ops.sequencer.view_zoom_ratio(ratio=clip_ratio)
+    print(origin)
     
     image_fac = 2*image_size/active_seq.elements[0].orig_width
     
@@ -113,16 +99,16 @@ class TF_Crop(bpy.types.Operator):
     sel_point = 0
     mmb = False
     proxy_size = ''
+    
     @classmethod
     def poll(cls, context):
-        ret = False
-        if context.scene.sequence_editor:
-            if context.scene.sequence_editor.active_strip:
-                if context.scene.sequence_editor.active_strip.type == 'TRANSFORM':
-                    if context.scene.sequence_editor.active_strip.select:
-                        if context.scene.sequence_editor.active_strip.input_1.type in ['MOVIE','IMAGE']:
-                            ret = True
-        return ret and context.space_data.type == 'SEQUENCE_EDITOR' and context.region.type == 'PREVIEW'
+        if (context.scene.sequence_editor and
+            context.scene.sequence_editor.active_strip and
+            context.scene.sequence_editor.active_strip.type == 'TRANSFORM' and
+            context.scene.sequence_editor.active_strip.select and
+            context.scene.sequence_editor.active_strip.input_1.type in ['MOVIE', 'IMAGE'] and
+            context.space_data.type == 'SEQUENCE_EDITOR' and context.region.type == 'PREVIEW'):
+            return True
 
     def modal(self, context, event):
         context.area.tag_redraw()
@@ -263,19 +249,40 @@ class TF_Crop(bpy.types.Operator):
 
     def invoke(self, context, event):
         seq = context.scene.sequence_editor.active_strip
+        
         if event.alt :
             seq.input_1.crop.min_x = seq.input_1.crop.min_y = 0
             seq.input_1.crop.max_x = seq.input_1.crop.max_y = 0
             crop_scale(seq,max(seq.scale_start_x,seq.scale_start_y))
             ret = 'FINISHED'
         else:
+            seq['delta_pos_x'] = seq.translate_start_x
+            seq['delta_pos_y'] = seq.translate_start_y
+        
+            child = seq.input_1
+            width = context.region.width - (context.region.width * .05)
+            height = context.region.height - (context.region.width * .05)
+            
+            clip_width = child.elements[0].orig_width
+            clip_height = child.elements[0].orig_height
+            
+            if width / height >= clip_width / clip_height:
+                clip_ratio = height / clip_height
+            else:
+                clip_ratio = width / clip_width
+            
+            global image_size
+            image_size = (clip_ratio * clip_width) / 2
+            
+            bpy.ops.sequencer.view_zoom_ratio(ratio=clip_ratio)
+            
             self.proxy_size = context.space_data.proxy_render_size
             if not self.proxy_size in ['FULL', 'PROXY_100']:
                 context.space_data.proxy_render_size = 'FULL'
         
             global origin, fframe
-            if origin == [10000,10000]:
-                origin = context.region.view2d.view_to_region(0,0,clip=False)
+            #if origin == [10000,10000]:
+            origin = context.region.view2d.view_to_region(0,0,clip=False)
 
             if seq.input_1.type == 'MOVIE':
                 fp = seq.input_1.filepath

@@ -108,9 +108,11 @@ class TF_Scale(bpy.types.Operator):
             if self.axe_x and self.axe_y :
                 context.area.header_text_set("Scale X:%.4f Y: %.4f" % (info_x, info_y))#
 
-            for seq, init_s, init_t in zip(self.tab, self.tab_init, self.tab_init_t):
+            for seq, delta_x, delta_y, init_s, init_t in zip(self.tab, self.deltas_x, self.deltas_y, self.tab_init, self.tab_init_t):
                 seq.scale_start_x =  init_s[0] * round(diff_x, precision)
                 seq.scale_start_y =  init_s[1] * round(diff_y, precision)
+                seq['delta_scale_x'] = delta_x * round(diff_x, precision)
+                seq['delta_scale_y'] = delta_y * round(diff_y, precision)
 
                 sign_x = -1 if seq.use_flip_x else 1
                 sign_y = -1 if seq.use_flip_y else 1
@@ -152,10 +154,13 @@ class TF_Scale(bpy.types.Operator):
             for seq in context.scene.sequence_editor.sequences:
                 if seq.select and seq.type == 'TRANSFORM':
                     if seq.input_1.type in ['MOVIE','IMAGE']:
-                        crop_scale(seq,1)
+                        crop_scale(seq, 1)
                     else:
                         seq.scale_start_x = 1
                         seq.scale_start_y = 1
+                    seq['delta_scale_x'] = 1.0
+                    seq['delta_scale_y'] = 1.0
+                    
             ret = 'FINISHED'
         else:
             fac = get_fac()
@@ -166,12 +171,19 @@ class TF_Scale(bpy.types.Operator):
             self.center_area = mathutils.Vector((0,0))
             key_val = '+0'
             x = 0
+            
+            self.deltas_x = []
+            self.deltas_y = []
 
             for seq in context.scene.sequence_editor.sequences:
                 if seq.select and seq.type == 'TRANSFORM':
                     self.tab_init.append([seq.scale_start_x,seq.scale_start_y])
                     self.tab_init_t.append([get_pos_x(seq),get_pos_y(seq)])
                     self.tab.append(seq)
+                    
+                    self.deltas_x.append(seq['delta_scale_x'])
+                    self.deltas_y.append(seq['delta_scale_y'])
+                    
                     sign_x = -1 if seq.use_flip_x else 1
                     sign_y = -1 if seq.use_flip_y else 1
                     self.sign_rot = sign_x*sign_y
