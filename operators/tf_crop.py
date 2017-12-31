@@ -17,7 +17,24 @@ def draw_callback_px_crop(self, context):
     active_seq = parent_seq.input_1
 
     global image_size, origin, vec_bl, vec_tr, vec_ct
+    
+    width = context.region.width - (context.region.width * .05)
+    height = context.region.height - (context.region.width * .05)
+    
+    clip_width = active_seq.elements[0].orig_width
+    clip_height = active_seq.elements[0].orig_height
+    
+    if width / height >= clip_width / clip_height:
+        clip_ratio = height / clip_height
+    else:
+        clip_ratio = width / clip_width
+    
+    image_size = (clip_ratio * clip_width) / 2
+    
+    bpy.ops.sequencer.view_zoom_ratio(ratio=clip_ratio)
+    
     image_fac = 2*image_size/active_seq.elements[0].orig_width
+    
     fac  = active_seq.elements[0].orig_height/active_seq.elements[0].orig_width
     vec_bl = mathutils.Vector((origin[0]-image_size + active_seq.crop.min_x*image_fac,origin[1]-image_size*fac + active_seq.crop.min_y*image_fac))
     vec_tr = mathutils.Vector((origin[0]+image_size - active_seq.crop.max_x*image_fac,origin[1] + image_size*fac - active_seq.crop.max_y*image_fac))
@@ -95,7 +112,7 @@ class TF_Crop(bpy.types.Operator):
     _handle_crop = None
     sel_point = 0
     mmb = False
-
+    proxy_size = ''
     @classmethod
     def poll(cls, context):
         ret = False
@@ -238,7 +255,8 @@ class TF_Crop(bpy.types.Operator):
             if active_seq.type in ['MOVIE','IMAGE']:
                 self.img.user_clear()
                 bpy.data.images.remove(self.img)
-
+            
+            context.space_data.proxy_render_size = self.proxy_size
             return {'FINISHED'}
 
         return {'RUNNING_MODAL'}
@@ -251,6 +269,10 @@ class TF_Crop(bpy.types.Operator):
             crop_scale(seq,max(seq.scale_start_x,seq.scale_start_y))
             ret = 'FINISHED'
         else:
+            self.proxy_size = context.space_data.proxy_render_size
+            if not self.proxy_size in ['FULL', 'PROXY_100']:
+                context.space_data.proxy_render_size = 'FULL'
+        
             global origin, fframe
             if origin == [10000,10000]:
                 origin = context.region.view2d.view_to_region(0,0,clip=False)

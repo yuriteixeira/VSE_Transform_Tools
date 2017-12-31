@@ -8,8 +8,15 @@ class TF_Collapse_Canvas(bpy.types.Operator):
     
     @classmethod
     def poll(cls, context):
-        if (context.scene.sequence_editor and 
-            context.space_data.type == 'SEQUENCE_EDITOR'):
+        ret = False
+        if (context.scene.sequence_editor and
+            context.space_data.type == 'SEQUENCE_EDITOR' and
+            context.space_data.view_type == 'PREVIEW' and
+            context.space_data.display_mode == 'IMAGE' and
+            context.scene.sequence_editor.active_strip and
+            context.scene.sequence_editor.active_strip.type == 'TRANSFORM' and
+            context.scene.sequence_editor.active_strip.select and
+            context.scene.sequence_editor.active_strip.input_1.type in ['MOVIE', 'IMAGE']):
             return True
         return False
     
