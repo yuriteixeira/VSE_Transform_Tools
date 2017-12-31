@@ -15,7 +15,8 @@ Installation
 4. Click "Install From File" and navigate to the downloaded zip file and
    install.
 5. Check the box next to "VSE_Transform_Tools"
-6. Save User Settings so the addon remains active every time you open Blender_
+6. Save User Settings so the addon remains active every time you open
+   Blender_
 
 .. image:: https://i.imgur.com/26S5d0t.gif
 
@@ -25,19 +26,21 @@ Usage
 =====
 Keyboard Shortcut Summary
 -------------------------
-:T:       Add Transform Modifier
-:G:       Grab Strip
-:S:       Scale Strip
-:R:       Rotate Strip
-:Q:       Modify Opacity
-:C:       Open/Close Crop Tool
-:I:       Insert Keyframe
-:Shift+C: Collapse Canvas
-:Alt+G:   Set Strip Position to Zero
-:Alt+S:   Set Strip Scale to One
-:Alt+R:   Set Strip Rotation to Zero
-:Alt+Q:   Set Opacity to One
-:Alt+C:   Set Crops to Zero
+:T:        Add Transform Modifier
+:G:        Grab
+:S:        Scale
+:R:        Rotate
+:Q:        Modify Opacity
+:C:        Open/Close Crop Tool
+:I:        Insert Keyframe
+:Shift+C:  Collapse Canvas
+:Alt+G:    Set Strip Position to Zero
+:Alt+S:    Set Strip Scale to One
+:Alt+R:    Set Strip Rotation to Zero
+:Alt+Q:    Set Opacity to One
+:Alt+C:    Set Crops to Zero
+:Ctrl+RMB: Set pivot point (only in 2D Cursor Pivot Mode)
+:< >:    Decrement and Increment Pivot Mode
 
 Selecting
 ---------

@@ -31,11 +31,9 @@ def func_key_val(self, key, value):
     if key in numbers.keys() and value == 'PRESS':
         if key in ['NUMPAD_PERIOD', 'PERIOD']:
             if self.key_val.count('.') == 0:
-                c = '.'
+                self.key_val += '.'
         else:
-            c = numbers[key]
-            
-        self.key_val += c
+            self.key_val += numbers[key]
                         
     if key in ['NUMPAD_MINUS', 'MINUS'] and value == 'PRESS':
         self.key_val = self.key_val.replace('+','-') if self.key_val[0] == '+' else self.key_val.replace('-','+')

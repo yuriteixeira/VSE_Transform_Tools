@@ -16,11 +16,13 @@ from .operators.tf_menu_insert_kf import TF_Menu_Insert_KF
 from .operators.tf_insert_keyframe import TF_Insert_KeyFrame
 
 from .operators.tf_set_cursor2d import TF_Set_Cursor2D
+from .operators.tf_increment_pivot import TF_Increment_Pivot
+from .operators.tf_decrement_pivot import TF_Decrement_Pivot
 
 from .operators.tf_collapse_canvas import TF_Collapse_Canvas
 
-
 from .operators.tools.draw_callback_px_point import draw_callback_px_point
+from .operators.tools.draw_callback_px_2d_cursor import draw_callback_px_2d_cursor
 
 _handle_2d_cursor = None
 
@@ -100,6 +102,8 @@ def register():
     kmi = km.keymap_items.new("sequencer.tf_crop", 'C', 'PRESS', alt=True)
     kmi = km.keymap_items.new("sequencer.tf_collapse_canvas", 'C', 'PRESS', shift=True)
     kmi = km.keymap_items.new("sequencer.tf_call_menu", 'I', 'PRESS')
+    kmi = km.keymap_items.new("sequencer.tf_increment_pivot", "PERIOD", 'PRESS')
+    kmi = km.keymap_items.new("sequencer.tf_decrement_pivot", "COMMA", 'PRESS')
     
     mb = bpy.context.user_preferences.inputs.select_mouse
     kmi = km.keymap_items.new("sequencer.tf_select", mb + 'MOUSE', 'PRESS')
@@ -121,7 +125,9 @@ def unregister():
         "sequencer.tf_collapse_canvas",
         #"sequencer.tf_call_menu",
         "sequencer.tf_select",
-        "sequencer.tf_set_cursor2d"
+        "sequencer.tf_set_cursor2d",
+        "sequencer.tf_increment_pivot",
+        "sequencer.tf_decrement_pivot",
     ]
     km = bpy.context.window_manager.keyconfigs.default.keymaps['View2D']
     for kmi in km.keymap_items:

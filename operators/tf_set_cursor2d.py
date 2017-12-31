@@ -6,7 +6,6 @@ class TF_Set_Cursor2D(bpy.types.Operator):
     
     @classmethod
     def poll(cls, context):
-        print(context.scene.seq_pivot_type)
         if (context.scene.sequence_editor and
             context.space_data.type == 'SEQUENCE_EDITOR' and
             context.region.type == 'PREVIEW' and

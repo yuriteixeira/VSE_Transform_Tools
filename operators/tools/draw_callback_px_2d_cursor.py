@@ -1,3 +1,6 @@
+import bgl
+import math
+
 def draw_callback_px_2d_cursor(self, context):
     c2d = context.region.view2d.view_to_region(context.scene.seq_cursor2d_loc[0],context.scene.seq_cursor2d_loc[1],clip=False)
 
@@ -21,8 +24,8 @@ def draw_callback_px_2d_cursor(self, context):
     c = []
     s = []
     for i in range(16):
-        c.append(cos(i*pi/8))
-        s.append(sin(i*pi/8)) 
+        c.append(math.cos(i*math.pi/8))
+        s.append(math.sin(i*math.pi/8)) 
     bgl.glColor4f(1.0, 1.0, 1.0, 1.0)
     bgl.glBegin(bgl.GL_LINE_LOOP)
     for i in range(16):
