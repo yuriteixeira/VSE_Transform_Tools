@@ -9,7 +9,7 @@ from .tools.crop_scale import crop_scale, crop_scale2
 vec_bl = mathutils.Vector((0,0))
 vec_tr = mathutils.Vector((0,0))
 origin = [10000,10000]
-image_size = 222
+image_size = 200
 fframe = 0
 
 def draw_callback_px_crop(self, context):

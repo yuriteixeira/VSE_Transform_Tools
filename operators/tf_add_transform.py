@@ -28,7 +28,7 @@ class TF_Add_Transform(bpy.types.Operator):
             seq.mute = True
             active_seq.blend_alpha = seq.blend_alpha
 
-            active_seq.blend_type = seq.blend_type
+            active_seq.blend_type = 'ALPHA_OVER'
             seq.blend_alpha = 1
             if seq.type in ['MOVIE','IMAGE']:
                 if not seq.use_crop:

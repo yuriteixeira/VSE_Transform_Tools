@@ -64,18 +64,17 @@ class TF_Position(bpy.types.Operator):
             
             func_constraint_axis(self, context, event.type, event.value, 0)
             
-            
             if 'SHIFT' in event.type and event.value == 'PRESS':
                 self.pre_slow_vec = self.pos_mouse
             
             elif 'SHIFT' in event.type and event.value == 'RELEASE':
                 vec_act_fm = (self.pre_slow_vec - self.first_mouse - self.reduction_vec) + self.slow_act_fm
-                self.reduction_vec += ((self.pos_mouse - self.pre_slow_vec) * (self.slow_factor - 1)) / self.slow_factor
+                self.reduction_vec = self.reduction_vec + ((self.pos_mouse - self.pre_slow_vec) * (self.slow_factor - 1)) / self.slow_factor
                 
             elif event.shift:
                 self.slow_act_fm = (self.pos_mouse - self.pre_slow_vec) / self.slow_factor
                 vec_act_fm = (self.pre_slow_vec - self.first_mouse - self.reduction_vec) + self.slow_act_fm
-                
+            
             precision = -1 if event.ctrl else 5
             
             info_x = round(vec_act_fm.x * view_zoom_preview(), precision)
