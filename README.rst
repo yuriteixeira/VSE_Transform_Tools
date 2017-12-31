@@ -40,7 +40,7 @@ Keyboard Shortcut Summary
 :Alt+Q:    Set Opacity to One
 :Alt+C:    Set Crops to Zero
 :Ctrl+RMB: Set pivot point (only in 2D Cursor Pivot Mode)
-:< >:    Decrement and Increment Pivot Mode
+:< >:      Decrement and Increment Pivot Mode
 
 Selecting
 ---------
@@ -48,6 +48,13 @@ Strips may be selected in the preview window by right clicking. Hold the
 **Shift** key to toggle the selection of multiple strips.
 
 .. image:: https://i.imgur.com/0rVRLXO.gif
+
+Axis Specific Transformations
+-----------------------------
+You can Grab or Scale along either the X or Y axis by pressing the
+corresponding letter on the keyboard after starting the action. For
+example, pressing **S**, then **X** keys will limit scaling to the X
+axis only for the selected strip.
 
 Fine Tuning & Snapping
 ----------------------
