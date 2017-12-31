@@ -29,8 +29,8 @@ _handle_2d_cursor = None
 bl_info = {
     "name": "VSE Transform tool",
     "description": "",
-    "author": "kgeogeo & DoubleZ",
-    "version": (1, 0, 1),
+    "author": "kgeogeo & DoubleZ & doakey3",
+    "version": (1, 1, 0),
     "blender": (2, 7, 9),
     "wiki_url": "",
     "tracker_url":"",
