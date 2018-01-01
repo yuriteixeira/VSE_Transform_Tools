@@ -59,7 +59,7 @@ class TF_Scale(bpy.types.Operator):
 
     def modal(self, context, event):
         context.area.tag_redraw()
-
+        
         if self.tab:
             self.pos_mouse = mathutils.Vector(
                 (event.mouse_region_x, event.mouse_region_y))

@@ -4,7 +4,7 @@ import bgl
 import math
 import mathutils
 
-from .tools.crop_scale import crop_scale, crop_scale2
+from .tools.crop_scale import crop_scale2
 
 vec_bl = mathutils.Vector((0,0))
 vec_tr = mathutils.Vector((0,0))
@@ -98,6 +98,7 @@ class TF_Crop(bpy.types.Operator):
     sel_point = 0
     mmb = False
     proxy_size = ''
+    
     @classmethod
     def poll(cls, context):
         ret = False
@@ -208,7 +209,7 @@ class TF_Crop(bpy.types.Operator):
 
             #scale the strip according to the crop
             if not active_seq.use_translation:
-                crop_scale2(seq, self.fac_init)
+                crop_scale2(seq, self.initial_pos_x, self.initial_pos_y, self.initial_scale_x, self.initial_scale_y)
 
         #move the image
         if event.type == 'LEFTMOUSE' and event.value == 'RELEASE':
@@ -231,9 +232,22 @@ class TF_Crop(bpy.types.Operator):
             bpy.ops.sequencer.tf_call_menu('INVOKE_DEFAULT')
         #clear the crop inside the modal
         if event.alt and event.type =='C':
-            seq.input_1.crop.min_x = seq.input_1.crop.min_y = 0
-            seq.input_1.crop.max_x = seq.input_1.crop.max_y = 0
-            crop_scale(seq,max(seq.scale_start_x,seq.scale_start_y))
+            seq_in = seq.input_1
+            
+            res_x = bpy.context.scene.render.resolution_x
+            res_y = bpy.context.scene.render.resolution_y
+            
+            left = (((seq_in.crop.min_x * self.initial_scale_x) / res_x) / 2) * 100
+            right = (((seq_in.crop.max_x * self.initial_scale_x) / res_x) / 2) * 100
+            bottom = (((seq_in.crop.min_y * self.initial_scale_y) / res_y) / 2) * 100
+            top = (((seq_in.crop.max_y * self.initial_scale_y) / res_y) / 2) * 100
+            
+            seq_in.crop.min_x = seq_in.crop.min_y = 0
+            seq_in.crop.max_x = seq_in.crop.max_y = 0
+            
+            seq.translate_start_x = seq.translate_start_x - left + right
+            seq.translate_start_y = seq.translate_start_y - bottom + top
+            crop_scale2(seq, self.initial_pos_x, self.initial_pos_y, self.initial_scale_x, self.initial_scale_y)
         #close
         if event.type == 'C' and event.value == 'PRESS':
             bpy.types.SpaceSequenceEditor.draw_handler_remove(self._handle_crop, 'PREVIEW')
@@ -248,10 +262,37 @@ class TF_Crop(bpy.types.Operator):
 
     def invoke(self, context, event):
         seq = context.scene.sequence_editor.active_strip
+        
+        seq_in = seq.input_1
+        len_crop_x = seq_in.elements[0].orig_width - (seq_in.crop.min_x + seq_in.crop.max_x)
+        len_crop_y = seq_in.elements[0].orig_height - (seq_in.crop.min_y + seq_in.crop.max_y)
+        
+        res_x = bpy.context.scene.render.resolution_x
+        res_y = bpy.context.scene.render.resolution_y
+        
+        if seq.scale_start_x == 0:
+            seq.scale_start_x = .0000001
+        elif seq.scale_start_y == 0:
+            seq.scale_start_y = .0000001
+        
+        self.initial_scale_x = 1 / ((len_crop_x / res_x) / seq.scale_start_x)
+        self.initial_scale_y = 1 / ((len_crop_y / res_y) / seq.scale_start_y)
+        
+        left = (((seq_in.crop.min_x * self.initial_scale_x) / res_x) / 2) * 100
+        right = (((seq_in.crop.max_x * self.initial_scale_x) / res_x) / 2) * 100
+        bottom = (((seq_in.crop.min_y * self.initial_scale_y) / res_y) / 2) * 100
+        top = (((seq_in.crop.max_y * self.initial_scale_y) / res_y) / 2) * 100
+        
+        self.initial_pos_x = seq.translate_start_x - left + right
+        self.initial_pos_y = seq.translate_start_y - bottom + top
+        
         if event.alt :
-            seq.input_1.crop.min_x = seq.input_1.crop.min_y = 0
-            seq.input_1.crop.max_x = seq.input_1.crop.max_y = 0
-            crop_scale(seq,max(seq.scale_start_x,seq.scale_start_y))
+            seq_in = seq.input_1
+            seq_in.crop.min_x = seq_in.crop.min_y = 0
+            seq_in.crop.max_x = seq_in.crop.max_y = 0
+            seq.translate_start_x = seq.translate_start_x - left + right
+            seq.translate_start_y = seq.translate_start_y - bottom + top
+            crop_scale2(seq, self.initial_pos_x, self.initial_pos_y, self.initial_scale_x, self.initial_scale_y)
             ret = 'FINISHED'
         else:
             child = seq.input_1
