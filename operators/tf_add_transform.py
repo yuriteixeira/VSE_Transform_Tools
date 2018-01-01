@@ -4,10 +4,6 @@ from .tools.set_pos_x import set_pos_x
 from .tools.set_pos_y import set_pos_y
 from .tools.crop_scale import crop_scale
 
-class TF_Transform_Strip(bpy.types.TransformSequence):
-    def __init__(self):
-        this.gamma_scale_x = 1.0
-
 class TF_Add_Transform(bpy.types.Operator):
     bl_idname = "sequencer.tf_add_transform"
     bl_label = "Add Transform Effect"
@@ -34,16 +30,9 @@ class TF_Add_Transform(bpy.types.Operator):
             active_seq = context.scene.sequence_editor.active_strip
             active_seq.name = "[TR]-%s" % seq.name
             seq.mute = True
-            
 
             active_seq.blend_type = 'ALPHA_OVER'
             active_seq.blend_alpha = seq.blend_alpha
-            
-            active_seq['delta_scale_x'] = 1.0
-            active_seq['delta_scale_y'] = 1.0 
-            active_seq['delta_pos_x'] = 0.0
-            active_seq['delta_pos_y'] = 0.0
-            
             if seq.type in ['MOVIE','IMAGE']:
                 if not seq.use_crop:
                     seq.use_crop = True

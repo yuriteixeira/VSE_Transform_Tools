@@ -28,13 +28,8 @@ def crop_scale2(seq, fac_init):
     res_x = bpy.context.scene.render.resolution_x
     res_y = bpy.context.scene.render.resolution_y
 
-    seq.scale_start_x = (len_crop_x / res_x) * seq['delta_scale_x']
-    seq.scale_start_y = (len_crop_y / res_y) * seq['delta_scale_y']
+    seq.scale_start_x = len_crop_x / res_x
+    seq.scale_start_y = len_crop_y / res_y
     
-    left = (((seq_in.crop.min_x * seq['delta_scale_x']) / res_x) / 2) * 100
-    right = (((seq_in.crop.max_x * seq['delta_scale_x']) / res_x) / 2) * 100
-    bottom = (((seq_in.crop.min_y * seq['delta_scale_y']) / res_y) / 2) * 100
-    top = (((seq_in.crop.max_y * seq['delta_scale_y']) / res_y) / 2) * 100
-    
-    seq.translate_start_x = seq['delta_pos_x'] + left - right
-    seq.translate_start_y = seq['delta_pos_y'] + bottom - top
+    seq.translate_start_x = (((seq_in.crop.min_x / res_x) / 2) * 100) - (((seq_in.crop.max_x / res_x) / 2) * 100)
+    seq.translate_start_y = (((seq_in.crop.min_y / res_y) / 2) * 100) - (((seq_in.crop.max_y / res_y) / 2) * 100)
