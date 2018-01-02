@@ -69,7 +69,6 @@ def draw_callback_px_crop(self, context):
     bgl.glBegin(bgl.GL_POINTS)
     bgl.glVertex2f(-image_size + active_seq.crop.min_x*image_fac, -image_size*fac + active_seq.crop.min_y*image_fac)
     bgl.glVertex2f(image_size - active_seq.crop.max_x*image_fac, image_size*fac - active_seq.crop.max_y*image_fac)
-    #bgl.glVertex2f(vec_ct.x-origin[0],vec_ct.y-origin[1])
     bgl.glEnd()
     bgl.glPopMatrix()
     for i in range(4):
@@ -231,7 +230,7 @@ class TF_Crop(bpy.types.Operator):
         if event.type == 'I':
             bpy.ops.sequencer.tf_call_menu('INVOKE_DEFAULT')
         #clear the crop inside the modal
-        if event.alt and event.type =='C':
+        if (event.alt and event.type =='C') or event.type == 'ESC':
             seq_in = seq.input_1
             
             res_x = bpy.context.scene.render.resolution_x

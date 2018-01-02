@@ -108,8 +108,6 @@ def register():
     mb = bpy.context.user_preferences.inputs.select_mouse
     kmi = km.keymap_items.new("sequencer.tf_select", mb + 'MOUSE', 'PRESS')
     kmi = km.keymap_items.new("sequencer.tf_select", mb + 'MOUSE', 'PRESS', shift=True)
-    #kmi = km.keymap_items.new("sequencer.tf_call_menu_layers", mb + 'MOUSE', 'PRESS', alt=True)
-    #kmi = km.keymap_items.new("sequencer.tf_call_menu_layers", mb + 'MOUSE', 'PRESS', shift=True, alt=True)
     kmi = km.keymap_items.new("sequencer.tf_set_cursor2d", mb + 'MOUSE', 'PRESS', ctrl=True)
     
 def unregister():
@@ -123,7 +121,6 @@ def unregister():
         "sequencer.tf_draw_alpha",
         "sequencer.tf_draw_crop",
         "sequencer.tf_collapse_canvas",
-        #"sequencer.tf_call_menu",
         "sequencer.tf_select",
         "sequencer.tf_set_cursor2d",
         "sequencer.tf_increment_pivot",

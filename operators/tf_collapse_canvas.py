@@ -1,6 +1,12 @@
 import bpy
 import math
 
+from .collapse_canvas_utils import get_group_box
+from .collapse_canvas_utils import reposition_strip
+from .collapse_canvas_utils import reposition_transform_strip
+from .collapse_canvas_utils import get_nontransformed_strips
+from .collapse_canvas_utils import get_transform_strips
+
 class TF_Collapse_Canvas(bpy.types.Operator):
     bl_idname = "sequencer.tf_collapse_canvas"
     bl_label = "Collapse scene resolution to match clip size"
@@ -8,53 +14,35 @@ class TF_Collapse_Canvas(bpy.types.Operator):
     
     @classmethod
     def poll(cls, context):
-        ret = False
-        if (context.scene.sequence_editor and
+        scene = context.scene
+        if (scene.sequence_editor and
             context.space_data.type == 'SEQUENCE_EDITOR' and
             context.space_data.view_type == 'PREVIEW' and
-            context.space_data.display_mode == 'IMAGE' and
-            context.scene.sequence_editor.active_strip and
-            context.scene.sequence_editor.active_strip.type == 'TRANSFORM' and
-            context.scene.sequence_editor.active_strip.select and
-            context.scene.sequence_editor.active_strip.input_1.type in ['MOVIE', 'IMAGE']):
+            context.space_data.display_mode == 'IMAGE' and 
+            len(scene.sequence_editor.sequences) > 0):
             return True
         return False
     
     def execute(self, context):
         scene = context.scene
-        active_seq = context.scene.sequence_editor.active_strip
-        seq = active_seq.input_1
+        all_strips = list(scene.sequence_editor.sequences)
         
-        res_x = scene.render.resolution_x
-        res_y = scene.render.resolution_y
+        group_box = get_group_box(scene, all_strips)
         
-        crop_res_x = seq.elements[0].orig_width - (seq.crop.min_x + seq.crop.max_x)
-        crop_res_y = seq.elements[0].orig_height - (seq.crop.min_y + seq.crop.max_y)
-        
-        crop_ratio_x = res_x / crop_res_x
-        crop_ratio_y = res_y / crop_res_y
-        
-        scale_ratio_x = crop_ratio_x * active_seq.scale_start_x
-        scale_ratio_y = crop_ratio_y * active_seq.scale_start_y
-        
-        scale_res_x = scale_ratio_x * crop_res_x
-        scale_res_y = scale_ratio_y * crop_res_y
+        min_left, max_right, min_bottom, max_top = group_box 
 
-        rot = math.radians(abs(active_seq.rotation_start))
-        rot_res_x = (math.sin(rot) * scale_res_y) + (math.cos(rot) * scale_res_x)
-        rot_res_y = (math.sin(rot) * scale_res_x) + (math.cos(rot) * scale_res_y)
+        total_width = max_right - min_left
+        total_height = max_top - min_bottom
         
-        rot_ratio_x = scale_res_x / rot_res_x 
-        rot_ratio_y = scale_res_y /rot_res_y
+        nontransformed_strips = get_nontransformed_strips(all_strips)
+        for strip in nontransformed_strips:
+            reposition_strip(scene, strip, group_box)
         
-        active_seq.translate_start_x = 0
-        active_seq.translate_start_y = 0
+        transform_strips = get_transform_strips(all_strips)
+        for strip in transform_strips:
+            reposition_transform_strip(scene, strip, group_box)
         
-        scene.render.resolution_x = rot_res_x
-        scene.render.resolution_y = rot_res_y
-        
-        active_seq.scale_start_x = rot_ratio_x
-        active_seq.scale_start_y = rot_ratio_y
-        
+        scene.render.resolution_x = total_width
+        scene.render.resolution_y = total_height
+
         return {'FINISHED'}
-            
