@@ -5,8 +5,8 @@ def get_transform_box(scene, strip):
     Gets the left, right, top, bottom of a transform strip 
     (including all it's children)
     '''
-    if strip.input_1.type in ['IMAGE', 'MOVIE', 'COLOR']:
-        left, right, bottom, top = get_strip_box(scene, strip.input_1, transform_parent=True)
+    #if strip.input_1.type in ['IMAGE', 'MOVIE', 'COLOR', 'META', 'TEXT']:
+    left, right, bottom, top = get_strip_box(scene, strip.input_1, transform_parent=True)
     #elif strip.input_1.type == 'TRANSFORM':
     #    left, right, bottom, top = get_transform_box(scene, strip.input_1)
     

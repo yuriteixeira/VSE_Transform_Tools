@@ -21,18 +21,21 @@ class TF_Alpha(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        ret = False
-        if context.scene.sequence_editor:
-            if context.scene.sequence_editor.active_strip:
-                if context.scene.sequence_editor.active_strip.type == 'TRANSFORM':
-                    if context.scene.sequence_editor.active_strip.select:
-                        ret = True
-        return ret and context.space_data.type == 'SEQUENCE_EDITOR' and context.region.type == 'PREVIEW'
+        scene = context.scene
+        if (scene.sequence_editor and 
+           scene.sequence_editor.active_strip and
+           scene.sequence_editor.active_strip.type == 'TRANSFORM' and
+           scene.sequence_editor.active_strip.select and
+           context.space_data.type == 'SEQUENCE_EDITOR' and
+           context.region.type == 'PREVIEW'):
+            return True
+        return False
 
     def modal(self, context, event):
         context.area.tag_redraw()
         w = context.region.width
         self.pos = mathutils.Vector((event.mouse_region_x + self.alpha_init * w/5,event.mouse_region_y)) - self.first_mouse
+        
         if self.pos.x < 0:
             self.pos.x = 0
         if self.pos.x > w/5:

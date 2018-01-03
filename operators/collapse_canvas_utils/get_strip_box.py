@@ -17,8 +17,11 @@ def get_strip_box(scene, strip, transform_parent=False):
         top = res_y - (strip.crop.min_y + strip.crop.min_x)
     
     elif not hasattr(strip, 'elements'):
-        len_crop_x = res_x - (strip.crop.min_x + strip.crop.max_x)
-        len_crop_y = res_y - (strip.crop.min_y + strip.crop.max_y)
+        len_crop_x = res_x
+        len_crop_y = res_y
+        if strip.use_crop:
+            len_crop_x -= (strip.crop.min_x + strip.crop.max_x)
+            len_crop_y -= (strip.crop.min_y + strip.crop.max_y)
         
         left = strip.transform.offset_x
         right = left + len_crop_x
@@ -38,6 +41,6 @@ def get_strip_box(scene, strip, transform_parent=False):
         left = strip.transform.offset_x
         right = left + len_crop_x
         bottom = strip.transform.offset_y
-        top = strip.transform.offset_y + len_crop_y
+        top = bottom + len_crop_y
 
     return left, right, bottom, top

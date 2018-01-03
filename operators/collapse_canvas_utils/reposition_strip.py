@@ -8,8 +8,9 @@ def reposition_strip(scene, strip, group_box):
     res_x = scene.render.resolution_x
     res_y = scene.render.resolution_y
     
-    strip.transform.offset_x -= min_left
-    strip.transform.offset_y -= min_bottom
+    if strip.use_translation:
+        strip.transform.offset_x -= min_left
+        strip.transform.offset_y -= min_bottom
     
     if not hasattr(strip, 'elements') and strip.use_crop:
         strip.crop.min_x -= min_left

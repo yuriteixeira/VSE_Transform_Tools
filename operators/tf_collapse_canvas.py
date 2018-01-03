@@ -27,6 +27,13 @@ class TF_Collapse_Canvas(bpy.types.Operator):
         scene = context.scene
         all_strips = list(scene.sequence_editor.sequences)
         
+        i = 0
+        while i < len(all_strips):
+            if all_strips[i].mute:
+                all_strips.pop(i)
+            else:
+                i += 1
+        
         group_box = get_group_box(scene, all_strips)
         
         min_left, max_right, min_bottom, max_top = group_box 

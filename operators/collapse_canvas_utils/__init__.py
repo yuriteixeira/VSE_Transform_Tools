@@ -2,6 +2,7 @@ from .get_transform_box import get_transform_box
 from .get_transform_strips import get_transform_strips
 from .clear_rejects import clear_rejects
 from .get_group_box import get_group_box
+from .get_nontransformed_metastrips import get_nontransformed_metastrips
 from .get_strip_box import get_strip_box
 from .reposition_strip import reposition_strip
 from .get_nontransformed_strips import get_nontransformed_strips

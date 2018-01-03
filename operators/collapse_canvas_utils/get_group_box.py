@@ -14,6 +14,7 @@ def get_group_box(scene, strips):
     group of strips
     '''
     boxes = []
+    
     nontransformed = get_nontransformed_strips(strips)
     
     for strip in nontransformed:
