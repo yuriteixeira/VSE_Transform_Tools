@@ -1,6 +1,6 @@
 import bpy
 
-class TF_Set_Cursor2D(bpy.types.Operator):
+class TF_Set_Cursor2d(bpy.types.Operator):
     bl_label = "Set le Cursor2D"
     bl_idname = "sequencer.tf_set_cursor2d"
     
@@ -12,8 +12,15 @@ class TF_Set_Cursor2D(bpy.types.Operator):
             context.scene.seq_pivot_type == '2'):
             return True
         return False
-                
+    
     def invoke(self, context, event):
-        temp = context.region.view2d.region_to_view(event.mouse_region_x,event.mouse_region_y)
-        context.scene.seq_cursor2d_loc = [round(temp[0]),round(temp[1])]
-        return {'FINISHED'} 
+        bpy.ops.sequencer.tf_initialize_pivot()
+        
+        mouse_x = event.mouse_region_x
+        mouse_y = event.mouse_region_y
+        
+        pos = context.region.view2d.region_to_view(mouse_x, mouse_y)
+        
+        context.scene.seq_cursor2d_loc = [round(pos[0]),round(pos[1])]
+        
+        return {'PASS_THROUGH'}

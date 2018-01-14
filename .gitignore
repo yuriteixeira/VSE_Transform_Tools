@@ -5,6 +5,8 @@ __pycache__/
 
 make_init.py
 linker.py
+tests
+todo.txt
 
 # C extensions
 *.so

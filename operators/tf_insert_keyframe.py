@@ -1,6 +1,6 @@
 import bpy
 
-class TF_Insert_KeyFrame(bpy.types.Operator):
+class TF_Insert_Keyframe(bpy.types.Operator):
     bl_idname = "sequencer.tf_insert_keyframe"
     bl_label = "Transform Insert KeyFrame"
     bl_options = {'REGISTER', 'UNDO'}

@@ -1,5 +1,7 @@
 import bpy
 
+from .tf_utils import get_transform_box
+from .tf_utils import get_strip_box
 
 class TF_Add_Transform(bpy.types.Operator):
     bl_idname = "sequencer.tf_add_transform"
@@ -15,11 +17,12 @@ class TF_Add_Transform(bpy.types.Operator):
 
     def execute(self, context):
         scene = context.scene
+        
         selected_strips = []
-        for strip in scene.sequence_editor.sequences:
-            if strip.select and strip.type not in ['SOUND', 'TRANSFORM']:
+        for strip in context.selected_sequences:
+            if not strip.type == 'SOUND':
                 selected_strips.append(strip)
-
+                
         for strip in selected_strips:
             bpy.ops.sequencer.select_all(action='DESELECT')
             scene.sequence_editor.active_strip = strip
@@ -32,44 +35,56 @@ class TF_Add_Transform(bpy.types.Operator):
 
             transform_strip.blend_type = 'ALPHA_OVER'
             transform_strip.blend_alpha = strip.blend_alpha
+            
+            if not strip.use_crop:
+                strip.use_crop = True
+                strip.crop.min_x = 0
+                strip.crop.max_x = 0
+                strip.crop.min_y = 0
+                strip.crop.max_y = 0
 
-            if strip.type in ['MOVIE', 'IMAGE']:
-                if not strip.use_crop:
-                    strip.use_crop = True
-                    strip.crop.min_x = 0
-                    strip.crop.max_x = 0
-                    strip.crop.min_y = 0
-                    strip.crop.max_y = 0
+            if strip.use_translation:
+                if strip.type == 'TRANSFORM':
+                    left, right, bottom, top = get_transform_box(strip)
+                else:
+                    left, right, bottom, top = get_strip_box(strip)
+                
+                width = right - left
+                height = top - bottom
 
-                if strip.use_translation:
-                    width = strip.elements[0].orig_width
-                    height = strip.elements[0].orig_height
+                res_x = context.scene.render.resolution_x
+                res_y = context.scene.render.resolution_y
 
-                    len_crop_x = width - (strip.crop.min_x + strip.crop.max_x)
-                    len_crop_y = height - (strip.crop.min_y + strip.crop.max_y)
+                ratio_x = width / res_x
+                ratio_y = height / res_y
 
-                    res_x = context.scene.render.resolution_x
-                    res_y = context.scene.render.resolution_y
+                transform_strip.scale_start_x = ratio_x
+                transform_strip.scale_start_y = ratio_y
 
-                    ratio_x = len_crop_x / res_x
-                    ratio_y = len_crop_y / res_y
+                offset_x = strip.transform.offset_x
+                offset_y = strip.transform.offset_y
 
-                    transform_strip.scale_start_x = ratio_x
-                    transform_strip.scale_start_y = ratio_y
+                flip_x = 1
+                if strip.use_flip_x:
+                    flip_x = -1
+                
+                flip_y = 1
+                if strip.use_flip_y:
+                    flip_y = -1
+                
+                pos_x = offset_x + (width / 2) - (res_x / 2)
+                pos_x *= flip_x
+                
+                pos_y = offset_y + (height / 2) - (res_y / 2)
+                pos_y *= flip_y
 
-                    offset_x = strip.transform.offset_x
-                    offset_y = strip.transform.offset_y
+                if transform_strip.translation_unit == 'PERCENT':
+                    pos_x = (pos_x / res_x) * 100
+                    pos_y = (pos_y / res_y) * 100
 
-                    pos_x = offset_x + (len_crop_x / 2) - (res_x / 2)
-                    pos_y = offset_y + (len_crop_y / 2) - (res_y / 2)
+                transform_strip.translate_start_x = pos_x
+                transform_strip.translate_start_y = pos_y
 
-                    if transform_strip.translation_unit == 'PERCENT':
-                        pos_x = (pos_x / res_x) * 100
-                        pos_y = (pos_y / res_y) * 100
-
-                    transform_strip.translate_start_x = pos_x
-                    transform_strip.translate_start_y = pos_y
-
-                    strip.use_translation = False
+                strip.use_translation = False
 
         return {'FINISHED'}
