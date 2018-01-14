@@ -24,6 +24,11 @@ Usage
 .. raw:: html
 
     <table>
+        <colgroup>
+        <col/>
+        <col/>
+        <col width="256px" />
+        </colgroup>
         <tr>
             <th>Shortcut</th>
             <th>Function</th>
@@ -39,9 +44,9 @@ Usage
                     Use the right mouse button to select any strip in the preview window.
                     You will not be able to move/scale/rotate/crop a strip until you have
                     added a transform strip (see below.) Hold 
-                    <kbd>SHIFT</kbd>
+                    <img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/shift.svg" height="24px"> 
                     while selecting to select multiple strips at once. Press 
-                    <kbd>A</kbd>
+                    <img style="vertical-align: middle" src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/a.svg" height="24px"> 
                     to select/deselect all visible strips.
                 </p>
             </td>
