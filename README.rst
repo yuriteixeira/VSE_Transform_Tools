@@ -29,7 +29,7 @@ Usage
             <th>Function</th>
             <th>Demo</th>
         <tr>
-            <td>
+            <td valign="middle">
                 <img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/rmb.svg" alt="Right Mouse Button">
             </td>
             
@@ -39,14 +39,14 @@ Usage
                     Use the right mouse button to select any strip in the preview window.
                     You will not be able to move/scale/rotate/crop a strip until you have
                     added a transform strip (see below.) Hold 
-                    <img style="vertical-align: middle" src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/shift.svg" height="24px"> 
+                    <kbd>SHIFT</kbd>
                     while selecting to select multiple strips at once. Press 
-                    <img style="vertical-align: middle" src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/a.svg" height="24px"> 
+                    <kbd>A</kbd>
                     to select/deselect all visible strips.
                 </p>
             </td>
             <td>
-                <img src="https://i.imgur.com/EVzmMAm.gif">
+                <img src="https://i.imgur.com/EVzmMAm.gif" width="256px">
             </td>
         </tr>
     </table>
