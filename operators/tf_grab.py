@@ -158,6 +158,13 @@ class TF_Grab(bpy.types.Operator):
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(
                         self.handle_axes, 'PREVIEW')
+                
+                if scene.tool_settings.use_keyframe_insert_auto:
+                    cf = context.scene.frame_current
+                    for strip in self.tab:
+                        strip.keyframe_insert(data_path='translate_start_x', frame=cf)
+                        strip.keyframe_insert(data_path='translate_start_y', frame=cf)
+                
                 context.area.header_text_set()
                 return {'FINISHED'}
             
@@ -210,21 +217,34 @@ class TF_Grab(bpy.types.Operator):
             fac = get_res_factor()
             
             uninteresting = []
+            potentials = []
             
             for strip in context.selected_sequences:
                 if strip.type == 'TRANSFORM':
                     self.tab.append(strip)
                     uninteresting.append(strip.input_1)
             
-            for strip in scene.sequence_editor.sequences_all:
-                if not strip in self.tab and not strip in uninteresting:
-                    left, right, bottom, top = get_group_box([strip])
+            blocked_visibility = False
+            current_frame = scene.frame_current
+            for strip in reversed(list(scene.sequence_editor.sequences_all)):
+                start = strip.frame_start
+                end = start + strip.frame_final_duration
+                if (not strip.mute and
+                    current_frame >= start and
+                    current_frame <= end):
+                    if blocked_visibility:
+                        uninteresting.append(strip)
+                    if strip.blend_type in ['CROSS', 'REPLACE']:
+                        blocked_visibility = True
                     
-                    self.horizontal_interests.append(left)
-                    self.horizontal_interests.append(right)
-                    
-                    self.vertical_interests.append(bottom)
-                    self.vertical_interests.append(top) 
+                    if not strip in uninteresting:
+                        left, right, bottom, top = get_group_box([strip])
+                        
+                        self.horizontal_interests.append(left)
+                        self.horizontal_interests.append(right)
+                        
+                        self.vertical_interests.append(bottom)
+                        self.vertical_interests.append(top) 
             
             for strip in self.tab:
                 pos_x = get_pos_x(strip)

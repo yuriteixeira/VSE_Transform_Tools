@@ -1,10 +1,8 @@
-.. image:: https://i.imgur.com/PzGmbrj.png
+==================
+VSE Transform Tool
+==================
 
 .. contents::
-
-Demo
-====
-.. image:: https://i.imgur.com/niGVKJc.gif
 
 Installation
 ============
@@ -12,61 +10,133 @@ Installation
    "Clone or Download")
 2. Open Blender_.
 3. Go to File > User Preferences > Addons
-4. Click "Install From File" and navigate to the downloaded zip file and
+4. Click "Install From File" and navigate to the downloaded .zip file and
    install.
 5. Check the box next to "VSE_Transform_Tools"
 6. Save User Settings so the addon remains active every time you open
    Blender_
 
-.. image:: https://i.imgur.com/26S5d0t.gif
-
 .. _Blender: https://www.blender.org
 
 Usage
 =====
-Keyboard Shortcut Summary
--------------------------
-:T:        Add Transform Modifier
-:G:        Grab
-:S:        Scale
-:R:        Rotate
-:Q:        Modify Opacity
-:C:        Open/Close Crop Tool
-:I:        Insert Keyframe
-:Shift+C:  Collapse Canvas
-:Alt+G:    Set Strip Position to Zero
-:Alt+S:    Set Strip Scale to One
-:Alt+R:    Set Strip Rotation to Zero
-:Alt+Q:    Set Opacity to One
-:Alt+C:    Set Crops to Zero
-:Ctrl+RMB: Set pivot point (only in 2D Cursor Pivot Mode)
-:< >:      Decrement and Increment Pivot Mode
-
-Selecting
----------
-Strips may be selected in the preview window by right clicking. Hold the
-**Shift** key to toggle the selection of multiple strips.
-
-.. image:: https://i.imgur.com/0rVRLXO.gif
-
-Axis Specific Transformations
------------------------------
-You can Grab or Scale along either the X or Y axis by pressing the
-corresponding letter on the keyboard after starting the action. For
-example, pressing **S**, then **X** keys will limit scaling to the X
-axis only for the selected strip.
-
-Fine Tuning & Snapping
-----------------------
-When Grabbing, Rotating, or Scaling, hold the **Shift** key to fine tune
-movement, or hold the **Ctrl** key to snap movement.
-
-.. image:: https://i.imgur.com/JASD9gM.gif
-
-Exact Input
------------
-When Grabbing, Rotating, Scaling, or Modifying Opacity, you can enter
-specific values using your keyboard. For example, entering: **S**,
-**1**, **.**, **5** will scale the selected strip by a factor of 1.5.
-
-.. image:: https://i.imgur.com/Vcof7Fn.gif
++-------------------------------+---------------------------------+--------------------------------------------+
+| Shortcut                      | Function                        | Demo                                       |
++-------------------------------+---------------------------------+--------------------------------------------+
+| Right Mouse Button            | **Selecting**                   | .. image:: https://i.imgur.com/EVzmMAm.gif |
+|                               |                                 |                                            |
+|                               | Use the right mouse button to   |                                            |
+|                               | select any strip in the preview |                                            |
+|                               | window. You will not be able to |                                            |
+|                               | move/scale/rotate/crop a strip  |                                            |
+|                               | until you have added a          |                                            |
+|                               | transform strip (see below.)    |                                            |
+|                               | Hold <kbd>Shift</kbd> while     |                                            |
+|                               | selecting to select multiple    |                                            |
+|                               | strips at once. Press           |                                            |
+|                               | <kbd>A</kbd> to select/deselect |                                            |
+|                               | all visible strips.             |                                            |
++-------------------------------+---------------------------------+--------------------------------------------+
+| <kbd>T</kbd>                  | **Add Transform**               | .. image:: https://i.imgur.com/1De0waX.gif |
+|                               |                                 |                                            |
+|                               | Add a transform modifier to all |                                            |
+|                               | selected strips. Any strips     |                                            |
+|                               | with "Image Offset" enabled     |                                            |
+|                               | will transfer it's offset to    |                                            |
+|                               | the transform strip.            |                                            |
++-------------------------------+---------------------------------+--------------------------------------------+
+| <kbd>G</kbd>                  | **Grab**                        | .. image:: https://i.imgur.com/yQCFI0s.gif |
+|                               |                                 |                                            |
+|                               | Freely position selected        |                                            |
+|                               | transform strips. Hold          |                                            |
+|                               | <kbd>Shift</kbd> for fine       |                                            |
+|                               | movement. Hold <kbd>Ctrl</kbd>  |                                            |
+|                               | to enable snapping. Press       |                                            |
+|                               | <kbd>X</kbd> or <kbd>Y</kbd> to |                                            |
+|                               | constrain movement to the X or  |                                            |
+|                               | Y axis accordingly.             |                                            |
+|                               |                                 |                                            |
+|                               | Press <kbd>Alt</kbd> +          |                                            |
+|                               | <kbd>G</kbd> to position the    |                                            |
+|                               | selected strips in the middle   |                                            |
+|                               | of the window.                  |                                            |
+|                               |                                 |                                            |
+|                               | Specify exact movement by       |                                            |
+|                               | typing in the axis (X or Y) and |                                            |
+|                               | the value to move.              |                                            |
++-------------------------------+---------------------------------+--------------------------------------------+
+| <kbd>S</kbd>                  | **Scale**                       | .. image:: https://i.imgur.com/oAxSEYB.gif |
+|                               |                                 |                                            |
+|                               | Scale the selected transform    |                                            |
+|                               | strips. Hold <kbd>Shift</kbd>   |                                            |
+|                               | for fine movement. Hold         |                                            |
+|                               | <kbd>Ctrl</kbd> to scale in     |                                            |
+|                               | increments.                     |                                            |
+|                               |                                 |                                            |
+|                               | Press <kbd>Alt</kbd> to restore |                                            |
+|                               | the scale of the selected       |                                            |
+|                               | strips.                         |                                            |
+|                               |                                 |                                            |
+|                               | Specify exact scaling by typing |                                            |
+|                               | in the axis (optional) and the  |                                            |
+|                               | value to scale.                 |                                            |
++-------------------------------+---------------------------------+--------------------------------------------+
+| <kbd>R</kbd>                  | **Rotate**                      | .. image:: https://i.imgur.com/SyL2HeA.gif |
+|                               |                                 |                                            |
+|                               | Rotate the selected transform   |                                            |
+|                               | strips. Hold <kbd>Shift</kbd>   |                                            |
+|                               | for fine movement. Hold         |                                            |
+|                               | <kbd>Ctrl</kbd> to snap to      |                                            |
+|                               | every 5 degrees.                |                                            |
+|                               |                                 |                                            |
+|                               | Press <kbc>Alt</kbd> to set the |                                            |
+|                               | rotation of the selected strips |                                            |
+|                               | to 0 degrees.                   |                                            |
+|                               |                                 |                                            |
+|                               | Specify exact rotation by       |                                            |
+|                               | entering in the value to        |                                            |
+|                               | rotate.                         |                                            |
++-------------------------------+---------------------------------+--------------------------------------------+
+| <kbd>Q</kbd>                  | **Adjust Alpha**                | .. image:: https://i.imgur.com/PNsjamH.gif |
+|                               |                                 |                                            |
+|                               | Adjust the alpha (opacity) of   |                                            |
+|                               | the active transform strip.     |                                            |
+|                               | Hold <kbd>Ctrl</kbd> to round   |                                            |
+|                               | to nearest tenth.               |                                            |
++-------------------------------+---------------------------------+--------------------------------------------+
+| <kbd>C</kbd>                  | **Crop/Set Crop**               | .. image:: https://i.imgur.com/k4r2alY.gif |
+|                               |                                 |                                            |
+|                               | Press <kbd>C</kbd> to open the  |                                            |
+|                               | crop tool on the active         |                                            |
+|                               | transform strip. Press          |                                            |
+|                               | <kbd>C</kbd> or                 |                                            |
+|                               | <kbd>Enter</kbd> to apply the   |                                            |
+|                               | crop. Press <kbd>Esc</kbd> to   |                                            |
+|                               | close the crop tool without     |                                            |
+|                               | applying the crop.              |                                            |
+|                               |                                 |                                            |
+|                               | Press <kbd>Alt</kbd> to remove  |                                            |
+|                               | a strip's cropping.             |                                            |
++-------------------------------+---------------------------------+--------------------------------------------+
+| <kbd>Shift</kbd>+<kbd>C</kbd> | **Autocrop**                    | .. image:: https://i.imgur.com/IarxF14.gif |
+|                               |                                 |                                            |
+|                               | Adjust the scene resolution to  |                                            |
+|                               | fit all content in the preview  |                                            |
+|                               | window without adjusting strip  |                                            |
+|                               | sizes or scales.                |                                            |
++-------------------------------+---------------------------------+--------------------------------------------+
+| <kbd>I</kbd>                  | **Insert Keyframe**             | .. image:: https://i.imgur.com/9Cx6XKj.gif |
+|                               |                                 |                                            |
+|                               | Open the keyframe insertion     |                                            |
+|                               | menu. Alternatively, you may    |                                            |
+|                               | enable Automatic Keyframe       |                                            |
+|                               | Insertion.                      |                                            |
++-------------------------------+---------------------------------+--------------------------------------------+
+| <kbd>,</kbd> or <kbd>.</kbd>  | **Change the Pivot Type**       | .. image:: https://i.imgur.com/3ru1Xl6.gif |
+|                               |                                 |                                            |
+|                               | Changes how strips are rotated  |                                            |
+|                               | and scaled. When the Pivot Type |                                            |
+|                               | is set to "2D Cursor" you may   |                                            |
+|                               | place the cursor with the left  |                                            |
+|                               | mouse button.                   |                                            |
++-------------------------------+---------------------------------+--------------------------------------------+

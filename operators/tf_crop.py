@@ -264,6 +264,12 @@ class TF_Crop(bpy.types.Operator):
         self.init_crop_bottom = crop_yb
         self.init_crop_top = crop_yt
         
+        offset_x, offset_y, fac, preview_zoom = get_preview_offset()
+        self.crop_left = crop_xl * self.scale_factor_x
+        self.crop_right = crop_xr * self.scale_factor_x
+        self.crop_bottom = crop_yb * self.scale_factor_y
+        self.crop_top = crop_yt * self.scale_factor_y
+        
     def set_corners(self, context):
         active_strip = context.scene.sequence_editor.active_strip
         angle = math.radians(active_strip.rotation_start)
@@ -523,6 +529,20 @@ class TF_Crop(bpy.types.Operator):
             
             self.crop_scale(active_strip, crops)
             
+            strip_in = active_strip.input_1
+            scene = context.scene
+            if scene.tool_settings.use_keyframe_insert_auto:
+                cf = context.scene.frame_current
+                active_strip.keyframe_insert(data_path='translate_start_x', frame=cf)
+                active_strip.keyframe_insert(data_path='translate_start_y', frame=cf)
+                active_strip.keyframe_insert(data_path='scale_start_x', frame=cf)
+                active_strip.keyframe_insert(data_path='scale_start_y', frame=cf)
+                
+                strip_in.crop.keyframe_insert(data_path='min_x', frame=cf)
+                strip_in.crop.keyframe_insert(data_path='max_x', frame=cf)
+                strip_in.crop.keyframe_insert(data_path='min_y', frame=cf)
+                strip_in.crop.keyframe_insert(data_path='max_y', frame=cf)
+                    
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_crop, 'PREVIEW')
             return {'FINISHED'}

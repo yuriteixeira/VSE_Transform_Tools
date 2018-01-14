@@ -8,7 +8,6 @@ from .operators import TF_Scale
 from .operators import TF_Rotate
 from .operators import TF_Adjust_Alpha
 from .operators import TF_Crop
-from .operators import TF_Crop_Canvas
 
 from .operators import TF_Select
 
@@ -175,8 +174,7 @@ def register():
     kmi = km.keymap_items.new("sequencer.tf_adjust_alpha", 'Q', 'PRESS', alt=True)
     kmi = km.keymap_items.new("sequencer.tf_crop", 'C', 'PRESS')
     kmi = km.keymap_items.new("sequencer.tf_crop", 'C', 'PRESS', alt=True)
-    kmi = km.keymap_items.new("sequencer.tf_crop_canvas", 'C', 'PRESS', shift=True)
-    kmi = km.keymap_items.new("sequencer.tf_autocrop", 'C', 'PRESS', shift=True, alt=True)
+    kmi = km.keymap_items.new("sequencer.tf_autocrop", 'C', 'PRESS', shift=True)
     kmi = km.keymap_items.new("sequencer.tf_call_menu", 'I', 'PRESS')
     kmi = km.keymap_items.new("sequencer.tf_increment_pivot", "PERIOD", 'PRESS')
     kmi = km.keymap_items.new("sequencer.tf_decrement_pivot", "COMMA", 'PRESS')
@@ -203,7 +201,6 @@ def unregister():
         "sequencer.tf_adjust_alpha",
         "sequencer.tf_draw_crop",
         "sequencer.tf_autocrop",
-        "sequencer.tf_crop_canvas",
         "sequencer.tf_select",
         "sequencer.tf_set_cursor2d",
         "sequencer.tf_increment_pivot",

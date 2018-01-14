@@ -58,6 +58,11 @@ class TF_Scale(bpy.types.Operator):
         return False
 
     def modal(self, context, event):
+        scene = context.scene
+        
+        res_x = scene.render.resolution_x
+        res_y = scene.render.resolution_y
+        
         if self.tab:
             self.mouse_pos = Vector(
                 (event.mouse_region_x, event.mouse_region_y))
@@ -113,7 +118,7 @@ class TF_Scale(bpy.types.Operator):
                 context.area.header_text_set("Scale: %.4f along local X" % info_x)
             if self.axis_x and self.axis_y :
                 context.area.header_text_set("Scale X:%.4f Y: %.4f" % (info_x, info_y))
-                
+            
             for strip, init_s, init_t in zip(self.tab, self.tab_init_s, self.tab_init_t):
                 strip.scale_start_x =  init_s[0] * round(diff_x, precision)
                 strip.scale_start_y =  init_s[1] * round(diff_y, precision)
@@ -143,6 +148,21 @@ class TF_Scale(bpy.types.Operator):
                 
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_line, 'PREVIEW')
                 
+                scene = context.scene
+                if scene.tool_settings.use_keyframe_insert_auto:
+                    cf = context.scene.frame_current
+                    pivot_type = context.scene.seq_pivot_type
+                    if (pivot_type == '0' and len(self.tab) > 1) or pivot_type == '2':
+                        for strip in self.tab:
+                            strip.keyframe_insert(data_path='translate_start_x', frame=cf)
+                            strip.keyframe_insert(data_path='translate_start_y', frame=cf)
+                            strip.keyframe_insert(data_path='scale_start_x', frame=cf)
+                            strip.keyframe_insert(data_path='scale_start_y', frame=cf)
+                    elif pivot_type == '1' or pivot_type == '3' or (pivot_type == '0' and len(self.tab) == 1):
+                        for strip in self.tab:
+                            strip.keyframe_insert(data_path='scale_start_x', frame=cf)
+                            strip.keyframe_insert(data_path='scale_start_y', frame=cf)
+                
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')
                 context.area.header_text_set()
@@ -168,6 +188,12 @@ class TF_Scale(bpy.types.Operator):
     def invoke(self, context, event):
         scene = context.scene
         bpy.ops.sequencer.tf_initialize_pivot()
+        
+        res_x = scene.render.resolution_x
+        res_y = scene.render.resolution_y
+        
+        self.horizontal_interests = [0, res_x]
+        self.vertical_interests = [0, res_y]
         
         if event.alt :
             for strip in context.selected_sequences:

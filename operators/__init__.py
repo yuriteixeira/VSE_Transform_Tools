@@ -3,7 +3,6 @@ from .tf_rotate import TF_Rotate
 from .tf_call_menu import TF_Call_Menu
 from .tf_menu_insert_kf import TF_Menu_Insert_KF
 from .tf_autocrop import TF_Autocrop
-from .tf_crop_canvas import TF_Crop_Canvas
 from .tf_increment_pivot import TF_Increment_Pivot
 from .tf_decrement_pivot import TF_Decrement_Pivot
 from .tf_insert_keyframe import TF_Insert_Keyframe

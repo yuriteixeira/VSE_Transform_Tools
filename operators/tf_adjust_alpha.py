@@ -129,6 +129,14 @@ class TF_Adjust_Alpha(bpy.types.Operator):
            event.type == 'NUMPAD_ENTER'):
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_alpha, 'PREVIEW')
+            
+            scene = context.scene
+            if scene.tool_settings.use_keyframe_insert_auto:
+                cf = context.scene.frame_current
+                active_strip = context.scene.sequence_editor.active_strip
+                active_strip.keyframe_insert(data_path='blend_alpha', frame=cf)
+                
+            
             return {'FINISHED'}
 
         if event.type == 'ESC' or event.type == 'RIGHTMOUSE':

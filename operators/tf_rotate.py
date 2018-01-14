@@ -209,6 +209,20 @@ class TF_Rotate(bpy.types.Operator):
            not self.tab):
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self._handle_line, 'PREVIEW')
+            
+            scene = context.scene
+            if scene.tool_settings.use_keyframe_insert_auto:
+                cf = context.scene.frame_current
+                pivot_type = context.scene.seq_pivot_type
+                if (pivot_type == '0' and len(self.tab) > 1) or pivot_type == '2':
+                    for strip in self.tab:
+                        strip.keyframe_insert(data_path='translate_start_x', frame=cf)
+                        strip.keyframe_insert(data_path='translate_start_y', frame=cf)
+                        strip.keyframe_insert(data_path='rotation_start', frame=cf)
+                elif pivot_type == '1' or pivot_type == '3' or (pivot_type == '0' and len(self.tab) == 1):
+                    for strip in self.tab:
+                        strip.keyframe_insert(data_path='rotation_start', frame=cf)
+            
             context.area.header_text_set()
             return {'FINISHED'}
 
