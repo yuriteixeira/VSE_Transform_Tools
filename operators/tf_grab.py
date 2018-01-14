@@ -217,7 +217,6 @@ class TF_Grab(bpy.types.Operator):
             fac = get_res_factor()
             
             uninteresting = []
-            potentials = []
             
             for strip in context.selected_sequences:
                 if strip.type == 'TRANSFORM':
@@ -236,7 +235,13 @@ class TF_Grab(bpy.types.Operator):
                         uninteresting.append(strip)
                     if strip.blend_type in ['CROSS', 'REPLACE']:
                         blocked_visibility = True
-                    
+                        
+            for strip in reversed(list(scene.sequence_editor.sequences_all)):
+                start = strip.frame_start
+                end = start + strip.frame_final_duration
+                if (not strip.mute and
+                    current_frame >= start and
+                    current_frame <= end):
                     if not strip in uninteresting:
                         left, right, bottom, top = get_group_box([strip])
                         

@@ -76,6 +76,8 @@ class TF_Adjust_Alpha(bpy.types.Operator):
     alpha_init = 0
     fac = 0
     key_val = ''
+    
+    tab = []
 
     handle_alpha = None
 
@@ -122,7 +124,8 @@ class TF_Adjust_Alpha(bpy.types.Operator):
             precision = 1
 
         self.fac = round(self.fac, precision)
-        context.scene.sequence_editor.active_strip.blend_alpha = self.fac
+        for strip in self.tab:
+            strip.blend_alpha = self.fac
 
         if (event.type == 'LEFTMOUSE' or
            event.type == 'RET' or
@@ -133,15 +136,15 @@ class TF_Adjust_Alpha(bpy.types.Operator):
             scene = context.scene
             if scene.tool_settings.use_keyframe_insert_auto:
                 cf = context.scene.frame_current
-                active_strip = context.scene.sequence_editor.active_strip
-                active_strip.keyframe_insert(data_path='blend_alpha', frame=cf)
-                
+                for strip in self.tab:
+                    strip.keyframe_insert(data_path='blend_alpha', frame=cf)
             
             return {'FINISHED'}
 
         if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
-            active_strip = context.scene.sequence_editor.active_strip
-            active_strip.blend_alpha = self.alpha_init
+            for strip in self.tab:
+                strip.blend_alpha = self.alpha_init
+                
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_alpha, 'PREVIEW')
             return {'FINISHED'}
@@ -159,8 +162,12 @@ class TF_Adjust_Alpha(bpy.types.Operator):
             mouse_y = event.mouse_region_y
             self.first_mouse = Vector((mouse_x, mouse_y))
 
-            active_strip = context.scene.sequence_editor.active_strip
-            self.alpha_init = active_strip.blend_alpha
+            opacities = []
+            for strip in list(context.selected_sequences):
+                self.tab.append(strip)
+                opacities.append(strip.blend_alpha)
+            self.alpha_init = max(opacities)
+            
             self.key_val != ''
 
             args = (self, context)
