@@ -210,7 +210,7 @@
             <td>
                 <p><b><a name="autocrop" href="#top_autocrop">Autocrop</a></b></p>
                 <p>
-                    Adjust the scene resolution to fit all content in the preview window
+                    Adjust the scene resolution to fit all visible content in the preview window
                     without adjusting strip sizes or scales.
                 </p>
             </td>

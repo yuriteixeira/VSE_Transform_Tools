@@ -242,14 +242,14 @@ class TF_Grab(bpy.types.Operator):
                 if (not strip.mute and
                     current_frame >= start and
                     current_frame <= end):
-                    if not strip in uninteresting:
+                    if not strip in uninteresting and not strip in self.tab:
                         left, right, bottom, top = get_group_box([strip])
                         
                         self.horizontal_interests.append(left)
                         self.horizontal_interests.append(right)
                         
                         self.vertical_interests.append(bottom)
-                        self.vertical_interests.append(top) 
+                        self.vertical_interests.append(top)
             
             for strip in self.tab:
                 pos_x = get_pos_x(strip)
