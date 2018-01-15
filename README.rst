@@ -150,6 +150,9 @@
                     Adjust the alpha (opacity) of the selected strips. Hold <kbd>CTRL</kbd>
                     to round to nearest tenth.
                 </p>
+                <p>
+                    Press <kbd>Alt</kbd>+<kbd>Q</kbd> to set the selected strips' opacity to 1.0
+                </p>
             </td>
             <td>
                 <img src="https://i.imgur.com/PNsjamH.gif">
