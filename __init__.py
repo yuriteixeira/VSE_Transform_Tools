@@ -143,9 +143,9 @@ class TF_Check_Update(bpy.types.Operator):
         if update_ready == True:
             addon_updater_ops.background_update_callback(update_ready)
             
-            updater = addon_updater_ops.updater
-            updater.json["last_check"] = str(datetime.now())
-            updater.save_updater_json()
+        updater = addon_updater_ops.updater
+        updater.json["last_check"] = str(datetime.now())
+        updater.save_updater_json()
         
     def execute(self, context):
         settings = context.user_preferences.addons[__package__].preferences

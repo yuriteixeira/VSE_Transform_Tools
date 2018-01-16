@@ -208,7 +208,7 @@ class TF_Rotate(bpy.types.Operator):
            event.type == 'NUMPAD_ENTER' or 
            not self.tab):
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
-                self._handle_line, 'PREVIEW')
+                self.handle_line, 'PREVIEW')
             
             scene = context.scene
             if scene.tool_settings.use_keyframe_insert_auto:
@@ -237,7 +237,7 @@ class TF_Rotate(bpy.types.Operator):
                 strip.translate_start_y = set_pos_y(strip, init_t[1])
             
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
-                self._handle_line, 'PREVIEW')
+                self.handle_line, 'PREVIEW')
             context.area.header_text_set()
             return {'FINISHED'}
 
@@ -334,9 +334,8 @@ class TF_Rotate(bpy.types.Operator):
                 self.vec_init -= self.center_area
                 
             args = (self, context)
-            self._handle_line = bpy.types.SpaceSequenceEditor.draw_handler_add(
+            self.handle_line = bpy.types.SpaceSequenceEditor.draw_handler_add(
                 draw_callback_px_point, args, 'PREVIEW', 'POST_PIXEL')
             context.window_manager.modal_handler_add(self)
-            ret = 'RUNNING_MODAL'
 
         return {'RUNNING_MODAL'}
