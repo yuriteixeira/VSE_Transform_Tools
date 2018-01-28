@@ -2,8 +2,13 @@ import bpy
 
 
 class SetCursor2d(bpy.types.Operator):
+    """
+    Set the pivot point (point of origin) location. This will affect 
+    how strips are rotated and scaled.
+    """
     bl_label = "Set Cursor2D"
     bl_idname = "vse_transform_tools.set_cursor2d"
+    bl_description = "Set the pivot point location"
 
     @classmethod
     def poll(cls, context):

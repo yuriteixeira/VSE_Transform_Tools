@@ -5,8 +5,17 @@ from .utils import get_strip_box
 from .utils import get_children
 
 class AddTransform(bpy.types.Operator):
+    """
+    ![Demo](https://i.imgur.com/1De0waX.gif)
+    
+    A transform modifier must be added to a strip before the strip can 
+    be grabbed, scaled, rotated, or cropped by this addon.
+    Any strips with "Image Offset" enabled will transfer this offset to
+    the transform strip
+    """
     bl_idname = "vse_transform_tools.add_transform"
-    bl_label = "Add Transform Effect"
+    bl_label = "Add Transform"
+    bl_description = "Add transform modifier to selected strips"
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod

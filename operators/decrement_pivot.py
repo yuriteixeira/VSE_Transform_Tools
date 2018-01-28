@@ -2,8 +2,15 @@ import bpy
 
 
 class DecrementPivot(bpy.types.Operator):
+    """
+    ![Demo](https://i.imgur.com/3ru1Xl6.gif)
+    
+    Changes how strips are rotated and scaled. (sets the point of 
+    origin).
+    """
     bl_idname = "vse_transform_tools.decrement_pivot"
-    bl_label = "Change the pivot mode (decrease it)"
+    bl_label = "Decrement Pivot"
+    bl_description = "Changes the pivot mode"
 
     @classmethod
     def poll(cls, context):

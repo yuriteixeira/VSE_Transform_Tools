@@ -16,8 +16,12 @@ from .utils import ensure_transforms
 
 
 class Grab(bpy.types.Operator):
+    """
+    ![Demo](https://i.imgur.com/yQCFI0s.gif)
+    """
     bl_idname = "vse_transform_tools.grab"
-    bl_label = "Transform Position"
+    bl_label = "Grab"
+    bl_description = "Change position of strips in Image Preview Window"
     bl_options = {'REGISTER', 'UNDO'}
 
     axis_x = True

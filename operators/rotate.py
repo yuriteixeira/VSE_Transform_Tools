@@ -15,8 +15,12 @@ from .utils import draw_callback_px_point
 
 
 class Rotate(bpy.types.Operator):
+    """
+    ![Demo](https://i.imgur.com/SyL2HeA.gif)
+    """
     bl_idname = "vse_transform_tools.rotate"
-    bl_label = "Transform Rotation"
+    bl_label = "Rotate"
+    bl_description = "Rotate strips in the Image Preview"
     bl_options = {'REGISTER', 'UNDO'}
 
     first_mouse = Vector([0, 0])

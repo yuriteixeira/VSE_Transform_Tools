@@ -3,8 +3,15 @@ from .utils import get_children
 
 
 class Delete(bpy.types.Operator):
+    """
+    Deletes all selected strips as well as any strips that are inputs
+    of those strips.
+    For example, deleting a transform strip with this operator will
+    also delete the strip it was transforming.
+    """
     bl_idname = "vse_transform_tools.delete"
     bl_label = "Delete"
+    bl_description = "Delete selected and their inputs recursively"
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod

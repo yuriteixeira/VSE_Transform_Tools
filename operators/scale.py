@@ -17,8 +17,12 @@ from .utils import draw_callback_px_point
 
 
 class Scale(bpy.types.Operator):
+    """
+    ![Demo](https://i.imgur.com/oAxSEYB.gif)
+    """
     bl_idname = "vse_transform_tools.scale"
-    bl_label = "Transform Scale"
+    bl_label = "Scale"
+    bl_description = "Scale strips in Image Preview Window"
     bl_options = {'REGISTER', 'UNDO'}
 
     axis_x = True

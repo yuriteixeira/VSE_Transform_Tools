@@ -3,6 +3,47 @@ from operator import attrgetter
 from .utils import get_children
 
 
+class Duplicate(bpy.types.Operator):
+    """
+    Duplicates all selected strips and any strips that are inputs
+    of those strips.
+    Calls the Grab operator immediately after duplicating.
+    """
+    bl_idname = "vse_transform_tools.duplicate"
+    bl_label = "Duplicate"
+    bl_description = "Duplicate selected and their inputs recursively"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        scene = context.scene
+        if (scene.sequence_editor and
+           scene.sequence_editor.active_strip):
+            return True
+        return False
+
+    def invoke(self, context, event):
+
+        selected = context.selected_sequences
+
+        duplicated = []
+
+        for strip in selected:
+            if strip not in duplicated:
+                bpy.ops.sequencer.select_all(action="DESELECT")
+
+                duplicated.extend(get_children(strip, select=True))
+                vertical_translation = get_vertical_translation(
+                    context.selected_sequences)
+
+                bpy.ops.sequencer.duplicate_move(
+                        SEQUENCER_OT_duplicate={"mode": "TRANSLATION"},
+                        TRANSFORM_OT_seq_slide={
+                            "value": (0, vertical_translation)})
+
+        return bpy.ops.vse_transform_tools.grab('INVOKE_DEFAULT')
+
+
 def get_vertical_translation(strips):
     """
     Determine how many channels up the strips need to be moved
@@ -40,40 +81,3 @@ def get_vertical_translation(strips):
         if not conflict:
             return x - max_channel
         i += 1
-
-
-class Duplicate(bpy.types.Operator):
-    bl_idname = "vse_transform_tools.duplicate"
-    bl_label = "Duplicate"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    called_grab = False
-
-    @classmethod
-    def poll(cls, context):
-        scene = context.scene
-        if (scene.sequence_editor and
-           scene.sequence_editor.active_strip):
-            return True
-        return False
-
-    def invoke(self, context, event):
-
-        selected = context.selected_sequences
-
-        duplicated = []
-
-        for strip in selected:
-            if strip not in duplicated:
-                bpy.ops.sequencer.select_all(action="DESELECT")
-
-                duplicated.extend(get_children(strip, select=True))
-                vertical_translation = get_vertical_translation(
-                    context.selected_sequences)
-
-                bpy.ops.sequencer.duplicate_move(
-                        SEQUENCER_OT_duplicate={"mode": "TRANSLATION"},
-                        TRANSFORM_OT_seq_slide={
-                            "value": (0, vertical_translation)})
-
-        return bpy.ops.vse_transform_tools.grab('INVOKE_DEFAULT')

@@ -9,8 +9,15 @@ from .utils import get_transform_strips
 
 
 class Autocrop(bpy.types.Operator):
+    """
+    ![Demo](https://i.imgur.com/IarxF14.gif)
+    
+    Sets the scene resolution to fit all visible content in the preview 
+    window without changing strip sizes.
+    """
     bl_idname = "vse_transform_tools.autocrop"
-    bl_label = "Collapse scene resolution to match clip size"
+    bl_label = "Autocrop"
+    bl_description = "Collapse canvas to fit visible content"
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod

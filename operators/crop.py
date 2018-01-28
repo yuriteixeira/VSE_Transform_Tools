@@ -18,105 +18,14 @@ from .utils import set_pos_x
 from .utils import set_pos_y
 from .utils import get_highest_transform
 
-def get_perpendicular_point(pt, bl, tl, tr, br):
-    '''
-    Return the point if it is inside the quad, else, return
-    a point on the border of the quad
-    '''
-
-    intersects = intersect_point_quad_2d(
-        pt, bl, tl, tr, br)
-
-    if intersects:
-        return pt
-
-    elif pt.x <= bl.x and pt.y <= bl.y:
-        return Vector(bl)
-    elif pt.x <= tl.x and pt.y >= tl.y:
-        return Vector(tl)
-    elif pt.x >= tr.x and pt.y >= tr.y:
-        return Vector(tr)
-    elif pt.x >= br.x and pt.y <= br.y:
-        return Vector(br)
-
-    max_x = max([tr.x, br.x])
-    min_x = min([tl.x, bl.x])
-
-    max_y = max([tl.y, tr.y])
-    min_y = min([bl.y, br.y])
-
-    # pt left of left side
-    if (pt.x <= tl.x or pt.x <= bl.x) and (pt.y >= bl.y and pt.y <= tl.y):
-        right = Vector([max_x, pt.y])
-        intersection = intersect_line_line_2d(bl, tl, pt, right)
-
-    # pt right of right side
-    elif (pt.x >= br.x or pt.x >= tr.x) and (pt.y >= br.y and pt.y <= tr.y):
-        left = Vector([min_x, pt.y])
-        intersection = intersect_line_line_2d(br, tr, pt, left)
-
-    # pt above top side
-    elif (pt.y >= tl.y or pt.y >= tr.y) and (pt.x >= tl.x and pt.x <= tr.x):
-        bottom = Vector([pt.x, min_y])
-        intersection = intersect_line_line_2d(tl, tr, pt, bottom)
-
-    # pt below bottom side
-    elif (pt.y <= bl.y or pt.y <= br.y) and (pt.x >= bl.x and pt.x <= br.x):
-        top = Vector([pt.x, max_y])
-        intersection = intersect_line_line_2d(bl, br, pt, top)
-
-    return intersection
-
-
-def draw_callback_px_crop(self, context):
-    bgl.glEnable(bgl.GL_BLEND)
-    bgl.glLineWidth(1)
-    bgl.glColor4f(0.0, 1.0, 1.0, 1.0)
-
-    active_strip = context.scene.sequence_editor.active_strip
-    angle = math.radians(active_strip.rotation_start)
-
-    theme = context.user_preferences.themes['Default']
-    active_color = theme.view_3d.object_active
-
-    self.set_corners(context)
-    self.set_quads(context)
-
-    # Edges
-    bgl.glBegin(bgl.GL_LINE_LOOP)
-    for corner in self.corners:
-        bgl.glVertex2f(corner[0], corner[1])
-    bgl.glEnd()
-
-    sin = math.sin(angle)
-    cos = math.cos(angle)
-
-    # Points
-    for i in range(len(self.corner_quads)):
-        quad = self.corner_quads[i]
-
-        bl = quad[0]
-        tl = quad[1]
-        tr = quad[2]
-        br = quad[3]
-
-        if self.clicked_quad == i:
-            bgl.glColor4f(
-                active_color[0], active_color[1], active_color[2], 1.0)
-        else:
-            bgl.glColor4f(0.0, 1.0, 1.0, 1.0)
-
-        bgl.glBegin(bgl.GL_QUADS)
-        bgl.glVertex2f(bl[0], bl[1])
-        bgl.glVertex2f(tl[0], tl[1])
-        bgl.glVertex2f(tr[0], tr[1])
-        bgl.glVertex2f(br[0], br[1])
-        bgl.glEnd()
-
 
 class Crop(bpy.types.Operator):
+    """
+    ![Demo](https://i.imgur.com/k4r2alY.gif)
+    """
     bl_idname = "vse_transform_tools.crop"
-    bl_label = "Draw the crop"
+    bl_label = "Crop"
+    bl_description = "Crop a strip in the Image Preview"
     bl_options = {'REGISTER', 'UNDO'}
 
     init_pos_x = 0
@@ -596,3 +505,99 @@ class Crop(bpy.types.Operator):
         context.window_manager.modal_handler_add(self)
 
         return {'RUNNING_MODAL'}
+
+
+def get_perpendicular_point(pt, bl, tl, tr, br):
+    '''
+    Return the point if it is inside the quad, else, return
+    a point on the border of the quad
+    '''
+
+    intersects = intersect_point_quad_2d(
+        pt, bl, tl, tr, br)
+
+    if intersects:
+        return pt
+
+    elif pt.x <= bl.x and pt.y <= bl.y:
+        return Vector(bl)
+    elif pt.x <= tl.x and pt.y >= tl.y:
+        return Vector(tl)
+    elif pt.x >= tr.x and pt.y >= tr.y:
+        return Vector(tr)
+    elif pt.x >= br.x and pt.y <= br.y:
+        return Vector(br)
+
+    max_x = max([tr.x, br.x])
+    min_x = min([tl.x, bl.x])
+
+    max_y = max([tl.y, tr.y])
+    min_y = min([bl.y, br.y])
+
+    # pt left of left side
+    if (pt.x <= tl.x or pt.x <= bl.x) and (pt.y >= bl.y and pt.y <= tl.y):
+        right = Vector([max_x, pt.y])
+        intersection = intersect_line_line_2d(bl, tl, pt, right)
+
+    # pt right of right side
+    elif (pt.x >= br.x or pt.x >= tr.x) and (pt.y >= br.y and pt.y <= tr.y):
+        left = Vector([min_x, pt.y])
+        intersection = intersect_line_line_2d(br, tr, pt, left)
+
+    # pt above top side
+    elif (pt.y >= tl.y or pt.y >= tr.y) and (pt.x >= tl.x and pt.x <= tr.x):
+        bottom = Vector([pt.x, min_y])
+        intersection = intersect_line_line_2d(tl, tr, pt, bottom)
+
+    # pt below bottom side
+    elif (pt.y <= bl.y or pt.y <= br.y) and (pt.x >= bl.x and pt.x <= br.x):
+        top = Vector([pt.x, max_y])
+        intersection = intersect_line_line_2d(bl, br, pt, top)
+
+    return intersection
+
+
+def draw_callback_px_crop(self, context):
+    bgl.glEnable(bgl.GL_BLEND)
+    bgl.glLineWidth(1)
+    bgl.glColor4f(0.0, 1.0, 1.0, 1.0)
+
+    active_strip = context.scene.sequence_editor.active_strip
+    angle = math.radians(active_strip.rotation_start)
+
+    theme = context.user_preferences.themes['Default']
+    active_color = theme.view_3d.object_active
+
+    self.set_corners(context)
+    self.set_quads(context)
+
+    # Edges
+    bgl.glBegin(bgl.GL_LINE_LOOP)
+    for corner in self.corners:
+        bgl.glVertex2f(corner[0], corner[1])
+    bgl.glEnd()
+
+    sin = math.sin(angle)
+    cos = math.cos(angle)
+
+    # Points
+    for i in range(len(self.corner_quads)):
+        quad = self.corner_quads[i]
+
+        bl = quad[0]
+        tl = quad[1]
+        tr = quad[2]
+        br = quad[3]
+
+        if self.clicked_quad == i:
+            bgl.glColor4f(
+                active_color[0], active_color[1], active_color[2], 1.0)
+        else:
+            bgl.glColor4f(0.0, 1.0, 1.0, 1.0)
+
+        bgl.glBegin(bgl.GL_QUADS)
+        bgl.glVertex2f(bl[0], bl[1])
+        bgl.glVertex2f(tl[0], tl[1])
+        bgl.glVertex2f(tr[0], tr[1])
+        bgl.glVertex2f(br[0], br[1])
+        bgl.glEnd()

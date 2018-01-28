@@ -2,8 +2,15 @@ import bpy
 
 
 class IncrementPivot(bpy.types.Operator):
+    """
+    ![Demo](https://i.imgur.com/3ru1Xl6.gif)
+    
+    Changes how strips are rotated and scaled. (sets the point of 
+    origin).
+    """
     bl_idname = "vse_transform_tools.increment_pivot"
-    bl_label = "Change the pivot mode"
+    bl_label = "Increment Pivot"
+    bl_description = "Changes the pivot mode"
 
     @classmethod
     def poll(cls, context):

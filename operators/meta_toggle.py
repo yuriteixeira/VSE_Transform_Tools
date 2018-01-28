@@ -2,8 +2,14 @@ import bpy
 from .utils import get_children
 
 class MetaToggle(bpy.types.Operator):
+    """
+    Toggles the strip if it is a META. If the strip is not a meta, 
+    recursively checks inputs until a META strip is encountered and 
+    toggles it. If no META is found, this operator does nothing.
+    """
     bl_idname = "vse_transform_tools.meta_toggle"
-    bl_label = "Toggle Meta"
+    bl_label = "Meta Toggle"
+    bl_description = "Toggle the Meta to reveal sequences within" 
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
