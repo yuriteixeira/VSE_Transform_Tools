@@ -4,7 +4,7 @@
     <h2>Installation</h2>
     
     <ol>
-    <li>Download the repository. Go to <a href="https://github.com/doakey3/VSE_Transform_Tools/releases">Releases</a> for a stable version, or click the green button above to get the most recent &amp; unstable version.</li>
+    <li>Download the repository. Go to <a href="https://github.com/doakey3/VSE_Transform_Tools/releases">Releases</a> for a stable version, or click the green button above to get the most recent (&amp; unstable) version.</li>
     <li>Open Blender</li>
     <li>Go to File &gt; User Preferences &gt; Addons</li>
     <li>Click "Install From File" and navigate to the downloaded .zip file and install</li>
@@ -64,7 +64,7 @@
             <tr>
                 <td align="center"><kbd>T</kbd></td>
                 <td>Add Transform</td>
-                <td align="center" rowspan="1"><img src="https://i.imgur.com/v4racQW.gifv" alt="Demo"></td>
+                <td align="center" rowspan="1"><img src="https://i.imgur.com/v4racQW.gif" alt="Demo"></td>
             </tr>
         </table>
         <h3><a name="Adjust_Alpha" href="#top_Adjust_Alpha">Adjust Alpha</a></h3>
@@ -288,17 +288,20 @@
             </tr>
         </table>
         <h3><a name="Meta_Toggle" href="#top_Meta_Toggle">Meta Toggle</a></h3>
-    <p>Toggles the strip if it is a META. If the strip is not a meta, 
-    recursively checks inputs until a META strip is encountered and 
-    toggles it. If no META is found, this operator does nothing.</p>
+    <p>Toggles the selected strip if it is a META. If the selected strip is 
+    not a meta, recursively checks inputs until a META strip is 
+    encountered and toggles it. If no META is found, this operator does 
+    nothing.</p>
     
         <table>
             <tr>
                 <th width=208px>Shortcut</th>
                 <th width=417px>Function</th>
+                <th width=256px>Demo</th>
             <tr>
                 <td align="center"><kbd>Tab</kbd></td>
                 <td>Meta Toggle</td>
+                <td align="center" rowspan="1"><img src="https://i.imgur.com/ya0nEgV.gif" alt="Demo"></td>
             </tr>
         </table>
         <h3><a name="Rotate" href="#top_Rotate">Rotate</a></h3>
@@ -431,8 +434,10 @@
             <tr>
                 <th width=208px>Shortcut</th>
                 <th width=417px>Function</th>
+                <th width=256px>Demo</th>
             <tr>
                 <td align="center"><kbd>Left_Mouse</kbd></td>
                 <td>Set Cursor2D</td>
+                <td align="center" rowspan="1"><img src="https://i.imgur.com/1uTD9C1.gif" alt="Demo"></td>
             </tr>
         </table>
