@@ -6,7 +6,7 @@ from .utils import get_children
 
 class AddTransform(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/1De0waX.gif)
+    ![Demo](https://i.imgur.com/v4racQW.gifv)
     
     A transform modifier must be added to a strip before the strip can 
     be grabbed, scaled, rotated, or cropped by this addon.

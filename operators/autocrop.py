@@ -12,8 +12,8 @@ class Autocrop(bpy.types.Operator):
     """
     ![Demo](https://i.imgur.com/IarxF14.gif)
     
-    Sets the scene resolution to fit all visible content in the preview 
-    window without changing strip sizes.
+    Sets the scene resolution to fit all visible selected content in 
+    the preview window without changing strip sizes.
     """
     bl_idname = "vse_transform_tools.autocrop"
     bl_label = "Autocrop"
@@ -29,14 +29,16 @@ class Autocrop(bpy.types.Operator):
 
     def execute(self, context):
         scene = context.scene
-        strips = list(scene.sequence_editor.sequences)
+        sequences = list(scene.sequence_editor.sequences_all)
+        
+        strips = []
+        
+        for seq in sequences:
+            if (seq.frame_start < scene.frame_current and 
+                    seq.frame_final_end > scene.frame_current):
+                if not seq.mute and not seq.type == "SOUND" and seq.select:
+                    strips.append(seq)
 
-        i = 0
-        while i < len(strips):
-            if strips[i].mute or strips[i].type == 'SOUND':
-                strips.pop(i)
-            else:
-                i += 1
 
         group_box = get_group_box(strips)
 

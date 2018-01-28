@@ -5,6 +5,8 @@ from .utils import get_children
 
 class Duplicate(bpy.types.Operator):
     """
+    ![Demo](https://i.imgur.com/IJh7v3z.gif)
+    
     Duplicates all selected strips and any strips that are inputs
     of those strips.
     Calls the Grab operator immediately after duplicating.
