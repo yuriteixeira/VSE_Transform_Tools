@@ -64,7 +64,7 @@
             <tr>
                 <td align="center"><kbd>T</kbd></td>
                 <td>Add Transform</td>
-                <td align="center" rowspan="1"><img src="https://i.imgur.com/1De0waX.gif" alt="Demo"></td>
+                <td align="center" rowspan="1"><img src="https://i.imgur.com/v4racQW.gifv" alt="Demo"></td>
             </tr>
         </table>
         <h3><a name="Adjust_Alpha" href="#top_Adjust_Alpha">Adjust Alpha</a></h3>
@@ -110,8 +110,8 @@
             </tr>
         </table>
         <h3><a name="Autocrop" href="#top_Autocrop">Autocrop</a></h3>
-    <p>Sets the scene resolution to fit all visible content in the preview 
-    window without changing strip sizes.</p>
+    <p>Sets the scene resolution to fit all visible selected content in 
+    the preview window without changing strip sizes.</p>
     
         <table>
             <tr>
@@ -195,9 +195,11 @@
             <tr>
                 <th width=208px>Shortcut</th>
                 <th width=417px>Function</th>
+                <th width=256px>Demo</th>
             <tr>
                 <td align="center"><kbd>Del</kbd></td>
                 <td>Delete</td>
+                <td align="center" rowspan="1"><img src="https://i.imgur.com/B0L7XoV.gif" alt="Demo"></td>
             </tr>
         </table>
         <h3><a name="Duplicate" href="#top_Duplicate">Duplicate</a></h3>
@@ -209,9 +211,11 @@
             <tr>
                 <th width=208px>Shortcut</th>
                 <th width=417px>Function</th>
+                <th width=256px>Demo</th>
             <tr>
                 <td align="center"><kbd>Shift</kbd><kbd>D</kbd></td>
                 <td>Duplicate</td>
+                <td align="center" rowspan="1"><img src="https://i.imgur.com/IJh7v3z.gif" alt="Demo"></td>
             </tr>
         </table>
         <h3><a name="Grab" href="#top_Grab">Grab</a></h3>
