@@ -13,7 +13,7 @@ class SetCursor2d(bpy.types.Operator):
         return False
 
     def invoke(self, context, event):
-        bpy.ops.sequencer.tf_initialize_pivot()
+        bpy.ops.vse_transform_tools.initialize_pivot()
 
         mouse_x = event.mouse_region_x
         mouse_y = event.mouse_region_y

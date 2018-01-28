@@ -109,6 +109,7 @@ class Select(bpy.types.Operator):
 
         strips = clear_rejects(strips, rejects)
 
+        
         strips = sorted(strips, key=lambda strip: strip.channel)
 
         if 'MOUSE' in event.type:

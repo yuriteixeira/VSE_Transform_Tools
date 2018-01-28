@@ -11,6 +11,7 @@ from .utils import func_constrain_axis
 from .utils import process_input
 from .utils import reset_transform_scale
 from .utils import get_res_factor
+from .utils import ensure_transforms
 
 from .utils import draw_callback_px_point
 
@@ -215,19 +216,9 @@ class Scale(bpy.types.Operator):
 
             scaled_count = 0
 
-            original_selected = context.selected_sequences
-            final_selected = []
-            for strip in original_selected:
-                bpy.ops.sequencer.select_all(action="DESELECT")
-                if not strip.type == "TRANSFORM":
-                    strip.select = True
-                    bpy.ops.vse_transform_tools.add_transform()
-                    active = scene.sequence_editor.active_strip
-                    final_selected.append(active)
-                else:
-                    final_selected.append(strip)
+            selected_strips = ensure_transforms()
                     
-            for strip in final_selected:
+            for strip in selected_strips:
                 strip.select = True
                 self.tab.append(strip)
 

@@ -85,7 +85,7 @@ def update_seq_cursor2d_loc(self, context):
 
 
 def update_pivot_point(self, context):
-    bpy.ops.sequencer.tf_initialize_pivot()
+    bpy.ops.vse_transform_tools.initialize_pivot()
 
 
 class InitializePivot(bpy.types.Operator):
@@ -227,6 +227,7 @@ def register():
     kmi = km.keymap_items.new("vse_transform_tools.call_menu", 'I', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.increment_pivot", "PERIOD", 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.decrement_pivot", "COMMA", 'PRESS')
+    kmi = km.keymap_items.new("vse_transform_tools.duplicate", "D", 'PRESS', shift=True)
 
     mouse_buttons = ['LEFT', 'RIGHT']
     rmb = bpy.context.user_preferences.inputs.select_mouse
@@ -238,14 +239,6 @@ def register():
     kmi = km.keymap_items.new("vse_transform_tools.select", rmb + 'MOUSE', 'PRESS', shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.select", 'A', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", lmb + 'MOUSE', 'PRESS')
-    
-    try:
-        km = keyconfig.keymaps["Sequencer"]
-    except KeyError:
-        km = keyconfig.keymaps.new("Sequencer", space_type="SEQUENCE_EDITOR", region_type="WINDOW")
-    
-    kmi = km.keymap_items.new("vse_transform_tools.add_transform", 'T', 'PRESS')
-
 
 def unregister():
     addon_updater_ops.unregister()
@@ -265,6 +258,7 @@ def unregister():
         "vse_transform_tools.set_cursor2d",
         "vse_transform_tools.increment_pivot",
         "vse_transform_tools.decrement_pivot",
+        "vse_transform_tools.duplicate",
     ]
     keyconfig = bpy.context.window_manager.keyconfigs['Blender Addon']
     try:
@@ -274,12 +268,5 @@ def unregister():
     for kmi in km.keymap_items:
         if kmi.idname in operators:
             km.keymap_items.remove(kmi)
-    
-    try:
-        km = keyconfig.keymaps["Sequencer"]
-    except KeyError:
-        km = keyconfig.keymaps.new("Sequencer", space_type="SEQUENCE_EDITOR", region_type="WINDOW")
-    for kmi in km.keymap_items:
-        if kmi.idname in operators:
-            km.keymap_items.remove(kmi)
+
     bpy.utils.unregister_module(__name__)

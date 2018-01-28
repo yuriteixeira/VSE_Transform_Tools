@@ -12,6 +12,7 @@ from .utils import func_constrain_axis
 from .utils import get_group_box
 from .utils import mouse_to_res
 from .utils import get_preview_offset
+from .utils import ensure_transforms
 
 
 class Grab(bpy.types.Operator):
@@ -212,20 +213,10 @@ class Grab(bpy.types.Operator):
 
             fac = get_res_factor()
 
-            original_selected = context.selected_sequences
-            final_selected = []
-            for strip in original_selected:
-                bpy.ops.sequencer.select_all(action="DESELECT")
-                if not strip.type == "TRANSFORM":
-                    strip.select = True
-                    bpy.ops.vse_transform_tools.add_transform()
-                    active = scene.sequence_editor.active_strip
-                    final_selected.append(active)
-                else:
-                    final_selected.append(strip)
+            selected_strips = ensure_transforms()
             
             uninteresting = []
-            for strip in final_selected:
+            for strip in selected_strips:
                 strip.select = True
                 self.tab.append(strip)
                 uninteresting.append(strip.input_1)

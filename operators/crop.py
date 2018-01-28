@@ -16,7 +16,7 @@ from .utils import get_pos_x
 from .utils import get_pos_y
 from .utils import set_pos_x
 from .utils import set_pos_y
-
+from .utils import get_highest_transform
 
 def get_perpendicular_point(pt, bl, tl, tr, br):
     '''
@@ -565,8 +565,9 @@ class Crop(bpy.types.Operator):
 
         res_x = scene.render.resolution_x
         res_y = scene.render.resolution_y
-
-        strip = scene.sequence_editor.active_strip
+        
+        strip = get_highest_transform(scene.sequence_editor.active_strip)
+        scene.sequence_editor.active_strip = strip
         
         if not strip.type == "TRANSFORM":
             bpy.ops.vse_transform_tools.add_transform()

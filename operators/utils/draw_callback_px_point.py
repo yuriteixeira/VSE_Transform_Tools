@@ -3,6 +3,13 @@ import math
 from mathutils import Vector
 
 def draw_callback_px_point(self, context):
+    vx = Vector([1, 0])
+    try:
+        math.degrees(self.vec_act.angle_signed(vx))
+        math.degrees(self.vec_act.angle_signed(vx))
+    except ValueError:
+        return
+    
     bgl.glEnable(bgl.GL_BLEND)
     bgl.glColor4f(1.0, 0.5, 0.0, 1.0)
 
@@ -20,19 +27,16 @@ def draw_callback_px_point(self, context):
     bgl.glDisable(bgl.GL_LINE_STIPPLE)
 
     bgl.glLineWidth(3)
-
-    self.vec_act
-    vx = Vector([1, 0])
+    
+    
     bgl.glPushMatrix()
     bgl.glTranslatef(self.center_area.x + self.vec_act.x, self.center_area.y + self.vec_act.y, 0)
-    try:
-        if self.bl_idname == 'SEQUENCER_OT_tf_scale':
-            bgl.glRotatef(math.degrees(self.vec_act.angle_signed(vx)), 0, 0, 1)
-        if self.bl_idname == 'SEQUENCER_OT_tf_rotation':
-            bgl.glRotatef(math.degrees(self.vec_act.angle_signed(vx)) + 90, 0, 0, 1)
-    except ValueError:
-        # Nothing to draw
-        return
+
+    if self.bl_idname == 'VSE_TRANSFORM_TOOLS_OT_scale':
+        bgl.glRotatef(math.degrees(self.vec_act.angle_signed(vx)), 0, 0, 1)
+    if self.bl_idname == 'VSE_TRANSFORM_TOOLS_OT_rotate':
+        bgl.glRotatef(math.degrees(self.vec_act.angle_signed(vx)) + 90, 0, 0, 1)
+        
     bgl.glBegin(bgl.GL_LINES)
     bgl.glVertex2f(5, 0)
     bgl.glVertex2f(15, 0)

@@ -9,6 +9,7 @@ from .utils import get_pos_x
 from .utils import get_pos_y
 from .utils import set_pos_x
 from .utils import set_pos_y
+from .utils import ensure_transforms
 
 from .utils import draw_callback_px_point
 
@@ -262,19 +263,9 @@ class Rotate(bpy.types.Operator):
             self.key_val = ''
             rotated_count = 0
 
-            original_selected = context.selected_sequences
-            final_selected = []
-            for strip in original_selected:
-                bpy.ops.sequencer.select_all(action="DESELECT")
-                if not strip.type == "TRANSFORM":
-                    strip.select = True
-                    bpy.ops.vse_transform_tools.add_transform()
-                    active = scene.sequence_editor.active_strip
-                    final_selected.append(active)
-                else:
-                    final_selected.append(strip)
+            selected_strips = ensure_transforms()
 
-            for strip in final_selected:
+            for strip in selected_strips:
                 strip.select = True
                 pos_x = get_pos_x(strip)
                 pos_y = get_pos_y(strip)
