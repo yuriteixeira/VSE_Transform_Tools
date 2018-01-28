@@ -9,7 +9,6 @@ from .utils import set_pos_y
 from .utils import func_constrain_axis_mmb
 from .utils import func_constrain_axis
 from .utils import process_input
-from .utils import reset_transform_scale
 from .utils import get_res_factor
 from .utils import ensure_transforms
 
@@ -291,3 +290,28 @@ class Scale(bpy.types.Operator):
             context.window_manager.modal_handler_add(self)
             return {'RUNNING_MODAL'}
         return {'FINISHED'}
+
+
+def reset_transform_scale(strip):
+    """Reset a strip to it's factor"""
+    strip_in = strip.input_1
+    if hasattr(strip_in, 'elements'):
+        len_crop_x = strip_in.elements[0].orig_width
+        len_crop_y = strip_in.elements[0].orig_height
+
+        if strip_in.use_crop:
+            len_crop_x -= (strip_in.crop.min_x + strip_in.crop.max_x)
+            len_crop_y -= (strip_in.crop.min_y + strip_in.crop.max_y)
+
+        res_x = bpy.context.scene.render.resolution_x
+        res_y = bpy.context.scene.render.resolution_y
+
+        ratio_x = len_crop_x / res_x
+        ratio_y = len_crop_y / res_y
+
+        strip.scale_start_x = ratio_x
+        strip.scale_start_y = ratio_y
+
+    else:
+        strip.scale_start_x = 1.0
+        strip.scale_start_y = 1.0

@@ -21,7 +21,6 @@ from .mouse_to_res import mouse_to_res
 from .process_input import process_input
 from .reposition_strip import reposition_strip
 from .reposition_transform_strip import reposition_transform_strip
-from .reset_transform_scale import reset_transform_scale
 from .rotate_point import rotate_point
 from .set_pos_x import set_pos_x
 from .set_pos_y import set_pos_y

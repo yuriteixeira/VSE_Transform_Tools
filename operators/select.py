@@ -82,10 +82,10 @@ class Select(bpy.types.Operator):
         if 'MOUSE' in event.type:
             for strip in reversed(strips):
                 start = strip.frame_start
-                end = start + strip.frame_final_duration
+                end = strip.frame_final_end
                 if (not strip.mute and
                         current_frame >= start and
-                        current_frame <= end):
+                        current_frame < end):
 
                     corners = get_strip_corners(strip)
 
@@ -103,12 +103,12 @@ class Select(bpy.types.Operator):
                         if not event.shift:
                             bpy.ops.sequencer.select_all(action='DESELECT')
                             strip.select = True
-                            bpy.context.scene.sequence_editor.active_strip = strip
+                            scene.sequence_editor.active_strip = strip
                             break
                         else:
                             if not strip.select:
                                 strip.select = True
-                                bpy.context.scene.sequence_editor.active_strip = strip
+                                scene.sequence_editor.active_strip = strip
                                 break
                             else:
                                 strip.select = True
@@ -123,6 +123,9 @@ class Select(bpy.types.Operator):
             rejects = []
             blocked_visibility = False
             for strip in reversed(strips):
+                if (strip.frame_final_end <= scene.frame_current or 
+                        strip.frame_start > scene.frame_current):
+                    rejects.append(strip)
                 if blocked_visibility:
                     rejects.append(strip)
                 if strip.blend_type in ['CROSS', 'REPLACE']:

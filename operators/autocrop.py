@@ -29,17 +29,19 @@ class Autocrop(bpy.types.Operator):
 
     def execute(self, context):
         scene = context.scene
-        sequences = list(scene.sequence_editor.sequences_all)
+        sequences = context.selected_sequences
         
         strips = []
         
         for seq in sequences:
-            if (seq.frame_start < scene.frame_current and 
+            if (seq.frame_start <= scene.frame_current and 
                     seq.frame_final_end > scene.frame_current):
                 if not seq.mute and not seq.type == "SOUND" and seq.select:
                     strips.append(seq)
 
-
+        if len(strips) == 0:
+            return {'FINISHED'}
+            
         group_box = get_group_box(strips)
 
         min_left, max_right, min_bottom, max_top = group_box
