@@ -16,6 +16,8 @@ from .utils import get_group_box
 
 from .utils import draw_callback_px_point
 
+from .utils import draw_snap
+from .utils import get_preview_offset
 
 class Scale(bpy.types.Operator):
     """
@@ -46,6 +48,7 @@ class Scale(bpy.types.Operator):
 
     handle_axes = None
     handle_line = None
+    handle_snap = None
 
     group_width = 0
     group_height = 0
@@ -59,6 +62,8 @@ class Scale(bpy.types.Operator):
     vertical_interests = []
     
     original_group_box = [Vector([0, 0]), Vector([0, 0]), Vector([0, 0]), Vector([0, 0])]
+    
+    last_snap_orientation = ""
 
     @classmethod
     def poll(cls, context):
@@ -143,6 +148,9 @@ class Scale(bpy.types.Operator):
                 trans_diff_t = (((origin_point.y - orig_top) * diff_y) - (origin_point.y - orig_top))
                 current_top = orig_top - trans_diff_t
                 
+                orientation = ""
+                line_loc = 0
+                offset_x, offset_y, fac, preview_zoom = get_preview_offset()
                 for line in self.horizontal_interests:
                     if (current_left < line + snap_distance and
                             current_left > line - snap_distance):
@@ -150,6 +158,10 @@ class Scale(bpy.types.Operator):
                         if self.axis_y:
                             diff_y *= (scale_to_line / diff_x)
                         diff_x = scale_to_line
+                        
+                        line_loc = (line * fac * preview_zoom) + offset_x
+                        orientation = "VERTICAL"
+                        
                         break
                     if (current_right > line - snap_distance and
                             current_right < line + snap_distance):
@@ -157,6 +169,10 @@ class Scale(bpy.types.Operator):
                         if self.axis_y:
                             diff_y *= (scale_to_line / diff_x)
                         diff_x = scale_to_line
+                        
+                        line_loc = (line * fac * preview_zoom) + offset_x
+                        orientation = "VERTICAL"
+                        
                         break
 
                 for line in self.vertical_interests:
@@ -166,6 +182,10 @@ class Scale(bpy.types.Operator):
                         if self.axis_x:
                             diff_x *= (scale_to_line / diff_y)
                         diff_y = scale_to_line
+                        
+                        line_loc = (line * fac * preview_zoom) + offset_y
+                        orientation = "HORIZONTAL"
+                        
                         break
                     if (current_top > line - snap_distance and
                             current_top < line + snap_distance):
@@ -173,7 +193,20 @@ class Scale(bpy.types.Operator):
                         if self.axis_x:
                             diff_x *= (scale_to_line / diff_y)
                         diff_y = scale_to_line
+                        
+                        line_loc = (line * fac * preview_zoom) + offset_y
+                        orientation = "HORIZONTAL"
+                        
                         break
+                
+                if orientation != "" and (self.handle_snap == None or "RNA_HANDLE_REMOVED" in str(self.handle_snap)):
+                    args = (self, line_loc, orientation)
+                    self.handle_snap = bpy.types.SpaceSequenceEditor.draw_handler_add(
+                        draw_snap, args, 'PREVIEW', 'POST_PIXEL')
+                    self.last_snap_orientation = orientation
+                elif orientation != self.last_snap_orientation and self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                    bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
+                    self.last_snap_orientation = orientation
             
             precision = 5
             info_x = round(diff_x, precision)
@@ -211,6 +244,9 @@ class Scale(bpy.types.Operator):
                not self.tab):
 
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_line, 'PREVIEW')
+                
+                if self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                    bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
                 scene = context.scene
                 if scene.tool_settings.use_keyframe_insert_auto:
@@ -240,6 +276,10 @@ class Scale(bpy.types.Operator):
                     strip.translate_start_y = set_pos_y(strip, init_t[1])
 
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_line, 'PREVIEW')
+                
+                if self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                    bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
+                
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')
                 context.area.header_text_set()
@@ -314,8 +354,6 @@ class Scale(bpy.types.Operator):
                 self.center_real += Vector([center_x, center_y])
                 self.center_area += Vector([center_x, center_y])
                 
-                
-
             if len(self.tab) > 0:
                 self.center_real /= len(self.tab)
                 self.original_group_box = get_group_box(self.tab)

@@ -14,6 +14,7 @@ from .utils import mouse_to_res
 from .utils import get_preview_offset
 from .utils import ensure_transforms
 from .utils import get_visible_strips
+from .utils import draw_snap
 
 
 class Grab(bpy.types.Operator):
@@ -46,6 +47,7 @@ class Grab(bpy.types.Operator):
     key_period_val = 1
 
     handle_axes = None
+    handle_snap = None
 
     slow_factor = 10
     pre_slow_vec = Vector([0, 0])
@@ -56,6 +58,9 @@ class Grab(bpy.types.Operator):
     vertical_interests = []
     
     initially_shifted = False
+    
+    last_snap_orientation = ""
+    last_line_loc = None
 
     @classmethod
     def poll(cls, context):
@@ -129,33 +134,63 @@ class Grab(bpy.types.Operator):
             current_bottom = group_pos_y - (self.group_height / 2)
             current_top = group_pos_y + (self.group_height / 2)
 
-            offset_x = 0
-            offset_y = 0
+            trans_offset_x = 0
+            trans_offset_y = 0
 
+            orientation = ""
+            line_loc = None
+            offset_x, offset_y, fac, preview_zoom = get_preview_offset()
             if event.ctrl:
                 for line in self.horizontal_interests:
                     if (current_left < line + snap_distance and
                        current_left > line - snap_distance):
-                        offset_x = line - current_left
+                        trans_offset_x = line - current_left
+                        
+                        line_loc = (line * fac * preview_zoom) + offset_x
+                        orientation = "VERTICAL"
+                        
                         break
                     if (current_right > line - snap_distance and
                        current_right < line + snap_distance):
-                        offset_x = line - current_right
+                        trans_offset_x = line - current_right
+                        
+                        line_loc = (line * fac * preview_zoom) + offset_x
+                        orientation = "VERTICAL"
+                        
                         break
 
                 for line in self.vertical_interests:
                     if (current_bottom < line + snap_distance and
                        current_bottom > line - snap_distance):
-                        offset_y = line - current_bottom
+                        trans_offset_y = line - current_bottom
+                        
+                        line_loc = (line * fac * preview_zoom) + offset_y
+                        orientation = "HORIZONTAL"
+                        
                         break
                     if (current_top > line - snap_distance and
                        current_top < line + snap_distance):
-                        offset_y = line - current_top
+                        trans_offset_y = line - current_top
+                        
+                        line_loc = (line * fac * preview_zoom) + offset_y
+                        orientation = "HORIZONTAL"
+                        
                         break
+                
+                if orientation != "" and (self.handle_snap == None or "RNA_HANDLE_REMOVED" in str(self.handle_snap)):
+                    args = (self, line_loc, orientation)
+                    self.handle_snap = bpy.types.SpaceSequenceEditor.draw_handler_add(
+                        draw_snap, args, 'PREVIEW', 'POST_PIXEL')
+                    self.last_snap_orientation = orientation
+                    self.last_line_loc = line_loc
+                elif (orientation != self.last_snap_orientation or line_loc != self.last_line_loc) and self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                    bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
+                    self.last_snap_orientation = orientation
+                    self.last_line_loc = line_loc
 
             for strip, init_pos in zip(self.tab, self.tab_init):
-                pos_x = init_pos[0] + self.vec_act.x + offset_x
-                pos_y = init_pos[1] + self.vec_act.y + offset_y
+                pos_x = init_pos[0] + self.vec_act.x + trans_offset_x
+                pos_y = init_pos[1] + self.vec_act.y + trans_offset_y
 
                 strip.translate_start_x = set_pos_x(strip, pos_x)
                 strip.translate_start_y = set_pos_y(strip, pos_y)
@@ -167,6 +202,9 @@ class Grab(bpy.types.Operator):
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(
                         self.handle_axes, 'PREVIEW')
+                
+                if self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                    bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
                 if scene.tool_settings.use_keyframe_insert_auto:
                     cf = context.scene.frame_current
@@ -181,6 +219,10 @@ class Grab(bpy.types.Operator):
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(
                         self.handle_axes, 'PREVIEW')
+                
+                if self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                    bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
+                
                 for strip, init_pos in zip(self.tab, self.tab_init):
                     strip.translate_start_x = set_pos_x(strip, init_pos[0])
                     strip.translate_start_y = set_pos_y(strip, init_pos[1])

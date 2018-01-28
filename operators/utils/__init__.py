@@ -2,6 +2,7 @@ from .calculate_bounding_box import calculate_bounding_box
 from .clear_rejects import clear_rejects
 from .draw_callback_draw_axes import draw_callback_draw_axes
 from .draw_callback_px_point import draw_callback_px_point
+from .draw_snap import draw_snap
 from .ensure_transforms import ensure_transforms
 from .func_constrain_axis import func_constrain_axis
 from .func_constrain_axis_mmb import func_constrain_axis_mmb
