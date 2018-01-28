@@ -5,6 +5,7 @@ from .draw_callback_px_point import draw_callback_px_point
 from .ensure_transforms import ensure_transforms
 from .func_constrain_axis import func_constrain_axis
 from .func_constrain_axis_mmb import func_constrain_axis_mmb
+from .get_children import get_children
 from .get_group_box import get_group_box
 from .get_highest_transform import get_highest_transform
 from .get_nontransformed_strips import get_nontransformed_strips

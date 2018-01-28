@@ -32,8 +32,9 @@ def get_highest_transform(strip):
     """
     scene = bpy.context.scene
     
-    all_sequences = list(sorted(scene.sequence_editor.sequences,
+    all_sequences = list(sorted(scene.sequence_editor.sequences_all,
                                 key=lambda x: x.channel))
+    
     all_sequences.reverse()
     
     checked_strips = []

@@ -2,7 +2,7 @@ import bpy
 
 from .utils import get_transform_box
 from .utils import get_strip_box
-
+from .utils import get_children
 
 class AddTransform(bpy.types.Operator):
     bl_idname = "vse_transform_tools.add_transform"
@@ -33,10 +33,13 @@ class AddTransform(bpy.types.Operator):
             transform_strip = context.scene.sequence_editor.active_strip
             transform_strip.name = "[TR]-%s" % strip.name
 
-            strip.mute = True
-
             transform_strip.blend_type = 'ALPHA_OVER'
             transform_strip.blend_alpha = strip.blend_alpha
+            
+            children = get_children(transform_strip)
+            children.pop(0)
+            for child in children:
+                child.mute = True
 
             if not strip.use_crop:
                 strip.use_crop = True

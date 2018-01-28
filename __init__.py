@@ -228,6 +228,8 @@ def register():
     kmi = km.keymap_items.new("vse_transform_tools.increment_pivot", "PERIOD", 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.decrement_pivot", "COMMA", 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.duplicate", "D", 'PRESS', shift=True)
+    kmi = km.keymap_items.new("vse_transform_tools.delete", "DEL", "PRESS")
+    kmi = km.keymap_items.new("vse_transform_tools.meta_toggle", "TAB", "PRESS")
 
     mouse_buttons = ['LEFT', 'RIGHT']
     rmb = bpy.context.user_preferences.inputs.select_mouse
@@ -259,6 +261,8 @@ def unregister():
         "vse_transform_tools.increment_pivot",
         "vse_transform_tools.decrement_pivot",
         "vse_transform_tools.duplicate",
+        "vse_transform_tools.delete",
+        "vse_transform_tools.meta_toggle",
     ]
     keyconfig = bpy.context.window_manager.keyconfigs['Blender Addon']
     try:

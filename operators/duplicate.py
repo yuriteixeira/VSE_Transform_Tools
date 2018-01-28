@@ -1,5 +1,6 @@
 import bpy
 from operator import attrgetter
+from .utils import get_children
 
 
 def get_vertical_translation(strips):
@@ -41,21 +42,6 @@ def get_vertical_translation(strips):
         i += 1
 
 
-def select_children(strip):
-    """
-    Recursively ensure all input_1 and input_2 strips are selected
-    """
-    strip.select = True
-    checked_strips = [strip]
-
-    if hasattr(strip, 'input_1'):
-        checked_strips.extend(select_children(strip.input_1))
-    if hasattr(strip, 'input_2'):
-        checked_strips.extend(select_children(strip.input_2))
-
-    return checked_strips
-
-
 class Duplicate(bpy.types.Operator):
     bl_idname = "vse_transform_tools.duplicate"
     bl_label = "Duplicate"
@@ -70,8 +56,7 @@ class Duplicate(bpy.types.Operator):
            scene.sequence_editor.active_strip):
             return True
         return False
-    
-        
+
     def invoke(self, context, event):
 
         selected = context.selected_sequences
@@ -82,7 +67,7 @@ class Duplicate(bpy.types.Operator):
             if strip not in duplicated:
                 bpy.ops.sequencer.select_all(action="DESELECT")
 
-                duplicated.extend(select_children(strip))
+                duplicated.extend(get_children(strip, select=True))
                 vertical_translation = get_vertical_translation(
                     context.selected_sequences)
 
@@ -90,6 +75,5 @@ class Duplicate(bpy.types.Operator):
                         SEQUENCER_OT_duplicate={"mode": "TRANSLATION"},
                         TRANSFORM_OT_seq_slide={
                             "value": (0, vertical_translation)})
-        
-        #bpy.ops.vse_transform_tools.grab()
-        return {'FINISHED'}
+
+        return bpy.ops.vse_transform_tools.grab('INVOKE_DEFAULT')

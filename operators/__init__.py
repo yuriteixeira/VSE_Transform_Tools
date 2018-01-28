@@ -4,10 +4,12 @@ from .autocrop import Autocrop
 from .call_menu import CallMenu
 from .crop import Crop
 from .decrement_pivot import DecrementPivot
+from .delete import Delete
 from .duplicate import Duplicate
 from .grab import Grab
 from .increment_pivot import IncrementPivot
 from .insert_keyframe import InsertKeyframe
+from .meta_toggle import MetaToggle
 from .rotate import Rotate
 from .scale import Scale
 from .select import Select

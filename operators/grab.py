@@ -49,6 +49,8 @@ class Grab(bpy.types.Operator):
 
     horizontal_interests = []
     vertical_interests = []
+    
+    initially_shifted = False
 
     @classmethod
     def poll(cls, context):
@@ -73,9 +75,10 @@ class Grab(bpy.types.Operator):
 
             self.vec_act = self.mouse_pos - self.reduction_vec - self.first_mouse_pos
 
+
             func_constrain_axis_mmb(self, context, event.type, event.value, 0)
             func_constrain_axis(self, context, event.type, event.value, 0)
-
+            
             process_input(self, event.type, event.value)
             if self.key_val != '':
                 try:
@@ -86,17 +89,20 @@ class Grab(bpy.types.Operator):
                 except ValueError:
                     pass
 
-            if 'SHIFT' in event.type and event.value == 'PRESS' and self.key_val == '':
+            if not self.initially_shifted and 'SHIFT' in event.type and event.value == 'PRESS' and self.key_val == '':
                 self.pre_slow_vec = self.mouse_pos
 
-            elif 'SHIFT' in event.type and event.value == 'RELEASE' and self.key_val == '':
+            elif not self.initially_shifted and 'SHIFT' in event.type and event.value == 'RELEASE' and self.key_val == '':
                 self.vec_act = (self.pre_slow_vec - self.first_mouse_pos - self.reduction_vec) + self.slow_act_fm
                 self.reduction_vec = self.reduction_vec + ((self.mouse_pos - self.pre_slow_vec) * (self.slow_factor - 1)) / self.slow_factor
 
-            elif event.shift and self.key_val == '':
+            elif not self.initially_shifted and event.shift and self.key_val == '':
                 self.slow_act_fm = (self.mouse_pos - self.pre_slow_vec) / self.slow_factor
                 self.vec_act = (self.pre_slow_vec - self.first_mouse_pos - self.reduction_vec) + self.slow_act_fm
-
+            
+            elif 'SHIFT' in event.type and event.value == 'RELEASE':
+                self.initially_shifted = False
+            
             info_x = round(self.vec_act.x, 5)
             info_y = round(self.vec_act.y, 5)
             if not self.axis_x:
@@ -266,5 +272,8 @@ class Grab(bpy.types.Operator):
 
                 self.center_area = Vector([center_x, center_y])
 
+            if event.shift:
+                self.initially_shifted = True
+            
             context.window_manager.modal_handler_add(self)
             return {'RUNNING_MODAL'}
