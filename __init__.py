@@ -241,6 +241,7 @@ def register():
     kmi = km.keymap_items.new("vse_transform_tools.select", rmb + 'MOUSE', 'PRESS', shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.select", 'A', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", lmb + 'MOUSE', 'PRESS')
+    kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", lmb + 'MOUSE', 'PRESS', ctrl=True)
 
 def unregister():
     addon_updater_ops.unregister()

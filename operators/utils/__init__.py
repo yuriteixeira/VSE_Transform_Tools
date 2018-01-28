@@ -17,6 +17,7 @@ from .get_strip_box import get_strip_box
 from .get_strip_corners import get_strip_corners
 from .get_transform_box import get_transform_box
 from .get_transform_strips import get_transform_strips
+from .get_visible_strips import get_visible_strips
 from .mouse_to_res import mouse_to_res
 from .process_input import process_input
 from .reposition_strip import reposition_strip

@@ -8,6 +8,7 @@ from .utils import get_strip_corners
 from .utils import get_preview_offset
 from .utils import mouse_to_res
 from .utils import clear_rejects
+from .utils import get_visible_strips
 
 
 class Select(bpy.types.Operator):
@@ -59,79 +60,45 @@ class Select(bpy.types.Operator):
 
         sequence_editor = scene.sequence_editor
         selection_list = []
-
-        if len(scene.sequence_editor.meta_stack) > 0:
-            strips = list(sequence_editor.meta_stack[-1].sequences)
-        else:
-            strips = list(scene.sequence_editor.sequences)
-
-        rejects = []
-        for strip in strips:
-            if strip.type == 'SOUND':
-                rejects.append(strip)
-            if hasattr(strip, 'input_1'):
-                rejects.append(strip.input_1)
-            if hasattr(strip, 'input_2'):
-                rejects.append(strip.input_2)
-
-        strips = clear_rejects(strips, rejects)
-
         
-        strips = sorted(strips, key=lambda strip: strip.channel)
+        strips = get_visible_strips()
 
         if 'MOUSE' in event.type:
             for strip in reversed(strips):
-                start = strip.frame_start
-                end = strip.frame_final_end
-                if (not strip.mute and
-                        current_frame >= start and
-                        current_frame < end):
 
-                    corners = get_strip_corners(strip)
+                corners = get_strip_corners(strip)
 
-                    bottom_left = Vector(corners[0])
-                    top_left = Vector(corners[1])
-                    top_right = Vector(corners[2])
-                    bottom_right = Vector(corners[3])
+                bottom_left = Vector(corners[0])
+                top_left = Vector(corners[1])
+                top_right = Vector(corners[2])
+                bottom_right = Vector(corners[3])
 
-                    intersects = intersect_point_quad_2d(
-                        vector, bottom_left, top_left, top_right,
-                        bottom_right)
+                intersects = intersect_point_quad_2d(
+                    vector, bottom_left, top_left, top_right,
+                    bottom_right)
 
-                    if intersects and not event.type == 'A':
-                        selection_list.append(strip)
-                        if not event.shift:
-                            bpy.ops.sequencer.select_all(action='DESELECT')
+                if intersects and not event.type == 'A':
+                    selection_list.append(strip)
+                    if not event.shift:
+                        bpy.ops.sequencer.select_all(action='DESELECT')
+                        strip.select = True
+                        scene.sequence_editor.active_strip = strip
+                        break
+                    else:
+                        if not strip.select:
                             strip.select = True
                             scene.sequence_editor.active_strip = strip
                             break
                         else:
-                            if not strip.select:
-                                strip.select = True
-                                scene.sequence_editor.active_strip = strip
-                                break
-                            else:
-                                strip.select = True
-                                break
-                    if not selection_list and not event.shift and not event.type == 'A':
-                        bpy.ops.sequencer.select_all(action='DESELECT')
+                            strip.select = True
+                            break
+                if not selection_list and not event.shift and not event.type == 'A':
+                    bpy.ops.sequencer.select_all(action='DESELECT')
 
-                    if strip.blend_type in ['CROSS', 'REPLACE']:
-                        return {'FINISHED'}
+                if strip.blend_type in ['CROSS', 'REPLACE']:
+                    return {'FINISHED'}
 
         elif event.type == 'A':
-            rejects = []
-            blocked_visibility = False
-            for strip in reversed(strips):
-                if (strip.frame_final_end <= scene.frame_current or 
-                        strip.frame_start > scene.frame_current):
-                    rejects.append(strip)
-                if blocked_visibility:
-                    rejects.append(strip)
-                if strip.blend_type in ['CROSS', 'REPLACE']:
-                    blocked_visibility = True
-            strips = clear_rejects(strips, rejects)
-
             all_selected = True
             for strip in strips:
                 if not strip.select:

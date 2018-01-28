@@ -4,7 +4,7 @@
     <h2>Installation</h2>
     
     <ol>
-    <li>Download the repository. Go to <a href="https://github.com/doakey3/VSE_Transform_Tools/releases">Releases</a> for a stable version, or click the green button above to get the most recent (&amp; unstable) version.</li>
+    <li>Download the repository. Go to <a href="https://github.com/doakey3/VSE_Transform_Tools/releases">Releases</a> for a stable version, or click the green button above to get the most recent (and potentially unstable) version.</li>
     <li>Open Blender</li>
     <li>Go to File &gt; User Preferences &gt; Addons</li>
     <li>Click "Install From File" and navigate to the downloaded .zip file and install</li>
@@ -437,7 +437,11 @@
                 <th width=256px>Demo</th>
             <tr>
                 <td align="center"><kbd>Left_Mouse</kbd></td>
-                <td>Set Cursor2D</td>
-                <td align="center" rowspan="1"><img src="https://i.imgur.com/1uTD9C1.gif" alt="Demo"></td>
+                <td>Cursor 2D to mouse position</td>
+                <td align="center" rowspan="2"><img src="https://i.imgur.com/1uTD9C1.gif" alt="Demo"></td>
+            </tr>
+            <tr>
+                <td align="center"><kbd>Ctrl</kbd><kbd>Left_Mouse</kbd></td>
+                <td>Snap Cursor 2D to nearest strip corner or mid-point</td>
             </tr>
         </table>

@@ -11,6 +11,8 @@ from .utils import func_constrain_axis
 from .utils import process_input
 from .utils import get_res_factor
 from .utils import ensure_transforms
+from .utils import get_visible_strips
+from .utils import get_group_box
 
 from .utils import draw_callback_px_point
 
@@ -219,11 +221,18 @@ class Scale(bpy.types.Operator):
 
             scaled_count = 0
 
-            selected_strips = ensure_transforms()
-                    
-            for strip in selected_strips:
-                strip.select = True
-                self.tab.append(strip)
+            self.tab = ensure_transforms()
+            visible_strips = get_visible_strips()
+            
+            for strip in visible_strips:
+                if strip not in self.tab:
+                    left, right, bottom, top = get_group_box([strip])
+
+                    self.horizontal_interests.append(left)
+                    self.horizontal_interests.append(right)
+
+                    self.vertical_interests.append(bottom)
+                    self.vertical_interests.append(top)
 
             for strip in self.tab:
                 self.tab_init_s.append([strip.scale_start_x, strip.scale_start_y])
@@ -244,7 +253,7 @@ class Scale(bpy.types.Operator):
                 self.center_real += Vector([center_x, center_y])
                 self.center_area += Vector([center_x, center_y])
 
-            if self.tab:
+            if len(self.tab) > 0:
                 self.center_real /= len(self.tab)
                 if scene.seq_pivot_type == '2':
                     cursor_x = context.scene.seq_cursor2d_loc[0]

@@ -13,6 +13,7 @@ from .utils import get_group_box
 from .utils import mouse_to_res
 from .utils import get_preview_offset
 from .utils import ensure_transforms
+from .utils import get_visible_strips
 
 
 class Grab(bpy.types.Operator):
@@ -119,10 +120,10 @@ class Grab(bpy.types.Operator):
                 context.area.header_text_set("Dx: %.4f Dy: %.4f" % (info_x, info_y))
 
             snap_distance = int(max([res_x, res_y]) / 50)
-
+            
             group_pos_x = self.center_area.x + self.vec_act.x
             group_pos_y = self.center_area.y + self.vec_act.y
-
+            
             current_left = group_pos_x - (self.group_width / 2)
             current_right = group_pos_x + (self.group_width / 2)
             current_bottom = group_pos_y - (self.group_height / 2)
@@ -223,43 +224,21 @@ class Grab(bpy.types.Operator):
 
             fac = get_res_factor()
 
-            selected_strips = ensure_transforms()
+            self.tab = ensure_transforms()
+            visible_strips = get_visible_strips()
             
-            uninteresting = []
-            for strip in selected_strips:
-                strip.select = True
-                self.tab.append(strip)
-                uninteresting.append(strip.input_1)
+            for strip in visible_strips:
+                if strip not in self.tab:
+                    left, right, bottom, top = get_group_box([strip])
 
-            blocked_visibility = False
-            current_frame = scene.frame_current
-            for strip in reversed(list(scene.sequence_editor.sequences_all)):
-                start = strip.frame_start
-                end = start + strip.frame_final_duration
-                if (not strip.mute and
-                        current_frame >= start and
-                        current_frame <= end):
-                    if blocked_visibility:
-                        uninteresting.append(strip)
-                    if strip.blend_type in ['CROSS', 'REPLACE']:
-                        blocked_visibility = True
+                    self.horizontal_interests.append(left)
+                    self.horizontal_interests.append(right)
 
-            for strip in reversed(list(scene.sequence_editor.sequences_all)):
-                start = strip.frame_start
-                end = start + strip.frame_final_duration
-                if (not strip.mute and
-                        current_frame >= start and
-                        current_frame <= end):
-                    if strip not in uninteresting and strip not in self.tab:
-                        left, right, bottom, top = get_group_box([strip])
-
-                        self.horizontal_interests.append(left)
-                        self.horizontal_interests.append(right)
-
-                        self.vertical_interests.append(bottom)
-                        self.vertical_interests.append(top)
+                    self.vertical_interests.append(bottom)
+                    self.vertical_interests.append(top)
 
             for strip in self.tab:
+                strip.select = True
                 pos_x = get_pos_x(strip)
                 pos_y = get_pos_y(strip)
                 self.tab_init.append([pos_x, pos_y])
@@ -276,6 +255,8 @@ class Grab(bpy.types.Operator):
 
                 self.center_area = Vector([center_x, center_y])
 
+            # Prevents weird behavior if this op is called by 
+            # bpy.ops.vse_transform_tools.duplicate()
             if event.shift:
                 self.initially_shifted = True
             

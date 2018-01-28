@@ -6,6 +6,7 @@ from .utils import reposition_strip
 from .utils import reposition_transform_strip
 from .utils import get_nontransformed_strips
 from .utils import get_transform_strips
+from .utils import get_visible_strips
 
 
 class Autocrop(bpy.types.Operator):
@@ -29,15 +30,12 @@ class Autocrop(bpy.types.Operator):
 
     def execute(self, context):
         scene = context.scene
-        sequences = context.selected_sequences
+        sequences = get_visible_strips()
         
         strips = []
-        
         for seq in sequences:
-            if (seq.frame_start <= scene.frame_current and 
-                    seq.frame_final_end > scene.frame_current):
-                if not seq.mute and not seq.type == "SOUND" and seq.select:
-                    strips.append(seq)
+            if seq.select:
+                strips.append(seq)
 
         if len(strips) == 0:
             return {'FINISHED'}
