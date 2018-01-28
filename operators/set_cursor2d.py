@@ -60,7 +60,24 @@ def get_important_edge_points():
     res_x = scene.render.resolution_x
     res_y = scene.render.resolution_y
     
-    important_edge_points = []
+    bl = Vector([0, 0])
+    l = Vector([0, res_y / 2])
+    tl = Vector([0, res_y])
+    t = Vector([res_x / 2, res_y])
+    tr = Vector([res_x, res_y])
+    r = Vector([res_x, res_y / 2])
+    br = Vector([res_x, 0])
+    b = Vector([res_x / 2, 0])
+    origin = Vector([res_x / 2, res_y / 2])
+    
+    vectors = [bl, l, tl, t, tr, r, br, b, origin]
+    
+    for vec in vectors:
+        vec.x -= (res_x / 2)
+        vec.y -= (res_y / 2)
+    
+    
+    important_edge_points = vectors
     for strip in strips:
         if strip.type == "TRANSFORM":
             left, right, bottom, top = get_transform_box(strip)

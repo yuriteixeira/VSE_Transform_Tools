@@ -267,16 +267,15 @@ class Rotate(bpy.types.Operator):
             self.key_val = ''
             rotated_count = 0
 
-            selected_strips = ensure_transforms()
+            self.tab = ensure_transforms()
 
-            for strip in selected_strips:
+            for strip in self.tab:
                 strip.select = True
                 pos_x = get_pos_x(strip)
                 pos_y = get_pos_y(strip)
 
                 self.tab_init.append(strip.rotation_start)
                 self.tab_init_t.append([pos_x, pos_y])
-                self.tab.append(strip)
 
                 flip_x = 1
                 if strip.use_flip_x:

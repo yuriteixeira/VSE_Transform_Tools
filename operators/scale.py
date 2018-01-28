@@ -36,6 +36,8 @@ class Scale(bpy.types.Operator):
 
     vec_init = Vector([0, 0])
     vec_act = Vector([0, 0])
+    
+    center_c2d = Vector([0, 0])
 
     center_area = Vector([0, 0])
     center_real = Vector([0, 0])
@@ -52,6 +54,11 @@ class Scale(bpy.types.Operator):
     pre_slow_vec = Vector([0, 0])
     length_subtraction = 0
     slow_diff = 0
+    
+    horizontal_interests = []
+    vertical_interests = []
+    
+    original_group_box = [Vector([0, 0]), Vector([0, 0]), Vector([0, 0]), Vector([0, 0])]
 
     @classmethod
     def poll(cls, context):
@@ -109,11 +116,66 @@ class Scale(bpy.types.Operator):
             diff_y = 1
             if self.axis_y:
                 diff_y = diff
-
-            precision = 5
+            
+            snap_distance = int(max([res_x, res_y]) / 50)
             if event.ctrl:
-                precision = 1
+            
+                if context.scene.seq_pivot_type == '2':
+                    origin_point = Vector([self.center_c2d.x + (res_x / 2), self.center_c2d.y + (res_y / 2)])
+                else:
+                    origin_x = self.center_real.x + (res_x / 2)
+                    origin_y = self.center_real.y + (res_y / 2)
+                    origin_point = Vector([origin_x, origin_y])
+                    
+                orig_left = self.original_group_box[0]
+                trans_diff_l = (((origin_point.x - orig_left) * diff_x) - (origin_point.x - orig_left))
+                current_left = orig_left - trans_diff_l
+                
+                orig_right = self.original_group_box[1]
+                trans_diff_r = (((origin_point.x - orig_right) * diff_x) - (origin_point.x - orig_right))
+                current_right = orig_right - trans_diff_r
+                
+                orig_bottom = self.original_group_box[2]
+                trans_diff_b = (((origin_point.y - orig_bottom) * diff_y) - (origin_point.y - orig_bottom))
+                current_bottom = orig_bottom - trans_diff_b
+                
+                orig_top = self.original_group_box[3]
+                trans_diff_t = (((origin_point.y - orig_top) * diff_y) - (origin_point.y - orig_top))
+                current_top = orig_top - trans_diff_t
+                
+                for line in self.horizontal_interests:
+                    if (current_left < line + snap_distance and
+                            current_left > line - snap_distance):
+                        scale_to_line = (origin_point.x - line) / (origin_point.x - orig_left)
+                        if self.axis_y:
+                            diff_y *= (scale_to_line / diff_x)
+                        diff_x = scale_to_line
+                        break
+                    if (current_right > line - snap_distance and
+                            current_right < line + snap_distance):
+                        scale_to_line = (origin_point.x - line) / (origin_point.x - orig_right)
+                        if self.axis_y:
+                            diff_y *= (scale_to_line / diff_x)
+                        diff_x = scale_to_line
+                        break
 
+                for line in self.vertical_interests:
+                    if (current_bottom < line + snap_distance and
+                            current_bottom > line - snap_distance):
+                        scale_to_line = (origin_point.y - line) / (origin_point.y - orig_bottom)
+                        if self.axis_x:
+                            diff_x *= (scale_to_line / diff_y)
+                        diff_y = scale_to_line
+                        break
+                    if (current_top > line - snap_distance and
+                            current_top < line + snap_distance):
+                        scale_to_line = (origin_point.y - line) / (origin_point.y - orig_top)
+                        if self.axis_x:
+                            diff_x *= (scale_to_line / diff_y)
+                        diff_y = scale_to_line
+                        break
+            
+            precision = 5
             info_x = round(diff_x, precision)
             info_y = round(diff_y, precision)
             if not self.axis_x:
@@ -140,10 +202,8 @@ class Scale(bpy.types.Operator):
                     strip.translate_start_y = set_pos_y(strip, (init_t[1] - flip_y * self.center_real.y) * round(diff_y, precision) + flip_y * self.center_real.y)
 
                 if context.scene.seq_pivot_type == '2':
-                    fac = get_res_factor()
-                    center_c2d = Vector((flip_x * context.scene.seq_cursor2d_loc[0], flip_y * context.scene.seq_cursor2d_loc[1])) / fac
-                    strip.translate_start_x = set_pos_x(strip, (init_t[0] - center_c2d.x) * round(diff_x, precision) + center_c2d.x)
-                    strip.translate_start_y = set_pos_y(strip, (init_t[1] - center_c2d.y) * round(diff_y, precision) + center_c2d.y)
+                    strip.translate_start_x = set_pos_x(strip, (init_t[0] - self.center_c2d.x) * round(diff_x, precision) + self.center_c2d.x)
+                    strip.translate_start_y = set_pos_y(strip, (init_t[1] - self.center_c2d.y) * round(diff_y, precision) + self.center_c2d.y)
 
             if (event.type == 'LEFTMOUSE' or
                event.type == 'RET' or
@@ -235,6 +295,7 @@ class Scale(bpy.types.Operator):
                     self.vertical_interests.append(top)
 
             for strip in self.tab:
+                strip.select = True
                 self.tab_init_s.append([strip.scale_start_x, strip.scale_start_y])
                 self.tab_init_t.append([get_pos_x(strip), get_pos_y(strip)])
 
@@ -252,14 +313,19 @@ class Scale(bpy.types.Operator):
                 center_y = flip_y * get_pos_y(strip)
                 self.center_real += Vector([center_x, center_y])
                 self.center_area += Vector([center_x, center_y])
+                
+                
 
             if len(self.tab) > 0:
                 self.center_real /= len(self.tab)
+                self.original_group_box = get_group_box(self.tab)
                 if scene.seq_pivot_type == '2':
                     cursor_x = context.scene.seq_cursor2d_loc[0]
                     cursor_y = context.scene.seq_cursor2d_loc[1]
                     cursor_pos = context.region.view2d.view_to_region(cursor_x, cursor_y)
                     self.center_area = Vector(cursor_pos)
+
+                    self.center_c2d = Vector((flip_x * context.scene.seq_cursor2d_loc[0], flip_y * context.scene.seq_cursor2d_loc[1])) / fac
 
                 elif scene.seq_pivot_type == '3':
                     active_strip = scene.sequence_editor.active_strip
@@ -292,12 +358,12 @@ class Scale(bpy.types.Operator):
                     (event.mouse_region_x, event.mouse_region_y))
                 self.vec_init -= self.center_area
 
-            args = (self, context)
-            self.handle_line = bpy.types.SpaceSequenceEditor.draw_handler_add(
-                draw_callback_px_point, args, 'PREVIEW', 'POST_PIXEL')
+                args = (self, context)
+                self.handle_line = bpy.types.SpaceSequenceEditor.draw_handler_add(
+                    draw_callback_px_point, args, 'PREVIEW', 'POST_PIXEL')
 
-            context.window_manager.modal_handler_add(self)
-            return {'RUNNING_MODAL'}
+                context.window_manager.modal_handler_add(self)
+                return {'RUNNING_MODAL'}
         return {'FINISHED'}
 
 

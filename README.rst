@@ -369,7 +369,7 @@
             </tr>
             <tr>
                 <td align="center"><kbd>Ctrl</kbd></td>
-                <td>Enable Stepwise scaling</td>
+                <td>Enable Snap scaling</td>
             </tr>
             <tr>
                 <td align="center"><kbd>Right_Mouse</kbd></td>
