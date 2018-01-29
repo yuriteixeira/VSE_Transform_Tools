@@ -64,6 +64,8 @@ class Scale(bpy.types.Operator):
     original_group_box = [Vector([0, 0]), Vector([0, 0]), Vector([0, 0]), Vector([0, 0])]
     
     last_snap_orientation = ""
+    last_line_loc = None
+    orientation_conflict_winner = ""
 
     @classmethod
     def poll(cls, context):
@@ -122,7 +124,7 @@ class Scale(bpy.types.Operator):
             if self.axis_y:
                 diff_y = diff
             
-            snap_distance = int(max([res_x, res_y]) / 50)
+            snap_distance = int(max([res_x, res_y]) / 100)
             if event.ctrl:
             
                 if context.scene.seq_pivot_type == '2':
@@ -148,8 +150,8 @@ class Scale(bpy.types.Operator):
                 trans_diff_t = (((origin_point.y - orig_top) * diff_y) - (origin_point.y - orig_top))
                 current_top = orig_top - trans_diff_t
                 
-                orientation = ""
-                line_loc = 0
+                orientations = []
+                line_locs = []
                 offset_x, offset_y, fac, preview_zoom = get_preview_offset()
                 for line in self.horizontal_interests:
                     if (current_left < line + snap_distance and
@@ -159,8 +161,8 @@ class Scale(bpy.types.Operator):
                             diff_y *= (scale_to_line / diff_x)
                         diff_x = scale_to_line
                         
-                        line_loc = (line * fac * preview_zoom) + offset_x
-                        orientation = "VERTICAL"
+                        line_locs.append((line * fac * preview_zoom) + offset_x)
+                        orientations.append("VERTICAL")
                         
                         break
                     if (current_right > line - snap_distance and
@@ -170,8 +172,8 @@ class Scale(bpy.types.Operator):
                             diff_y *= (scale_to_line / diff_x)
                         diff_x = scale_to_line
                         
-                        line_loc = (line * fac * preview_zoom) + offset_x
-                        orientation = "VERTICAL"
+                        line_locs.append((line * fac * preview_zoom) + offset_x)
+                        orientations.append("VERTICAL")
                         
                         break
 
@@ -183,8 +185,8 @@ class Scale(bpy.types.Operator):
                             diff_x *= (scale_to_line / diff_y)
                         diff_y = scale_to_line
                         
-                        line_loc = (line * fac * preview_zoom) + offset_y
-                        orientation = "HORIZONTAL"
+                        line_locs.append((line * fac * preview_zoom) + offset_y)
+                        orientations.append("HORIZONTAL")
                         
                         break
                     if (current_top > line - snap_distance and
@@ -194,19 +196,50 @@ class Scale(bpy.types.Operator):
                             diff_x *= (scale_to_line / diff_y)
                         diff_y = scale_to_line
                         
-                        line_loc = (line * fac * preview_zoom) + offset_y
-                        orientation = "HORIZONTAL"
+                        line_locs.append((line * fac * preview_zoom) + offset_y)
+                        orientations.append("HORIZONTAL")
                         
                         break
+                
+                orientation = ""
+                line_loc = None
+                if len(orientations) > 1 and self.last_snap_orientation != "" and self.orientation_conflict_winner == -1:
+                    index = orientations.index(self.last_snap_orientation)
+                    orientations.pop(index)
+                    line_locs.pop(index)
+                    
+                    self.orientation_conflict_winner = int(not index)
+                    
+                    orientation = orientations[0]
+                    line_loc = line_locs[0]
+                
+                elif len(orientations) > 1 and self.last_snap_orientation == "" and self.orientation_conflict_winner == -1:
+                    self.orientation_conflict_winner = 0
+                    orientation = orientations[0]
+                    line_loc = line_locs[0]
+                
+                elif len(orientations) > 1:
+                    orientation = orientations[self.orientation_conflict_winner]
+                    line_loc = line_locs[self.orientation_conflict_winner]
+                
+                elif len(orientations) > 0:
+                    self.orientation_conflict_winner = -1
+                    orientation = orientations[0]
+                    line_loc = line_locs[0]
                 
                 if orientation != "" and (self.handle_snap == None or "RNA_HANDLE_REMOVED" in str(self.handle_snap)):
                     args = (self, line_loc, orientation)
                     self.handle_snap = bpy.types.SpaceSequenceEditor.draw_handler_add(
                         draw_snap, args, 'PREVIEW', 'POST_PIXEL')
                     self.last_snap_orientation = orientation
-                elif orientation != self.last_snap_orientation and self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                    self.last_line_loc = line_loc
+                elif (orientation != self.last_snap_orientation or line_loc != self.last_line_loc) and self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
                     self.last_snap_orientation = orientation
+                    self.last_line_loc = line_loc
+            
+            elif self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
             
             precision = 5
             info_x = round(diff_x, precision)
