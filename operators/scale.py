@@ -227,9 +227,9 @@ class Scale(bpy.types.Operator):
                     orientation = orientations[0]
                     line_loc = line_locs[0]
                 
-                #elif len(orientations) > 1:
-                #    orientation = orientations[self.orientation_conflict_winner]
-                #    line_loc = line_locs[self.orientation_conflict_winner]
+                elif len(orientations) > 1:
+                    orientation = orientations[self.orientation_conflict_winner]
+                    line_loc = line_locs[self.orientation_conflict_winner]
                 
                 elif len(orientations) > 0:
                     self.orientation_conflict_winner = 0
