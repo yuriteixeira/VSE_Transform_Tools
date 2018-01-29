@@ -61,7 +61,7 @@ class Grab(bpy.types.Operator):
     
     last_snap_orientation = ""
     last_line_loc = None
-    orientation_conflict_winner = ""
+    orientation_conflict_winner = 0
 
     @classmethod
     def poll(cls, context):
@@ -157,8 +157,6 @@ class Grab(bpy.types.Operator):
                         
                         line_locs.append((line * fac * preview_zoom) + offset_x)
                         orientations.append("VERTICAL")
-                        
-                        break
 
                 for line in self.vertical_interests:
                     if (current_bottom < line + snap_distance and
@@ -175,8 +173,6 @@ class Grab(bpy.types.Operator):
                         
                         line_locs.append((line * fac * preview_zoom) + offset_y)
                         orientations.append("HORIZONTAL")
-                        
-                        break
                 
                 orientation = ""
                 line_loc = None

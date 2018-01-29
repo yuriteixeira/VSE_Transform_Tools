@@ -65,7 +65,7 @@ class Scale(bpy.types.Operator):
     
     last_snap_orientation = ""
     last_line_loc = None
-    orientation_conflict_winner = ""
+    orientation_conflict_winner = 0
 
     @classmethod
     def poll(cls, context):
@@ -123,7 +123,8 @@ class Scale(bpy.types.Operator):
             diff_y = 1
             if self.axis_y:
                 diff_y = diff
-            
+    
+            precision = 5
             snap_distance = int(max([res_x, res_y]) / 100)
             if event.ctrl:
             
@@ -153,34 +154,41 @@ class Scale(bpy.types.Operator):
                 orientations = []
                 line_locs = []
                 offset_x, offset_y, fac, preview_zoom = get_preview_offset()
-                for line in self.horizontal_interests:
-                    if (current_left < line + snap_distance and
-                            current_left > line - snap_distance):
-                        scale_to_line = (origin_point.x - line) / (origin_point.x - orig_left)
-                        if self.axis_y:
-                            diff_y *= (scale_to_line / diff_x)
-                        diff_x = scale_to_line
-                        
-                        line_locs.append((line * fac * preview_zoom) + offset_x)
-                        orientations.append("VERTICAL")
-                        
-                        break
-                    if (current_right > line - snap_distance and
-                            current_right < line + snap_distance):
-                        scale_to_line = (origin_point.x - line) / (origin_point.x - orig_right)
-                        if self.axis_y:
-                            diff_y *= (scale_to_line / diff_x)
-                        diff_x = scale_to_line
-                        
-                        line_locs.append((line * fac * preview_zoom) + offset_x)
-                        orientations.append("VERTICAL")
-                        
-                        break
 
+                for line in self.horizontal_interests:
+
+                    if (current_left < line + snap_distance and
+                            current_left > line - snap_distance and
+                            abs(origin_point.x - orig_left) > snap_distance):
+                        scale_to_line = (origin_point.x - line) / (origin_point.x - orig_left)
+                            
+                        if self.axis_y:
+                            diff_y *= (scale_to_line / diff_x)
+                        diff_x = scale_to_line
+                        
+                        line_locs.append((line * fac * preview_zoom) + offset_x)
+                        orientations.append("VERTICAL")
+                        
+                        break
+  
+                    if (current_right > line - snap_distance and
+                            current_right < line + snap_distance and
+                            abs(origin_point.x - orig_right) > snap_distance):
+                        scale_to_line = (origin_point.x - line) / (origin_point.x - orig_right)
+
+                        if self.axis_y:
+                            diff_y *= (scale_to_line / diff_x)
+                        diff_x = scale_to_line
+                        
+                        line_locs.append((line * fac * preview_zoom) + offset_x)
+                        orientations.append("VERTICAL")
+                        
                 for line in self.vertical_interests:
                     if (current_bottom < line + snap_distance and
-                            current_bottom > line - snap_distance):
+                            current_bottom > line - snap_distance and
+                            abs(origin_point.y - orig_bottom) > snap_distance):
                         scale_to_line = (origin_point.y - line) / (origin_point.y - orig_bottom)
+                        
                         if self.axis_x:
                             diff_x *= (scale_to_line / diff_y)
                         diff_y = scale_to_line
@@ -189,8 +197,11 @@ class Scale(bpy.types.Operator):
                         orientations.append("HORIZONTAL")
                         
                         break
+
                     if (current_top > line - snap_distance and
-                            current_top < line + snap_distance):
+                            current_top < line + snap_distance and
+                            abs(origin_point.y - orig_top) > snap_distance):
+
                         scale_to_line = (origin_point.y - line) / (origin_point.y - orig_top)
                         if self.axis_x:
                             diff_x *= (scale_to_line / diff_y)
@@ -198,9 +209,7 @@ class Scale(bpy.types.Operator):
                         
                         line_locs.append((line * fac * preview_zoom) + offset_y)
                         orientations.append("HORIZONTAL")
-                        
-                        break
-                
+
                 orientation = ""
                 line_loc = None
                 if len(orientations) > 1 and self.last_snap_orientation != "" and self.orientation_conflict_winner == -1:
@@ -218,12 +227,12 @@ class Scale(bpy.types.Operator):
                     orientation = orientations[0]
                     line_loc = line_locs[0]
                 
-                elif len(orientations) > 1:
-                    orientation = orientations[self.orientation_conflict_winner]
-                    line_loc = line_locs[self.orientation_conflict_winner]
+                #elif len(orientations) > 1:
+                #    orientation = orientations[self.orientation_conflict_winner]
+                #    line_loc = line_locs[self.orientation_conflict_winner]
                 
                 elif len(orientations) > 0:
-                    self.orientation_conflict_winner = -1
+                    self.orientation_conflict_winner = 0
                     orientation = orientations[0]
                     line_loc = line_locs[0]
                 
@@ -240,8 +249,7 @@ class Scale(bpy.types.Operator):
             
             elif self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
-            
-            precision = 5
+
             info_x = round(diff_x, precision)
             info_y = round(diff_y, precision)
             if not self.axis_x:

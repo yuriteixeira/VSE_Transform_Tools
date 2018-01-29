@@ -4,7 +4,6 @@ import bgl
 def draw_snap(self, loc, orientation):
     bgl.glEnable(bgl.GL_BLEND)
     bgl.glLineWidth(2)
-    bgl.glPopMatrix()
     bgl.glPushMatrix()
     
     if orientation == "VERTICAL":
