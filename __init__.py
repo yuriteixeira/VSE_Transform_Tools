@@ -206,7 +206,9 @@ def register():
 
     init_properties()
 
-    keyconfig = bpy.context.window_manager.keyconfigs['Blender Addon']
+    keyconfig = bpy.context.window_manager.keyconfigs.addon
+    if not keyconfig:
+        keyconfig = bpy.context.window_manager.keyconfigs.new("Blender Addon")
     try:
         km = keyconfig.keymaps["SequencerPreview"]
     except KeyError:
