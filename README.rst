@@ -1,6 +1,6 @@
 .. raw:: html
 
-    <h1>VSE_Transform_Tools</h1>
+    <h1 align="center">VSE_Transform_Tools</h1>
     <h2>Installation</h2>
     
     <ol>
@@ -62,7 +62,7 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>T</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/T.png" alt="T"></td>
                 <td>Add Transform</td>
                 <td align="center" rowspan="1"><img src="https://i.imgur.com/v4racQW.gif" alt="Demo"></td>
             </tr>
@@ -76,36 +76,36 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>Q</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/Q.png" alt="Q"></td>
                 <td>Begin Alpha Adjusting</td>
                 <td align="center" rowspan="8"><img src="https://i.imgur.com/PNsjamH.gif" alt="Demo"></td>
             </tr>
             <tr>
-                <td align="center"><kbd>Ctrl</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/CTRL.png" alt="CTRL"></td>
                 <td>Round to Nearest Tenth</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Right_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/RIGHTMOUSE.png" alt="RIGHTMOUSE"></td>
                 <td>Escape Alpha Adjust Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Esc</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ESC.png" alt="ESC"></td>
                 <td>Escape Alpha Adjust Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Left_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/LEFTMOUSE.png" alt="LEFTMOUSE"></td>
                 <td>Set Alpha, End Alpha Adjust Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Enter</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/RET.png" alt="RET"></td>
                 <td>Set Alpha, End Alpha Adjust Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>0</kbd><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>7</kbd><kbd>8</kbd><kbd>9</kbd><kbd>.</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ZERO.png" alt="ZERO"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ONE.png" alt="ONE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/TWO.png" alt="TWO"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/THREE.png" alt="THREE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/FOUR.png" alt="FOUR"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/FIVE.png" alt="FIVE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SIX.png" alt="SIX"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SEVEN.png" alt="SEVEN"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/EIGHT.png" alt="EIGHT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/NINE.png" alt="NINE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/PERIOD.png" alt="PERIOD"></td>
                 <td>Set Alpha to Value Entered</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Alt</kbd><kbd>Q</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ALT.png" alt="ALT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/Q.png" alt="Q"></td>
                 <td>Set Alpha to 1.0</td>
             </tr>
         </table>
@@ -119,7 +119,7 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>Shift</kbd><kbd>C</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SHIFT.png" alt="SHIFT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/C.png" alt="C"></td>
                 <td>Autocrop</td>
                 <td align="center" rowspan="1"><img src="https://i.imgur.com/IarxF14.gif" alt="Demo"></td>
             </tr>
@@ -135,7 +135,7 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>I</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/I.png" alt="I"></td>
                 <td>Call Menu</td>
                 <td align="center" rowspan="1"><img src="https://i.imgur.com/9Cx6XKj.gif" alt="Demo"></td>
             </tr>
@@ -149,24 +149,24 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>C</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/C.png" alt="C"></td>
                 <td>Begin/Set Cropping, Add Transform if Needed</td>
                 <td align="center" rowspan="5"><img src="https://i.imgur.com/k4r2alY.gif" alt="Demo"></td>
             </tr>
             <tr>
-                <td align="center"><kbd>Esc</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ESC.png" alt="ESC"></td>
                 <td>Escape Crop Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Left_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/LEFTMOUSE.png" alt="LEFTMOUSE"></td>
                 <td>Click Handles to Drag</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Enter</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/RET.png" alt="RET"></td>
                 <td>Set Crop, End Grab Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Alt</kbd><kbd>C</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ALT.png" alt="ALT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/C.png" alt="C"></td>
                 <td>Uncrop</td>
             </tr>
         </table>
@@ -180,7 +180,7 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>Comma</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/COMMA.png" alt="COMMA"></td>
                 <td>Decrement Pivot</td>
                 <td align="center" rowspan="1"><img src="https://i.imgur.com/3ru1Xl6.gif" alt="Demo"></td>
             </tr>
@@ -197,7 +197,7 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>Del</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/DEL.png" alt="DEL"></td>
                 <td>Delete</td>
                 <td align="center" rowspan="1"><img src="https://i.imgur.com/B0L7XoV.gif" alt="Demo"></td>
             </tr>
@@ -213,7 +213,7 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>Shift</kbd><kbd>D</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SHIFT.png" alt="SHIFT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/D.png" alt="D"></td>
                 <td>Duplicate</td>
                 <td align="center" rowspan="1"><img src="https://i.imgur.com/IJh7v3z.gif" alt="Demo"></td>
             </tr>
@@ -227,48 +227,48 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>G</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/G.png" alt="G"></td>
                 <td>Begin Moving, Add Transform if Needed</td>
                 <td align="center" rowspan="11"><img src="https://i.imgur.com/yQCFI0s.gif" alt="Demo"></td>
             </tr>
             <tr>
-                <td align="center"><kbd>Shift</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SHIFT.png" alt="SHIFT"></td>
                 <td>Hold to Enable Fine Tuning</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Ctrl</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/CTRL.png" alt="CTRL"></td>
                 <td>Hold to Enable Snapping</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Right_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/RIGHTMOUSE.png" alt="RIGHTMOUSE"></td>
                 <td>Escape Grab Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Esc</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ESC.png" alt="ESC"></td>
                 <td>Escape Grab Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Left_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/LEFTMOUSE.png" alt="LEFTMOUSE"></td>
                 <td>Set Position, End Grab Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Enter</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/RET.png" alt="RET"></td>
                 <td>Set Position, End Grab Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>0</kbd><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>7</kbd><kbd>8</kbd><kbd>9</kbd><kbd>.</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ZERO.png" alt="ZERO"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ONE.png" alt="ONE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/TWO.png" alt="TWO"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/THREE.png" alt="THREE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/FOUR.png" alt="FOUR"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/FIVE.png" alt="FIVE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SIX.png" alt="SIX"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SEVEN.png" alt="SEVEN"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/EIGHT.png" alt="EIGHT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/NINE.png" alt="NINE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/PERIOD.png" alt="PERIOD"></td>
                 <td>Set Position by Value Entered</td>
             </tr>
             <tr>
-                <td align="center"><kbd>X</kbd><kbd>Y</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/X.png" alt="X"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/Y.png" alt="Y"></td>
                 <td>Constrain Grabbing to Respective Axis</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Middle_Mouse_Button</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/MIDDLEMOUSE.png" alt="MIDDLEMOUSE"></td>
                 <td>Constrain Grabbing to Axis</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Alt</kbd><kbd>G</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ALT.png" alt="ALT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/G.png" alt="G"></td>
                 <td>Set Position to [0, 0]</td>
             </tr>
         </table>
@@ -282,7 +282,7 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>Period</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/PERIOD.png" alt="PERIOD"></td>
                 <td>Increment Pivot</td>
                 <td align="center" rowspan="1"><img src="https://i.imgur.com/3ru1Xl6.gif" alt="Demo"></td>
             </tr>
@@ -299,7 +299,7 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>Tab</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/TAB.png" alt="TAB"></td>
                 <td>Meta Toggle</td>
                 <td align="center" rowspan="1"><img src="https://i.imgur.com/ya0nEgV.gif" alt="Demo"></td>
             </tr>
@@ -313,40 +313,40 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>R</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/R.png" alt="R"></td>
                 <td>Begin Rotating, Add Transform if Needed</td>
                 <td align="center" rowspan="9"><img src="https://i.imgur.com/SyL2HeA.gif" alt="Demo"></td>
             </tr>
             <tr>
-                <td align="center"><kbd>Shift</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SHIFT.png" alt="SHIFT"></td>
                 <td>Hold to Enable Fine Tuning</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Ctrl</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/CTRL.png" alt="CTRL"></td>
                 <td>Hold to Enable Stepwise Rotation</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Right_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/RIGHTMOUSE.png" alt="RIGHTMOUSE"></td>
                 <td>Escape Rotate Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Esc</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ESC.png" alt="ESC"></td>
                 <td>Escape Rotate Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Left_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/LEFTMOUSE.png" alt="LEFTMOUSE"></td>
                 <td>Set Rotation, End Rotate Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Enter</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/RET.png" alt="RET"></td>
                 <td>Set Rotation, End Rotate Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>0</kbd><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>7</kbd><kbd>8</kbd><kbd>9</kbd><kbd>.</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ZERO.png" alt="ZERO"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ONE.png" alt="ONE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/TWO.png" alt="TWO"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/THREE.png" alt="THREE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/FOUR.png" alt="FOUR"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/FIVE.png" alt="FIVE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SIX.png" alt="SIX"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SEVEN.png" alt="SEVEN"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/EIGHT.png" alt="EIGHT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/NINE.png" alt="NINE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/PERIOD.png" alt="PERIOD"></td>
                 <td>Set Rotation to Value Entered</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Alt</kbd><kbd>R</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ALT.png" alt="ALT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/R.png" alt="R"></td>
                 <td>Set Rotation to 0 Degrees</td>
             </tr>
         </table>
@@ -359,48 +359,48 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>S</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/S.png" alt="S"></td>
                 <td>Begin Scaling, Add Transform if Needed</td>
                 <td align="center" rowspan="11"><img src="https://i.imgur.com/oAxSEYB.gif" alt="Demo"></td>
             </tr>
             <tr>
-                <td align="center"><kbd>Shift</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SHIFT.png" alt="SHIFT"></td>
                 <td>Enable Fine Tuning</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Ctrl</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/CTRL.png" alt="CTRL"></td>
                 <td>Enable Snap scaling</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Right_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/RIGHTMOUSE.png" alt="RIGHTMOUSE"></td>
                 <td>Escape Scale Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Esc</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ESC.png" alt="ESC"></td>
                 <td>Escape Scale Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Left_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/LEFTMOUSE.png" alt="LEFTMOUSE"></td>
                 <td>Set Scale, End Scale Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Enter</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/RET.png" alt="RET"></td>
                 <td>Set Scale, End Scale Mode</td>
             </tr>
             <tr>
-                <td align="center"><kbd>0</kbd><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>7</kbd><kbd>8</kbd><kbd>9</kbd><kbd>.</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ZERO.png" alt="ZERO"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ONE.png" alt="ONE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/TWO.png" alt="TWO"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/THREE.png" alt="THREE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/FOUR.png" alt="FOUR"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/FIVE.png" alt="FIVE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SIX.png" alt="SIX"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SEVEN.png" alt="SEVEN"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/EIGHT.png" alt="EIGHT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/NINE.png" alt="NINE"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/PERIOD.png" alt="PERIOD"></td>
                 <td>Set Scale by Value Entered</td>
             </tr>
             <tr>
-                <td align="center"><kbd>X</kbd><kbd>Y</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/X.png" alt="X"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/Y.png" alt="Y"></td>
                 <td>Constrain Scaling to Respective Axis</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Middle_Mouse_Button</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/MIDDLEMOUSE.png" alt="MIDDLEMOUSE"></td>
                 <td>Constrain Scaling to Axis</td>
             </tr>
             <tr>
-                <td align="center"><kbd>Alt</kbd><kbd>S</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ALT.png" alt="ALT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/S.png" alt="S"></td>
                 <td>Unscale</td>
             </tr>
         </table>
@@ -413,16 +413,16 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>Right_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/RIGHTMOUSE.png" alt="RIGHTMOUSE"></td>
                 <td>Select Visible Strip</td>
                 <td align="center" rowspan="3"><img src="https://i.imgur.com/EVzmMAm.gif" alt="Demo"></td>
             </tr>
             <tr>
-                <td align="center"><kbd>Shift</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SHIFT.png" alt="SHIFT"></td>
                 <td>Enable Multi Selection</td>
             </tr>
             <tr>
-                <td align="center"><kbd>A</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/A.png" alt="A"></td>
                 <td>Toggle Selection</td>
             </tr>
         </table>
@@ -436,12 +436,12 @@
                 <th width=417px>Function</th>
                 <th width=256px>Demo</th>
             <tr>
-                <td align="center"><kbd>Left_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/LEFTMOUSE.png" alt="LEFTMOUSE"></td>
                 <td>Cursor 2D to mouse position</td>
                 <td align="center" rowspan="2"><img src="https://i.imgur.com/1uTD9C1.gif" alt="Demo"></td>
             </tr>
             <tr>
-                <td align="center"><kbd>Ctrl</kbd><kbd>Left_Mouse</kbd></td>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/CTRL.png" alt="CTRL"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/LEFTMOUSE.png" alt="LEFTMOUSE"></td>
                 <td>Snap Cursor 2D to nearest strip corner or mid-point</td>
             </tr>
         </table>
