@@ -26,7 +26,7 @@ class Scale(bpy.types.Operator):
     bl_idname = "vse_transform_tools.scale"
     bl_label = "Scale"
     bl_description = "Scale strips in Image Preview Window"
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_options = {'REGISTER', 'UNDO', 'GRAB_CURSOR', 'BLOCKING'}
 
     axis_x = True
     axis_y = True

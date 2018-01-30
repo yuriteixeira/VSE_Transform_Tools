@@ -21,7 +21,7 @@ class Rotate(bpy.types.Operator):
     bl_idname = "vse_transform_tools.rotate"
     bl_label = "Rotate"
     bl_description = "Rotate strips in the Image Preview"
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_options = {'REGISTER', 'UNDO', 'GRAB_CURSOR', 'BLOCKING'}
 
     first_mouse = Vector([0, 0])
     tab_init = []

@@ -24,7 +24,7 @@ class Grab(bpy.types.Operator):
     bl_idname = "vse_transform_tools.grab"
     bl_label = "Grab"
     bl_description = "Change position of strips in Image Preview Window"
-    bl_options = {'REGISTER', 'UNDO'}
+    bl_options = {'REGISTER', 'UNDO', 'GRAB_CURSOR', 'BLOCKING'}
 
     axis_x = True
     axis_y = True
@@ -72,7 +72,6 @@ class Grab(bpy.types.Operator):
         return False
 
     def modal(self, context, event):
-        
         if self.tab:
             scene = context.scene
             res_x = scene.render.resolution_x
