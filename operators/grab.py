@@ -56,9 +56,9 @@ class Grab(bpy.types.Operator):
 
     horizontal_interests = []
     vertical_interests = []
-    
+
     initially_shifted = False
-    
+
     last_snap_orientation = ""
     last_line_loc = None
     orientation_conflict_winner = 0
@@ -88,7 +88,7 @@ class Grab(bpy.types.Operator):
 
             func_constrain_axis_mmb(self, context, event.type, event.value, 0)
             func_constrain_axis(self, context, event.type, event.value, 0)
-            
+
             process_input(self, event.type, event.value)
             if self.key_val != '':
                 try:
@@ -109,10 +109,10 @@ class Grab(bpy.types.Operator):
             elif not self.initially_shifted and event.shift and self.key_val == '':
                 self.slow_act_fm = (self.mouse_pos - self.pre_slow_vec) / self.slow_factor
                 self.vec_act = (self.pre_slow_vec - self.first_mouse_pos - self.reduction_vec) + self.slow_act_fm
-            
+
             elif 'SHIFT' in event.type and event.value == 'RELEASE':
                 self.initially_shifted = False
-            
+
             info_x = round(self.vec_act.x, 5)
             info_y = round(self.vec_act.y, 5)
             if not self.axis_x:
@@ -125,10 +125,10 @@ class Grab(bpy.types.Operator):
                 context.area.header_text_set("Dx: %.4f Dy: %.4f" % (info_x, info_y))
 
             snap_distance = int(max([res_x, res_y]) / 100)
-            
+
             group_pos_x = self.center_area.x + self.vec_act.x
             group_pos_y = self.center_area.y + self.vec_act.y
-            
+
             current_left = group_pos_x - (self.group_width / 2)
             current_right = group_pos_x + (self.group_width / 2)
             current_bottom = group_pos_y - (self.group_height / 2)
@@ -145,15 +145,15 @@ class Grab(bpy.types.Operator):
                     if (current_left < line + snap_distance and
                        current_left > line - snap_distance):
                         trans_offset_x = line - current_left
-                        
+
                         line_locs.append((line * fac * preview_zoom) + offset_x)
                         orientations.append("VERTICAL")
-                        
+
                         break
                     if (current_right > line - snap_distance and
                        current_right < line + snap_distance):
                         trans_offset_x = line - current_right
-                        
+
                         line_locs.append((line * fac * preview_zoom) + offset_x)
                         orientations.append("VERTICAL")
 
@@ -161,44 +161,44 @@ class Grab(bpy.types.Operator):
                     if (current_bottom < line + snap_distance and
                        current_bottom > line - snap_distance):
                         trans_offset_y = line - current_bottom
-                        
+
                         line_locs.append((line * fac * preview_zoom) + offset_y)
                         orientations.append("HORIZONTAL")
-                        
+
                         break
                     if (current_top > line - snap_distance and
                        current_top < line + snap_distance):
                         trans_offset_y = line - current_top
-                        
+
                         line_locs.append((line * fac * preview_zoom) + offset_y)
                         orientations.append("HORIZONTAL")
-                
+
                 orientation = ""
                 line_loc = None
                 if len(orientations) > 1 and self.last_snap_orientation != "" and self.orientation_conflict_winner == -1:
                     index = orientations.index(self.last_snap_orientation)
                     orientations.pop(index)
                     line_locs.pop(index)
-                    
+
                     self.orientation_conflict_winner = int(not index)
-                    
+
                     orientation = orientations[0]
                     line_loc = line_locs[0]
-                
+
                 elif len(orientations) > 1 and self.last_snap_orientation == "" and self.orientation_conflict_winner == -1:
                     self.orientation_conflict_winner = 0
                     orientation = orientations[0]
                     line_loc = line_locs[0]
-                
+
                 elif len(orientations) > 1:
                     orientation = orientations[self.orientation_conflict_winner]
                     line_loc = line_locs[self.orientation_conflict_winner]
-                
+
                 elif len(orientations) > 0:
                     self.orientation_conflict_winner = -1
                     orientation = orientations[0]
                     line_loc = line_locs[0]
-                
+
                 if orientation != "" and (self.handle_snap == None or "RNA_HANDLE_REMOVED" in str(self.handle_snap)):
                     args = (self, line_loc, orientation)
                     self.handle_snap = bpy.types.SpaceSequenceEditor.draw_handler_add(
@@ -209,10 +209,10 @@ class Grab(bpy.types.Operator):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
                     self.last_snap_orientation = orientation
                     self.last_line_loc = line_loc
-            
+
             elif self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
-                
+
 
             for strip, init_pos in zip(self.tab, self.tab_init):
                 pos_x = init_pos[0] + self.vec_act.x + trans_offset_x
@@ -228,7 +228,7 @@ class Grab(bpy.types.Operator):
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(
                         self.handle_axes, 'PREVIEW')
-                
+
                 if self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
@@ -245,10 +245,10 @@ class Grab(bpy.types.Operator):
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(
                         self.handle_axes, 'PREVIEW')
-                
+
                 if self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
-                
+
                 for strip, init_pos in zip(self.tab, self.tab_init):
                     strip.translate_start_x = set_pos_x(strip, init_pos[0])
                     strip.translate_start_y = set_pos_y(strip, init_pos[1])
@@ -261,11 +261,13 @@ class Grab(bpy.types.Operator):
 
     def invoke(self, context, event):
         if event.alt:
-            for strip in context.selected_sequences:
-                if strip.type == 'TRANSFORM':
-                    strip.translate_start_x = 0
-                    strip.translate_start_y = 0
-                return {'FINISHED'}
+            selected = ensure_transforms()
+            for strip in selected:
+                strip.select = True
+                strip.translate_start_x = 0
+                strip.translate_start_y = 0
+            return {'FINISHED'}
+
         else:
             scene = context.scene
 
@@ -294,7 +296,7 @@ class Grab(bpy.types.Operator):
 
             self.tab = ensure_transforms()
             visible_strips = get_visible_strips()
-            
+
             for strip in visible_strips:
                 if strip not in self.tab:
                     left, right, bottom, top = get_group_box([strip])
@@ -323,10 +325,10 @@ class Grab(bpy.types.Operator):
 
                 self.center_area = Vector([center_x, center_y])
 
-            # Prevents weird behavior if this op is called by 
+            # Prevents weird behavior if this op is called by
             # bpy.ops.vse_transform_tools.duplicate()
             if event.shift:
                 self.initially_shifted = True
-            
+
             context.window_manager.modal_handler_add(self)
             return {'RUNNING_MODAL'}

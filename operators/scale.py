@@ -38,7 +38,7 @@ class Scale(bpy.types.Operator):
 
     vec_init = Vector([0, 0])
     vec_act = Vector([0, 0])
-    
+
     center_c2d = Vector([0, 0])
 
     center_area = Vector([0, 0])
@@ -57,12 +57,12 @@ class Scale(bpy.types.Operator):
     pre_slow_vec = Vector([0, 0])
     length_subtraction = 0
     slow_diff = 0
-    
+
     horizontal_interests = []
     vertical_interests = []
-    
+
     original_group_box = [Vector([0, 0]), Vector([0, 0]), Vector([0, 0]), Vector([0, 0])]
-    
+
     last_snap_orientation = ""
     last_line_loc = None
     orientation_conflict_winner = 0
@@ -123,34 +123,34 @@ class Scale(bpy.types.Operator):
             diff_y = 1
             if self.axis_y:
                 diff_y = diff
-    
+
             precision = 5
             snap_distance = int(max([res_x, res_y]) / 100)
             if event.ctrl:
-            
+
                 if context.scene.seq_pivot_type == '2':
                     origin_point = Vector([self.center_c2d.x + (res_x / 2), self.center_c2d.y + (res_y / 2)])
                 else:
                     origin_x = self.center_real.x + (res_x / 2)
                     origin_y = self.center_real.y + (res_y / 2)
                     origin_point = Vector([origin_x, origin_y])
-                    
+
                 orig_left = self.original_group_box[0]
                 trans_diff_l = (((origin_point.x - orig_left) * diff_x) - (origin_point.x - orig_left))
                 current_left = orig_left - trans_diff_l
-                
+
                 orig_right = self.original_group_box[1]
                 trans_diff_r = (((origin_point.x - orig_right) * diff_x) - (origin_point.x - orig_right))
                 current_right = orig_right - trans_diff_r
-                
+
                 orig_bottom = self.original_group_box[2]
                 trans_diff_b = (((origin_point.y - orig_bottom) * diff_y) - (origin_point.y - orig_bottom))
                 current_bottom = orig_bottom - trans_diff_b
-                
+
                 orig_top = self.original_group_box[3]
                 trans_diff_t = (((origin_point.y - orig_top) * diff_y) - (origin_point.y - orig_top))
                 current_top = orig_top - trans_diff_t
-                
+
                 orientations = []
                 line_locs = []
                 offset_x, offset_y, fac, preview_zoom = get_preview_offset()
@@ -161,16 +161,16 @@ class Scale(bpy.types.Operator):
                             current_left > line - snap_distance and
                             abs(origin_point.x - orig_left) > snap_distance):
                         scale_to_line = (origin_point.x - line) / (origin_point.x - orig_left)
-                            
+
                         if self.axis_y:
                             diff_y *= (scale_to_line / diff_x)
                         diff_x = scale_to_line
-                        
+
                         line_locs.append((line * fac * preview_zoom) + offset_x)
                         orientations.append("VERTICAL")
-                        
+
                         break
-  
+
                     if (current_right > line - snap_distance and
                             current_right < line + snap_distance and
                             abs(origin_point.x - orig_right) > snap_distance):
@@ -179,23 +179,23 @@ class Scale(bpy.types.Operator):
                         if self.axis_y:
                             diff_y *= (scale_to_line / diff_x)
                         diff_x = scale_to_line
-                        
+
                         line_locs.append((line * fac * preview_zoom) + offset_x)
                         orientations.append("VERTICAL")
-                        
+
                 for line in self.vertical_interests:
                     if (current_bottom < line + snap_distance and
                             current_bottom > line - snap_distance and
                             abs(origin_point.y - orig_bottom) > snap_distance):
                         scale_to_line = (origin_point.y - line) / (origin_point.y - orig_bottom)
-                        
+
                         if self.axis_x:
                             diff_x *= (scale_to_line / diff_y)
                         diff_y = scale_to_line
-                        
+
                         line_locs.append((line * fac * preview_zoom) + offset_y)
                         orientations.append("HORIZONTAL")
-                        
+
                         break
 
                     if (current_top > line - snap_distance and
@@ -206,7 +206,7 @@ class Scale(bpy.types.Operator):
                         if self.axis_x:
                             diff_x *= (scale_to_line / diff_y)
                         diff_y = scale_to_line
-                        
+
                         line_locs.append((line * fac * preview_zoom) + offset_y)
                         orientations.append("HORIZONTAL")
 
@@ -216,26 +216,26 @@ class Scale(bpy.types.Operator):
                     index = orientations.index(self.last_snap_orientation)
                     orientations.pop(index)
                     line_locs.pop(index)
-                    
+
                     self.orientation_conflict_winner = int(not index)
-                    
+
                     orientation = orientations[0]
                     line_loc = line_locs[0]
-                
+
                 elif len(orientations) > 1 and self.last_snap_orientation == "" and self.orientation_conflict_winner == -1:
                     self.orientation_conflict_winner = 0
                     orientation = orientations[0]
                     line_loc = line_locs[0]
-                
+
                 elif len(orientations) > 1:
                     orientation = orientations[self.orientation_conflict_winner]
                     line_loc = line_locs[self.orientation_conflict_winner]
-                
+
                 elif len(orientations) > 0:
                     self.orientation_conflict_winner = 0
                     orientation = orientations[0]
                     line_loc = line_locs[0]
-                
+
                 if orientation != "" and (self.handle_snap == None or "RNA_HANDLE_REMOVED" in str(self.handle_snap)):
                     args = (self, line_loc, orientation)
                     self.handle_snap = bpy.types.SpaceSequenceEditor.draw_handler_add(
@@ -246,7 +246,7 @@ class Scale(bpy.types.Operator):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
                     self.last_snap_orientation = orientation
                     self.last_line_loc = line_loc
-            
+
             elif self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
@@ -285,7 +285,7 @@ class Scale(bpy.types.Operator):
                not self.tab):
 
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_line, 'PREVIEW')
-                
+
                 if self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
@@ -317,10 +317,10 @@ class Scale(bpy.types.Operator):
                     strip.translate_start_y = set_pos_y(strip, init_t[1])
 
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_line, 'PREVIEW')
-                
+
                 if self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
-                
+
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')
                 context.area.header_text_set()
@@ -341,9 +341,11 @@ class Scale(bpy.types.Operator):
         self.vertical_interests = [0, res_y]
 
         if event.alt :
-            for strip in context.selected_sequences:
-                if strip.type == 'TRANSFORM':
-                    reset_transform_scale(strip)
+            selected = ensure_transforms()
+            for strip in selected:
+                strip.select = True
+                reset_transform_scale(strip)
+
             return {'FINISHED'}
 
         else:
@@ -364,7 +366,7 @@ class Scale(bpy.types.Operator):
 
             self.tab = ensure_transforms()
             visible_strips = get_visible_strips()
-            
+
             for strip in visible_strips:
                 if strip not in self.tab:
                     left, right, bottom, top = get_group_box([strip])
@@ -394,7 +396,7 @@ class Scale(bpy.types.Operator):
                 center_y = flip_y * get_pos_y(strip)
                 self.center_real += Vector([center_x, center_y])
                 self.center_area += Vector([center_x, center_y])
-                
+
             if len(self.tab) > 0:
                 self.center_real /= len(self.tab)
                 self.original_group_box = get_group_box(self.tab)

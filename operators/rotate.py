@@ -252,9 +252,10 @@ class Rotate(bpy.types.Operator):
         bpy.ops.vse_transform_tools.initialize_pivot()
 
         if event.alt:
-            for strip in context.selected_sequences:
-                if strip.type == 'TRANSFORM':
-                    strip.rotation_start = 0.0
+            selected = ensure_transforms()
+            for strip in selected:
+                strip.select = True
+                strip.rotation_start = 0.0
             return {'FINISHED'}
 
         else:
