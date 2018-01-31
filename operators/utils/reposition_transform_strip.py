@@ -6,6 +6,8 @@ from .get_transform_box import get_transform_box
 from .get_strip_box import get_strip_box
 from .calculate_bounding_box import calculate_bounding_box
 
+from .get_strip_corners import get_strip_corners
+
 
 def reposition_transform_strip(strip, group_box):
     """Reposition a transform strip"""
@@ -21,18 +23,13 @@ def reposition_transform_strip(strip, group_box):
 
     min_left, max_right, min_bottom, max_top = group_box
 
-    left, right, bottom, top = get_transform_box(strip)
+    bl, tl, tr, br = get_strip_corners(strip)
+    vectors = [bl, tl, tr, br]
+    b_left = min(vectors, key=attrgetter('x')).x
+    b_right = max(vectors, key=attrgetter('x')).x
 
-    width = right - left
-    height = top - bottom
-    rot = math.radians(strip.rotation_start)
-
-    box = calculate_bounding_box(
-        left, right, bottom, top, rot)
-    b_left = box[0]
-    b_right = box[1]
-    b_bottom = box[2]
-    b_top = box[3]
+    b_bottom = min(vectors, key=attrgetter('y')).y
+    b_top = max(vectors, key=attrgetter('y')).y
 
     primary_offset_x = b_left - min_left
     primary_offset_y = b_bottom - min_bottom

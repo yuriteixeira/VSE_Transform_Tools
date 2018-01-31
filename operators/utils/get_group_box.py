@@ -1,5 +1,6 @@
 import bpy
 import math
+from operator import attrgetter
 
 from .get_nontransformed_strips import get_nontransformed_strips
 from .get_transform_strips import get_transform_strips
@@ -7,7 +8,7 @@ from .get_transform_strips import get_transform_strips
 from .get_strip_box import get_strip_box
 from .get_transform_box import get_transform_box
 
-from .calculate_bounding_box import calculate_bounding_box
+from .get_strip_corners import get_strip_corners
 
 def get_group_box(strips):
     '''
@@ -25,13 +26,14 @@ def get_group_box(strips):
     transformed = get_transform_strips(strips)
 
     for strip in transformed:
-        left, right, bottom, top = get_transform_box(strip)
-        if not strip.use_translation and not strip.use_crop:
-            rot = math.radians(strip.rotation_start)
-            bbox = calculate_bounding_box(left, right, bottom, top, rot)
-            boxes.append(bbox)
-        else:
-            boxes.append([left, right, bottom, top])
+        bl, tl, tr, br = get_strip_corners(strip)
+        vectors = [bl, tl, tr, br]
+        left = min(vectors, key=attrgetter('x')).x
+        right = max(vectors, key=attrgetter('x')).x
+
+        bottom = min(vectors, key=attrgetter('y')).y
+        top = max(vectors, key=attrgetter('y')).y
+        boxes.append([left, right, bottom, top])
 
     res_x = scene.render.resolution_x
     res_y = scene.render.resolution_y
