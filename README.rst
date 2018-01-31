@@ -110,7 +110,7 @@
             </tr>
         </table>
         <h3><a name="Autocrop" href="#top_Autocrop">Autocrop</a></h3>
-    <p>Sets the scene resolution to fit all visible selected content in 
+    <p>Sets the scene resolution to fit all visible content in
     the preview window without changing strip sizes.</p>
     
         <table>

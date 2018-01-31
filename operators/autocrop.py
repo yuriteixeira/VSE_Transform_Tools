@@ -1,6 +1,7 @@
 import bpy
 import math
 
+from .utils import get_visible_strips
 from .utils import get_group_box
 from .utils import reposition_strip
 from .utils import reposition_transform_strip
@@ -12,8 +13,8 @@ from .utils import get_visible_strips
 class Autocrop(bpy.types.Operator):
     """
     ![Demo](https://i.imgur.com/IarxF14.gif)
-    
-    Sets the scene resolution to fit all visible selected content in 
+
+    Sets the scene resolution to fit all visible content in
     the preview window without changing strip sizes.
     """
     bl_idname = "vse_transform_tools.autocrop"
@@ -30,16 +31,12 @@ class Autocrop(bpy.types.Operator):
 
     def execute(self, context):
         scene = context.scene
-        sequences = get_visible_strips()
-        
-        strips = []
-        for seq in sequences:
-            if seq.select:
-                strips.append(seq)
+
+        strips = get_visible_strips()
 
         if len(strips) == 0:
             return {'FINISHED'}
-            
+
         group_box = get_group_box(strips)
 
         min_left, max_right, min_bottom, max_top = group_box

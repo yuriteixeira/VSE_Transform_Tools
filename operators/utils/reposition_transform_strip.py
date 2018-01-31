@@ -1,5 +1,5 @@
 import bpy
-
+from operator import attrgetter
 import math
 
 from .get_transform_box import get_transform_box
@@ -22,6 +22,13 @@ def reposition_transform_strip(strip, group_box):
     res_y = scene.render.resolution_y
 
     min_left, max_right, min_bottom, max_top = group_box
+
+    left, right, bottom, top = get_transform_box(strip)
+
+    width = right - left
+    height = top - bottom
+
+    rot = math.radians(strip.rotation_start)
 
     bl, tl, tr, br = get_strip_corners(strip)
     vectors = [bl, tl, tr, br]
