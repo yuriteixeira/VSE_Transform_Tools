@@ -39,7 +39,7 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
     strip_rot = init_rot + flip_x * flip_y * rot
 
     if event.ctrl:
-        strip_rot = int(strip_rot / self.stepwise_increment)
+        strip_rot = math.ceil(strip_rot / self.stepwise_increment)
         strip_rot *= self.stepwise_increment
 
     pivot_type = bpy.context.scene.seq_pivot_type

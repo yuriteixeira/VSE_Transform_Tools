@@ -90,8 +90,9 @@ class Rotate(bpy.types.Operator):
                     self, strip, rot, init_rot, init_t, event)
 
             if event.ctrl:
-                rot = int(rot / self.stepwise_increment)
+                rot = math.ceil(rot / self.stepwise_increment)
                 rot *= self.stepwise_increment
+                rot %= 360
 
             info_rot = (rot)
             context.area.header_text_set("Rotation %.4f " % info_rot)
