@@ -15,7 +15,6 @@ from ..utils.selection import ensure_transforms
 
 from ..utils.draw import draw_px_point
 
-from .get_rotation_change import get_rotation_change
 from .apply_strip_rotation import apply_strip_rotation
 
 

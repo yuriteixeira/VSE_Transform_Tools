@@ -29,6 +29,7 @@ class Grab(bpy.types.Operator):
     bl_description = "Change position of strips in Image Preview Window"
     bl_options = {'REGISTER', 'UNDO', 'GRAB_CURSOR', 'BLOCKING'}
 
+    local_axis = True
     axis_x = True
     axis_y = True
     choose_axis = False
@@ -90,6 +91,10 @@ class Grab(bpy.types.Operator):
 
 
             func_constrain_axis_mmb(self, context, event.type, event.value, 0)
+
+            #angle = 0
+            #if self.local_axis:
+
             func_constrain_axis(self, context, event.type, event.value, 0)
 
             process_input(self, event.type, event.value)

@@ -1,7 +1,6 @@
 import bpy
 import bgl
 
-# Will change this, I hate importing from parent libs (spaghetti code)
 from ..geometry.get_group_box import get_group_box
 from ..geometry.get_preview_offset import get_preview_offset
 
