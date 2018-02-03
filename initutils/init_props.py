@@ -34,6 +34,7 @@ def init_props():
         ('2', '2D Cursor', '', 'CURSOR', 2),
         ('3', 'Active Strip', '', 'ROTACTIVE', 3)
     )
+
     bpy.types.Scene.seq_pivot_type = bpy.props.EnumProperty(
         name="Pivot Point",
         default="1",

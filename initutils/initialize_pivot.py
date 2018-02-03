@@ -25,7 +25,6 @@ class InitializePivot(bpy.types.Operator):
         return False
 
     def execute(self, context):
-        global handle_2d_cursor
         scene = context.scene
         args = (self, context)
 
@@ -33,9 +32,5 @@ class InitializePivot(bpy.types.Operator):
             seq_editor = bpy.types.SpaceSequenceEditor
             self.handle_2d_cursor = seq_editor.draw_handler_add(
                 draw_2d_cursor, args, 'PREVIEW', 'POST_PIXEL')
-        elif not scene.seq_pivot_type == '2' and handle_2d_cursor:
-            bpy.types.SpaceSequenceEditor.draw_handler_remove(
-                self.handle_2d_cursor, 'PREVIEW')
-            self.handle_2d_cursor = None
 
         return {'FINISHED'}
