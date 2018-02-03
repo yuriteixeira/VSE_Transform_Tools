@@ -14,6 +14,20 @@ def get_important_edge_points():
     """
     Get the edge locations for where a user may want to snap the cursor
     to.
+
+    This is the top left, top middle, top right, right middle, bottom
+    right, bottom middle, bottom left, left middle, and center points of
+    all visible strips in the preview window.::
+
+        x------x------x
+        |             |
+        x      x      x
+        |             |
+        x------x------x
+
+    Returns
+    -------
+    list of mathutils.Vector
     """
     scene = bpy.context.scene
 

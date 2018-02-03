@@ -6,6 +6,18 @@ def get_vertical_translation(strips):
     """
     Determine how many channels up the strips need to be moved
     in order to accomodate them all
+
+    Parameters
+    ----------
+    strips : list of bpy.types.Sequence()
+        A group of strips in the sequencer
+
+    Returns
+    -------
+    int
+        The number of channels UP that the group of strips need to move
+        in order to prevent any conflicts with other strips in the
+        sequencer.
     """
     scene = bpy.context.scene
 
