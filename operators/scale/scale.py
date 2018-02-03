@@ -38,6 +38,7 @@ class Scale(bpy.types.Operator):
 
     vec_init = Vector([0, 0])
     vec_act = Vector([0, 0])
+    vec_prev = Vector([0, 0])
 
     center_c2d = Vector([0, 0])
 
@@ -54,9 +55,7 @@ class Scale(bpy.types.Operator):
     group_height = 0
 
     slow_factor = 10
-    pre_slow_vec = Vector([0, 0])
-    length_subtraction = 0
-    slow_diff = 0
+    scale_prev = 1.0
 
     horizontal_interests = []
     vertical_interests = []
@@ -82,11 +81,18 @@ class Scale(bpy.types.Operator):
         res_y = scene.render.resolution_y
 
         if self.tab:
-            self.mouse_pos = Vector(
-                (event.mouse_region_x, event.mouse_region_y))
-
+            self.mouse_pos = Vector([event.mouse_region_x, event.mouse_region_y])
             self.vec_act = self.mouse_pos - self.center_area
-            diff = (self.vec_act.length - self.length_subtraction) / self.vec_init.length
+
+            addition = (self.vec_act.length - self.vec_prev.length) / self.vec_init.length
+            if event.shift:
+                addition /= self.slow_factor
+
+            self.scale_prev += addition
+
+            diff = float(self.scale_prev)
+
+            self.vec_prev = Vector(self.vec_act)
 
             func_constrain_axis_mmb(
                 self, context, event.type, event.value,
@@ -102,19 +108,6 @@ class Scale(bpy.types.Operator):
                     diff = abs(float(self.key_val))
                 except ValueError:
                     pass
-
-            if 'SHIFT' in event.type and event.value == 'PRESS' and self.key_val == '':
-                self.pre_slow_vec = self.vec_act
-
-            elif 'SHIFT' in event.type and event.value == 'RELEASE' and self.key_val == '':
-                diff = ((self.pre_slow_vec.length - self.length_subtraction) / self.vec_init.length) + self.slow_diff
-                self.length_subtraction += ((self.vec_act.length - self.pre_slow_vec.length) * (self.slow_factor - 1)) / self.slow_factor
-
-            elif event.shift and self.key_val == '':
-                len_diff = self.vec_act.length - self.pre_slow_vec.length
-                adjusted_len_diff = (len_diff / self.slow_factor) + self.pre_slow_vec.length
-                self.slow_diff = (adjusted_len_diff / self.pre_slow_vec.length) - 1
-                diff = ((self.pre_slow_vec.length - self.length_subtraction) / self.vec_init.length) + self.slow_diff
 
             diff_x = 1
             if self.axis_x:
@@ -438,6 +431,8 @@ class Scale(bpy.types.Operator):
                 self.vec_init = Vector(
                     (event.mouse_region_x, event.mouse_region_y))
                 self.vec_init -= self.center_area
+
+                self.vec_prev = Vector(self.vec_init)
 
                 args = (self, context)
                 self.handle_line = bpy.types.SpaceSequenceEditor.draw_handler_add(
