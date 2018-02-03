@@ -1,5 +1,6 @@
 import bpy
-from .draw_callback_draw_axes import draw_callback_draw_axes
+from .draw import draw_axes
+
 
 def func_constrain_axis(self, context, key, value, angle):
     if len(self.tab) > 1:
@@ -8,7 +9,7 @@ def func_constrain_axis(self, context, key, value, angle):
         if self.handle_axes == None:
             args = (self, context, angle)
             self.handle_axes = bpy.types.SpaceSequenceEditor.draw_handler_add(
-                draw_callback_draw_axes, args, 'PREVIEW', 'POST_PIXEL')
+                draw_axes, args, 'PREVIEW', 'POST_PIXEL')
         if key == 'X' and value == 'PRESS':
             if self.axis_x == True and self.axis_y == True:
                 self.axis_y = False

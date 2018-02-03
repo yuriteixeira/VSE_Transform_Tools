@@ -1,6 +1,7 @@
 def process_input(self, key, value):
     """
     Get the movement value inputted by the user.
+
     For example, after pressing r to rotate, the user can input a
     rotation amount (in degrees) by pressing numbers on the keyboard
     """

@@ -19,39 +19,37 @@
     selected strips">Add Transform</a></td>
             <td width=222px><a name="top_Crop" href="#Crop" title="Crop a strip in the Image
     Preview">Crop</a></td>
-            <td width=222px><a name="top_Grab" href="#Grab" title="Change position of strips in
-    Image Preview Window">Grab</a></td>
-            <td width=222px><a name="top_Scale" href="#Scale" title="Scale strips in Image Preview
-    Window">Scale</a></td>
-        </tr>
-        <tr>
-            <td width=222px><a name="top_Adjust_Alpha" href="#Adjust_Alpha" title="Adjust alpha (opacity) of
-    strips in the Image Preview">Adjust Alpha</a></td>
-            <td width=222px><a name="top_Decrement_Pivot" href="#Decrement_Pivot" title="Changes the pivot mode">Decrement Pivot</a></td>
-            <td width=222px><a name="top_Increment_Pivot" href="#Increment_Pivot" title="Changes the pivot mode">Increment Pivot</a></td>
-            <td width=222px><a name="top_Select" href="#Select" title="Select visible sequences from
-    the Image Preview">Select</a></td>
-        </tr>
-        <tr>
-            <td width=222px><a name="top_Autocrop" href="#Autocrop" title="Collapse canvas to fit visible
-    content">Autocrop</a></td>
-            <td width=222px><a name="top_Delete" href="#Delete" title="Delete selected and their
-    inputs recursively">Delete</a></td>
             <td width=222px><a name="top_Meta_Toggle" href="#Meta_Toggle" title="Toggle the Meta to reveal
     sequences within">Meta Toggle</a></td>
             <td width=222px><a name="top_Set_Cursor2D" href="#Set_Cursor2D" title="Set the pivot point location">Set Cursor2D</a></td>
         </tr>
         <tr>
-            <td width=222px><a name="top_Call_Menu" href="#Call_Menu" title="Open keyframe insertion menu">Call Menu</a></td>
-            <td width=222px><a name="top_Duplicate" href="#Duplicate" title="Duplicate selected and their
-    inputs recursively">Duplicate</a></td>
+            <td width=222px><a name="top_Adjust_Alpha" href="#Adjust_Alpha" title="Adjust alpha (opacity) of
+    strips in the Image Preview">Adjust Alpha</a></td>
+            <td width=222px><a name="top_Delete" href="#Delete" title="Delete selected and their
+    inputs recursively">Delete</a></td>
             <td width=222px><a name="top_Rotate" href="#Rotate" title="Rotate strips in the Image
     Preview">Rotate</a></td>
-            <td width=222px rowspan="1"></td>
+            <td width=222px rowspan="3"></td>
+        </tr>
+        <tr>
+            <td width=222px><a name="top_Autocrop" href="#Autocrop" title="Collapse canvas to fit visible
+    content">Autocrop</a></td>
+            <td width=222px><a name="top_Duplicate" href="#Duplicate" title="Duplicate selected and their
+    inputs recursively">Duplicate</a></td>
+            <td width=222px><a name="top_Scale" href="#Scale" title="Scale strips in Image Preview
+    Window">Scale</a></td>
+        </tr>
+        <tr>
+            <td width=222px><a name="top_Call_Menu" href="#Call_Menu" title="Open keyframe insertion menu">Call Menu</a></td>
+            <td width=222px><a name="top_Grab" href="#Grab" title="Change position of strips in
+    Image Preview Window">Grab</a></td>
+            <td width=222px><a name="top_Select" href="#Select" title="Select visible sequences from
+    the Image Preview">Select</a></td>
         </tr>
     </table>
         <h3><a name="Add_Transform" href="#top_Add_Transform">Add Transform</a></h3>
-    <p>A transform modifier must be added to a strip before the strip can 
+    <p>A transform modifier must be added to a strip before the strip can
     be grabbed, scaled, rotated, or cropped by this addon.
     Any strips with "Image Offset" enabled will transfer this offset to
     the transform strip</p>
@@ -170,21 +168,6 @@
                 <td>Uncrop</td>
             </tr>
         </table>
-        <h3><a name="Decrement_Pivot" href="#top_Decrement_Pivot">Decrement Pivot</a></h3>
-    <p>Changes how strips are rotated and scaled. (sets the point of 
-    origin).</p>
-    
-        <table>
-            <tr>
-                <th width=208px>Shortcut</th>
-                <th width=417px>Function</th>
-                <th width=256px>Demo</th>
-            <tr>
-                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/COMMA.png" alt="COMMA"></td>
-                <td>Decrement Pivot</td>
-                <td align="center" rowspan="1"><img src="https://i.imgur.com/3ru1Xl6.gif" alt="Demo"></td>
-            </tr>
-        </table>
         <h3><a name="Delete" href="#top_Delete">Delete</a></h3>
     <p>Deletes all selected strips as well as any strips that are inputs
     of those strips.
@@ -272,25 +255,10 @@
                 <td>Set Position to [0, 0]</td>
             </tr>
         </table>
-        <h3><a name="Increment_Pivot" href="#top_Increment_Pivot">Increment Pivot</a></h3>
-    <p>Changes how strips are rotated and scaled. (sets the point of 
-    origin).</p>
-    
-        <table>
-            <tr>
-                <th width=208px>Shortcut</th>
-                <th width=417px>Function</th>
-                <th width=256px>Demo</th>
-            <tr>
-                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/PERIOD.png" alt="PERIOD"></td>
-                <td>Increment Pivot</td>
-                <td align="center" rowspan="1"><img src="https://i.imgur.com/3ru1Xl6.gif" alt="Demo"></td>
-            </tr>
-        </table>
         <h3><a name="Meta_Toggle" href="#top_Meta_Toggle">Meta Toggle</a></h3>
-    <p>Toggles the selected strip if it is a META. If the selected strip is 
-    not a meta, recursively checks inputs until a META strip is 
-    encountered and toggles it. If no META is found, this operator does 
+    <p>Toggles the selected strip if it is a META. If the selected strip is
+    not a meta, recursively checks inputs until a META strip is
+    encountered and toggles it. If no META is found, this operator does
     nothing.</p>
     
         <table>
@@ -427,7 +395,7 @@
             </tr>
         </table>
         <h3><a name="Set_Cursor2D" href="#top_Set_Cursor2D">Set Cursor2D</a></h3>
-    <p>Set the pivot point (point of origin) location. This will affect 
+    <p>Set the pivot point (point of origin) location. This will affect
     how strips are rotated and scaled.</p>
     
         <table>

@@ -3,7 +3,8 @@ import math
 from mathutils import Vector
 from mathutils import Quaternion
 
-from .draw_callback_draw_axes import draw_callback_draw_axes
+from .draw import draw_axes
+
 
 def func_constrain_axis_mmb(self, context, key, value, angle):
     if len(self.tab) > 1:
@@ -13,7 +14,7 @@ def func_constrain_axis_mmb(self, context, key, value, angle):
             if self.handle_axes == None:
                 args = (self, context, angle)
                 self.handle_axes = bpy.types.SpaceSequenceEditor.draw_handler_add(
-                    draw_callback_draw_axes, args, 'PREVIEW', 'POST_PIXEL')
+                    draw_axes, args, 'PREVIEW', 'POST_PIXEL')
             self.choose_axis = True
             self.pos_clic = self.mouse_pos
         if value == 'RELEASE' :

@@ -3,11 +3,4 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-_make_op_init.py
-_make_util_init.py
 _addon_linker.py
-tests
-_todo.txt
-readme_gen
-devtools
-_checklist.txt
