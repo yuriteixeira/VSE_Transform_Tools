@@ -1,3 +1,7 @@
+import bpy
+import math
+from mathutils import Vector
+
 from ..utils.selection import get_visible_strips
 
 from ..utils.geometry import rotate_point
