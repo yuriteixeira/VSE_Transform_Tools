@@ -57,9 +57,17 @@ class InsertKeyframe(bpy.types.Operator):
         # Apparently redrawing is bad...
         # bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
         # https://docs.blender.org/api/blender_python_api_2_78_release/info_gotcha.html
-        # So instead:
+        # So instead, we can update blender like this:
+        scene = context.scene
+        scrubbing = False
+        if scene.use_audio_scrub:
+            scrubbing = True
+            scene.use_audio_scrub = False
 
         context.scene.frame_current += 1
         context.scene.frame_current -= 1
+
+        if scrubbing:
+            scene.use_audio_scrub = True
 
         return {'FINISHED'}
