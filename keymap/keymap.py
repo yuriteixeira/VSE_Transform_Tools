@@ -58,7 +58,8 @@ def keymap():
                     },
                     "vse_transform_tools.select": {
                         "0": ["type=RIGHTMOUSE"],
-                        "1": ["type=RIGHTMOUSE", "shift=True"]
+                        "1": ["type=RIGHTMOUSE", "shift=True"],
+                        "2": ["type=A"]
                     },
                     "vse_transform_tools.set_cursor2d": {
                         "0": ["type=LEFTMOUSE"],

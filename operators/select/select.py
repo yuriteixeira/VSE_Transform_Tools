@@ -123,3 +123,5 @@ class Select(bpy.types.Operator):
         context.window_manager.modal_handler_add(self)
 
         return {'RUNNING_MODAL'}
+
+        return {'FINISHED'}

@@ -35,7 +35,7 @@ def get_visible_strips():
     for strip in reversed(strips):
         if blocked_visibility:
             rejects.append(strip)
-        if strip.blend_type in ['CROSS', 'REPLACE'] and not strip.mute:
+        if strip.blend_type in ['CROSS', 'REPLACE'] and not strip.mute and not strip.type == 'SOUND':
             blocked_visibility = True
 
     output = []
