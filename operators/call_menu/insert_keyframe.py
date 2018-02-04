@@ -54,4 +54,12 @@ class InsertKeyframe(bpy.types.Operator):
                     seq.input_1.crop.keyframe_insert(
                         data_path="max_y", frame=cf)
 
+        # Apparently redrawing is bad...
+        # bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
+        # https://docs.blender.org/api/blender_python_api_2_78_release/info_gotcha.html
+        # So instead:
+
+        context.scene.frame_current += 1
+        context.scene.frame_current -= 1
+
         return {'FINISHED'}
