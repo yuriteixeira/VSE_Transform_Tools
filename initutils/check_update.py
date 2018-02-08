@@ -1,6 +1,6 @@
 import bpy
+import os
 from .. import addon_updater_ops
-from .addon_module_name import addon_module_name
 from datetime import datetime, timedelta
 
 
@@ -28,7 +28,9 @@ class CheckUpdate(bpy.types.Operator):
         updater.save_updater_json()
 
     def execute(self, context):
-        addon_name = addon_module_name()
+        folder = os.path.dirname(__file__)
+        home = os.path.abspath(os.path.join(folder, '..'))
+        addon_name = os.path.basename(home)
         settings = context.user_preferences.addons[addon_name].preferences
 
         if not settings.auto_check_update:
