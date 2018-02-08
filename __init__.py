@@ -28,8 +28,6 @@ def register():
     addon_updater_ops.register(bl_info)
     bpy.utils.register_class(UpdaterPreferences)
 
-    bpy.utils.register_module(__name__)
-
     init_props()
 
     keyconfig = bpy.context.window_manager.keyconfigs['Blender Addon']
@@ -66,6 +64,8 @@ def register():
     kmi = km.keymap_items.new("vse_transform_tools.select", 'A', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", lmb + 'MOUSE', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", lmb + 'MOUSE', 'PRESS', ctrl=True)
+
+    bpy.utils.register_module(__name__)
 
 
 def unregister():
