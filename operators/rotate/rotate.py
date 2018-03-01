@@ -74,6 +74,9 @@ class Rotate(bpy.types.Operator):
 
             rot = float(self.rot_prev)
 
+            if abs(self.init_rot - (rot - 360)) < abs(self.init_rot - rot):
+                rot = rot - 360
+
             process_input(self, event.type, event.value)
             if self.key_val != '':
                 try:
@@ -163,6 +166,7 @@ class Rotate(bpy.types.Operator):
 
 
             self.tab = ensure_transforms()
+            active_strip = scene.sequence_editor.active_strip
 
             for strip in self.tab:
                 strip.select = True
@@ -195,8 +199,6 @@ class Rotate(bpy.types.Operator):
                     self.center_area = Vector(pos)
 
                 elif context.scene.seq_pivot_type == '3':
-                    active_strip = scene.sequence_editor.active_strip
-
                     flip_x = 1
                     if strip.use_flip_x:
                         flip_x = -1
@@ -233,6 +235,8 @@ class Rotate(bpy.types.Operator):
                 self.vec_init -= self.center_area
 
                 self.vec_prev = Vector(self.vec_init)
+
+                self.init_rot = active_strip.rotation_start
 
             args = (self, context)
             self.handle_line = bpy.types.SpaceSequenceEditor.draw_handler_add(

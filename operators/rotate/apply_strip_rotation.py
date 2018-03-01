@@ -23,11 +23,6 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
     event : bpy.types.Event
         Allows us to check if ctrl is pressed
     """
-    if init_rot < -180:
-        init_rot = 360 + init_rot
-    if init_rot > 180:
-        init_rot = -360 + init_rot
-
     flip_x = 1
     if strip.use_flip_x:
         flip_x = -1
@@ -36,7 +31,7 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
     if strip.use_flip_y:
         flip_y = -1
 
-    strip_rot = init_rot + flip_x * flip_y * rot
+    strip_rot = init_rot + (flip_x * flip_y * rot)
 
     if event.ctrl:
         strip_rot = math.ceil(strip_rot / self.stepwise_increment)
