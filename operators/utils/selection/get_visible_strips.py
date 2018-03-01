@@ -18,18 +18,24 @@ def get_visible_strips():
 
     rejects = []
     for strip in strips:
-        if strip.frame_start > scene.frame_current:
+        if strip.frame_final_start > scene.frame_current:
             rejects.append(strip)
-        if strip.frame_final_end <= scene.frame_current:
+        elif strip.frame_final_end <= scene.frame_current:
             rejects.append(strip)
-        if strip.type == 'SOUND':
+        elif strip.type == 'SOUND':
             rejects.append(strip)
-        if hasattr(strip, 'input_1'):
+        elif hasattr(strip, 'input_1'):
             rejects.append(strip.input_1)
-        if hasattr(strip, 'input_2'):
+        elif hasattr(strip, 'input_2'):
             rejects.append(strip.input_2)
 
-    strips = sorted(strips, key=lambda strip: strip.channel)
+    filtered = []
+    for strip in strips:
+        if strip not in rejects:
+            filtered.append(strip)
+
+    strips = sorted(filtered, key=lambda strip: strip.channel)
+    rejects = []
 
     blocked_visibility = False
     for strip in reversed(strips):

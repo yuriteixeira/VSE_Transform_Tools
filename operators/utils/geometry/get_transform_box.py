@@ -66,7 +66,16 @@ def get_transform_box(strip):
         len_crop_x = (strip_in.crop.min_x + strip_in.crop.max_x)
         len_crop_y = (strip_in.crop.min_y + strip_in.crop.max_y)
 
-        if len_crop_x >= res_x or len_crop_y >= res_y:
+        if hasattr(strip_in, 'elements'):
+            owidth = strip_in.elements[0].orig_width
+            oheight = strip_in.elements[0].orig_height
+            if len_crop_x >= owidth or len_crop_y >= oheight:
+                left = 0
+                right = 0
+                bottom = 0
+                top = 0
+
+        elif len_crop_x >= res_x or len_crop_y >= res_y:
             left = 0
             right = 0
             bottom = 0

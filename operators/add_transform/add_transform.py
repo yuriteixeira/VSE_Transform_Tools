@@ -35,6 +35,8 @@ class AddTransform(bpy.types.Operator):
                 selected_strips.append(strip)
 
         for strip in selected_strips:
+            strip.use_float = True
+
             bpy.ops.sequencer.select_all(action='DESELECT')
             scene.sequence_editor.active_strip = strip
             bpy.ops.sequencer.effect_strip_add(type="TRANSFORM")
