@@ -14,7 +14,7 @@ bl_info = {
     "name": "VSE Transform tool",
     "description": "",
     "author": "kgeogeo, DoubleZ, doakey3",
-    "version": (1, 1, 5),
+    "version": (1, 1, 6),
     "blender": (2, 7, 9),
     "wiki_url": "",
     "tracker_url": "",
