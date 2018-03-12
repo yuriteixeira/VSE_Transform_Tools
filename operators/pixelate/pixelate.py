@@ -113,6 +113,7 @@ class Pixelate(bpy.types.Operator):
                     meta = context.scene.sequence_editor.active_strip
                     meta.name = "PIX-%s" % strip.name
                     meta.channel = channel
+                    meta.blend_type = "ALPHA_OVER"
 
                     pixel_fac = self.fac * 100
 
