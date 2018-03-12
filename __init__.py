@@ -226,6 +226,7 @@ def register():
     kmi = km.keymap_items.new("vse_transform_tools.autocrop", 'C', 'PRESS', shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.call_menu", 'I', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.duplicate", "D", 'PRESS', shift=True)
+    kmi = km.keymap_items.new("vse_transform_tools.pixelate", 'P', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.delete", "DEL", "PRESS")
     kmi = km.keymap_items.new("vse_transform_tools.meta_toggle", "TAB", "PRESS")
 
@@ -249,17 +250,18 @@ def unregister():
 
     operators = [
         "vse_transform_tools.add_transform",
-        "vse_transform_tools.grab",
-        "vse_transform_tools.scale",
-        "vse_transform_tools.rotate",
         "vse_transform_tools.adjust_alpha",
-        "vse_transform_tools.draw_crop",
         "vse_transform_tools.autocrop",
+        "vse_transform_tools.delete",
+        "vse_transform_tools.draw_crop",
+        "vse_transform_tools.duplicate",
+        "vse_transform_tools.grab",
+        "vse_transform_tools.meta_toggle",
+        "vse_transform_tools.pixelate",
+        "vse_transform_tools.rotate",
+        "vse_transform_tools.scale",
         "vse_transform_tools.select",
         "vse_transform_tools.set_cursor2d",
-        "vse_transform_tools.duplicate",
-        "vse_transform_tools.delete",
-        "vse_transform_tools.meta_toggle",
     ]
     keyconfig = bpy.context.window_manager.keyconfigs['Blender Addon']
     try:

@@ -18,7 +18,6 @@ class AdjustAlpha(bpy.types.Operator):
     bl_description = "Adjust alpha (opacity) of strips in the Image Preview"
     bl_options = {'REGISTER', 'UNDO'}
 
-    quad_list = []
     first_mouse = Vector((0, 0))
     pos = Vector((0, 0))
     alpha_init = 0
@@ -51,9 +50,9 @@ class AdjustAlpha(bpy.types.Operator):
 
         if self.pos.x < 0:
             self.pos.x = 0
-        if self.pos.x > w/5:
-            self.pos.x = w/5
-        self.fac = self.pos.x / (w/5)
+        if self.pos.x > w / 5:
+            self.pos.x = w / 5
+        self.fac = self.pos.x / (w / 5)
 
         process_input(self, event.type, event.value)
         if self.key_val != '':
@@ -109,9 +108,16 @@ class AdjustAlpha(bpy.types.Operator):
             self.first_mouse = Vector((mouse_x, mouse_y))
 
             opacities = []
-            for strip in list(context.selected_sequences):
+
+            selected_strips = []
+            for strip in context.selected_sequences:
+                if not strip.type == 'SOUND':
+                    selected_strips.append(strip)
+
+            for strip in selected_strips:
                 self.tab.append(strip)
                 opacities.append(strip.blend_alpha)
+
             self.alpha_init = max(opacities)
 
             self.key_val != ''

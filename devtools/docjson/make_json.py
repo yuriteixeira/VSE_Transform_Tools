@@ -93,6 +93,9 @@ def make_shortcuts(idname):
             "0": "keys=LEFTMOUSE; function=Cursor 2D to mouse position",
             "1": "keys=CTRL LEFTMOUSE; function=Snap Cursor 2D to nearest strip corner or mid-point"
         },
+        "vse_transform_tools.pixelate": {
+            "0": "keys=P"
+        }
     }
 
     return shortcuts[idname]

@@ -21,31 +21,32 @@
     Preview">Crop</a></td>
             <td width=222px><a name="top_Meta_Toggle" href="#Meta_Toggle" title="Toggle the Meta to reveal
     sequences within">Meta Toggle</a></td>
-            <td width=222px><a name="top_Set_Cursor2D" href="#Set_Cursor2D" title="Set the pivot point location">Set Cursor2D</a></td>
+            <td width=222px><a name="top_Select" href="#Select" title="Select visible sequences from
+    the Image Preview">Select</a></td>
         </tr>
         <tr>
             <td width=222px><a name="top_Adjust_Alpha" href="#Adjust_Alpha" title="Adjust alpha (opacity) of
     strips in the Image Preview">Adjust Alpha</a></td>
             <td width=222px><a name="top_Delete" href="#Delete" title="Delete selected and their
     inputs recursively">Delete</a></td>
-            <td width=222px><a name="top_Rotate" href="#Rotate" title="Rotate strips in the Image
-    Preview">Rotate</a></td>
-            <td width=222px rowspan="3"></td>
+            <td width=222px><a name="top_Pixelate" href="#Pixelate" title="Pixelate a strip">Pixelate</a></td>
+            <td width=222px><a name="top_Set_Cursor2D" href="#Set_Cursor2D" title="Set the pivot point location">Set Cursor2D</a></td>
         </tr>
         <tr>
             <td width=222px><a name="top_Autocrop" href="#Autocrop" title="Collapse canvas to fit visible
     content">Autocrop</a></td>
             <td width=222px><a name="top_Duplicate" href="#Duplicate" title="Duplicate selected and their
     inputs recursively">Duplicate</a></td>
-            <td width=222px><a name="top_Scale" href="#Scale" title="Scale strips in Image Preview
-    Window">Scale</a></td>
+            <td width=222px><a name="top_Rotate" href="#Rotate" title="Rotate strips in the Image
+    Preview">Rotate</a></td>
+            <td width=222px rowspan="2"></td>
         </tr>
         <tr>
             <td width=222px><a name="top_Call_Menu" href="#Call_Menu" title="Open keyframe insertion menu">Call Menu</a></td>
             <td width=222px><a name="top_Grab" href="#Grab" title="Change position of strips in
     Image Preview Window">Grab</a></td>
-            <td width=222px><a name="top_Select" href="#Select" title="Select visible sequences from
-    the Image Preview">Select</a></td>
+            <td width=222px><a name="top_Scale" href="#Scale" title="Scale strips in Image Preview
+    Window">Scale</a></td>
         </tr>
     </table>
         <h3><a name="Add_Transform" href="#top_Add_Transform">Add Transform</a></h3>
@@ -270,6 +271,21 @@
                 <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/TAB.png" alt="TAB"></td>
                 <td>Meta Toggle</td>
                 <td align="center" rowspan="1"><img src="https://i.imgur.com/ya0nEgV.gif" alt="Demo"></td>
+            </tr>
+        </table>
+        <h3><a name="Pixelate" href="#top_Pixelate">Pixelate</a></h3>
+    <p>Pixelate a clip by adding 2 transform modifiers: 1 shrinking,
+    1 expanding.</p>
+    
+        <table>
+            <tr>
+                <th width=208px>Shortcut</th>
+                <th width=417px>Function</th>
+                <th width=256px>Demo</th>
+            <tr>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/P.png" alt="P"></td>
+                <td>Pixelate</td>
+                <td align="center" rowspan="1"><img src="https://i.imgur.com/u8nUPj6.gif" alt="Demo"></td>
             </tr>
         </table>
         <h3><a name="Rotate" href="#top_Rotate">Rotate</a></h3>
