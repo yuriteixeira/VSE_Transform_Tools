@@ -442,6 +442,8 @@
     
     <p>To pin rotation and/or scale, you must use 2 tracking points.</p>
     
+    <p>More information on <a href="https://www.youtube.com/watch?v=X885Uv1dzFY">this youtube video</a></p>
+    
         <table>
             <tr>
                 <th width=208px>Shortcut</th>

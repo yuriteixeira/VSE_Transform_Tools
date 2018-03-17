@@ -14,6 +14,8 @@ class TrackTransform(bpy.types.Operator):
     ![UI](https://i.imgur.com/wEZLu8a.jpg)
 
     To pin rotation and/or scale, you must use 2 tracking points.
+
+    More information on [this youtube video](https://www.youtube.com/watch?v=X885Uv1dzFY)
     """
     bl_idname = "vse_transform_tools.track_transform"
     bl_label = "Track Transform"
