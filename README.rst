@@ -434,25 +434,22 @@
             </tr>
         </table>
         <h3><a name="Track_Transform" href="#top_Track_Transform">Track Transform</a></h3>
-    <p>Calculate the angle formed by p1, p2, and the x axis</p>
+    <p>Use a pair of track points to pin a strip to another. The UI for
+    this tool is located in the menu to the right of the sequencer in
+    the "Tools" submenu.</p>
     
-    <h2>Parameters</h2>
+    <p>.. image:: https://i.imgur.com/wEZLu8a.jpg</p>
     
-    <p>p1 : list of float
-    X &amp; Y coordinates
-    p2 : list of float
-    X &amp; Y coordinates</p>
-    
-    <h2>Returns</h2>
-    
-    <p>angle : float</p>
+    <p>To pin rotation and/or scale, you must use 2 tracking points.</p>
     
         <table>
             <tr>
                 <th width=208px>Shortcut</th>
                 <th width=417px>Function</th>
+                <th width=256px>Demo</th>
             <tr>
                 <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/.png" alt=""></td>
                 <td>Track Transform</td>
+                <td align="center" rowspan="1"><img src="https://i.imgur.com/nWto3hH.gif" alt="Demo"></td>
             </tr>
         </table>

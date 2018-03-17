@@ -2,39 +2,6 @@ import bpy
 from ..utils.selection import get_input_tree
 import math
 
-def calculate_angle(p1, p2):
-    """
-    Calculate the angle formed by p1, p2, and the x axis
-
-    Parameters
-    ----------
-    p1 : list of float
-        X & Y coordinates
-    p2 : list of float
-        X & Y coordinates
-
-    Returns
-    -------
-    angle : float
-    """
-    a = p2[1] - p1[1]
-    b = p2[0] - p1[0]
-
-    p1p2 = math.degrees(math.atan2(a, b))
-
-    return p1p2
-
-
-def distance_formula(p1, p2):
-    """
-    Calculate the distance between 2 points on a 2D Cartesian coordinate plane
-    """
-    x = p2[0] - p1[0]
-    y = p2[1] - p1[1]
-
-    distance = math.sqrt(x**2 + y**2)
-    return distance
-
 
 class TrackTransform(bpy.types.Operator):
     """
@@ -204,3 +171,37 @@ class TrackTransform(bpy.types.Operator):
         scene.frame_current = start_frame
 
         return {'FINISHED'}
+
+
+def calculate_angle(p1, p2):
+    """
+    Calculate the angle formed by p1, p2, and the x axis
+
+    Parameters
+    ----------
+    p1 : list of float
+        X & Y coordinates
+    p2 : list of float
+        X & Y coordinates
+
+    Returns
+    -------
+    angle : float
+    """
+    a = p2[1] - p1[1]
+    b = p2[0] - p1[0]
+
+    p1p2 = math.degrees(math.atan2(a, b))
+
+    return p1p2
+
+
+def distance_formula(p1, p2):
+    """
+    Calculate the distance between 2 points on a 2D Cartesian coordinate plane
+    """
+    x = p2[0] - p1[0]
+    y = p2[1] - p1[1]
+
+    distance = math.sqrt(x**2 + y**2)
+    return distance
