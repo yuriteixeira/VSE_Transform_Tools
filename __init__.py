@@ -171,6 +171,14 @@ class Check_Update(bpy.types.Operator):
         return {'FINISHED'}
 
 
+def get_tracker_list(self, context):
+    tracks = []
+    for movieclip in bpy.data.movieclips:
+        for track in movieclip.tracking.tracks:
+            tracks.append((track.name, track.name, ""))
+    return tracks
+
+
 def init_properties():
     bpy.types.Scene.seq_cursor2d_loc = bpy.props.IntVectorProperty(
         name="Scales",
@@ -197,6 +205,59 @@ def init_properties():
 
     bpy.types.SEQUENCER_HT_header.append(Add_Icon_Pivot_Point)
 
+    bpy.types.Scene.vse_transform_tools_use_rotation = bpy.props.BoolProperty(
+        name="Rotation",
+        default=True
+    )
+
+    bpy.types.Scene.vse_transform_tools_use_scale = bpy.props.BoolProperty(
+        name="Scale",
+        default=True
+    )
+
+    bpy.types.Scene.vse_transform_tools_tracker_1 = bpy.props.EnumProperty(
+        name="Tracker 1",
+        items=get_tracker_list
+        )
+
+    bpy.types.Scene.vse_transform_tools_tracker_2 = bpy.props.EnumProperty(
+        name="Tracker 2",
+        items=get_tracker_list
+        )
+
+class ToolsUI(bpy.types.Panel):
+    bl_space_type = "SEQUENCE_EDITOR"
+    bl_region_type = "UI"
+    bl_label = "VSE_Transform_Tools"
+    bl_options = {"DEFAULT_CLOSED"}
+    bl_category = "Tools"
+
+    @classmethod
+    def poll(cls, context):
+        return context.space_data.view_type == 'SEQUENCER'
+
+    def draw(self, context):
+        scene = context.scene
+        layout = self.layout
+
+        box = layout.box()
+        row = box.row()
+        row.label("Transform from 2D Track")
+        row = box.row()
+        row.prop(scene, "vse_transform_tools_use_rotation", text="Rotation")
+        row.prop(scene, "vse_transform_tools_use_scale", text="Scale")
+
+        row = box.row()
+        row.prop(scene, "vse_transform_tools_tracker_1")
+        row = box.row()
+        row.prop(scene, "vse_transform_tools_tracker_2")
+        if scene.vse_transform_tools_use_rotation or scene.vse_transform_tools_use_scale:
+            row.enabled = True
+        else:
+            row.enabled = False
+
+        row = box.row()
+        row.operator("vse_transform_tools.track_transform")
 
 def register():
     addon_updater_ops.register(bl_info)
@@ -206,7 +267,10 @@ def register():
 
     init_properties()
 
-    keyconfig = bpy.context.window_manager.keyconfigs['Blender Addon']
+    try:
+        keyconfig = bpy.context.window_manager.keyconfigs['Blender Addon']
+    except KeyError:
+        keyconfig = bpy.context.window_manager.keyconfigs.new('Blender Addon')
     try:
         km = keyconfig.keymaps["SequencerPreview"]
     except KeyError:

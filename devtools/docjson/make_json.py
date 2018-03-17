@@ -95,7 +95,10 @@ def make_shortcuts(idname):
         },
         "vse_transform_tools.pixelate": {
             "0": "keys=P"
-        }
+        },
+        "vse_transform_tools.track_transform": {
+            "0": "keys=",
+        },
     }
 
     return shortcuts[idname]

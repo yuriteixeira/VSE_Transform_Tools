@@ -14,3 +14,4 @@ from .rotate import Rotate
 from .scale import Scale
 from .select import Select
 from .set_cursor2d import SetCursor2d
+from .track_transform import TrackTransform

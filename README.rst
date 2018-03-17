@@ -39,7 +39,10 @@
     inputs recursively">Duplicate</a></td>
             <td width=222px><a name="top_Rotate" href="#Rotate" title="Rotate strips in the Image
     Preview">Rotate</a></td>
-            <td width=222px rowspan="2"></td>
+            <td width=222px><a name="top_Track_Transform" href="#Track_Transform" title="Generate a Transform Strip with
+    Animated
+    Position/Rotation/Scale to
+    Match Tracker(s)">Track Transform</a></td>
         </tr>
         <tr>
             <td width=222px><a name="top_Call_Menu" href="#Call_Menu" title="Open keyframe insertion menu">Call Menu</a></td>
@@ -47,6 +50,7 @@
     Image Preview Window">Grab</a></td>
             <td width=222px><a name="top_Scale" href="#Scale" title="Scale strips in Image Preview
     Window">Scale</a></td>
+            <td width=222px rowspan="1"></td>
         </tr>
     </table>
         <h3><a name="Add_Transform" href="#top_Add_Transform">Add Transform</a></h3>
@@ -427,5 +431,28 @@
             <tr>
                 <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/CTRL.png" alt="CTRL"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/LEFTMOUSE.png" alt="LEFTMOUSE"></td>
                 <td>Snap Cursor 2D to nearest strip corner or mid-point</td>
+            </tr>
+        </table>
+        <h3><a name="Track_Transform" href="#top_Track_Transform">Track Transform</a></h3>
+    <p>Calculate the angle formed by p1, p2, and the x axis</p>
+    
+    <h2>Parameters</h2>
+    
+    <p>p1 : list of float
+    X &amp; Y coordinates
+    p2 : list of float
+    X &amp; Y coordinates</p>
+    
+    <h2>Returns</h2>
+    
+    <p>angle : float</p>
+    
+        <table>
+            <tr>
+                <th width=208px>Shortcut</th>
+                <th width=417px>Function</th>
+            <tr>
+                <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/.png" alt=""></td>
+                <td>Track Transform</td>
             </tr>
         </table>
