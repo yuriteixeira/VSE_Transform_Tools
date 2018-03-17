@@ -11,7 +11,7 @@ class TrackTransform(bpy.types.Operator):
     this tool is located in the menu to the right of the sequencer in
     the "Tools" submenu.
 
-    .. image:: https://i.imgur.com/wEZLu8a.jpg
+    .. image: https://i.imgur.com/wEZLu8a.jpg
 
     To pin rotation and/or scale, you must use 2 tracking points.
     """

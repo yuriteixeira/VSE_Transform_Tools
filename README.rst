@@ -438,7 +438,7 @@
     this tool is located in the menu to the right of the sequencer in
     the "Tools" submenu.</p>
     
-    <p>.. image:: https://i.imgur.com/wEZLu8a.jpg</p>
+    <p>.. image: https://i.imgur.com/wEZLu8a.jpg</p>
     
     <p>To pin rotation and/or scale, you must use 2 tracking points.</p>
     
