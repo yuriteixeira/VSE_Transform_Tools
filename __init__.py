@@ -172,7 +172,7 @@ class Check_Update(bpy.types.Operator):
 
 
 def get_tracker_list(self, context):
-    tracks = []
+    tracks = [("None", "None", "")]
     for movieclip in bpy.data.movieclips:
         for track in movieclip.tracking.tracks:
             tracks.append((track.name, track.name, ""))
@@ -240,6 +240,7 @@ class ToolsUI(bpy.types.Panel):
         scene = context.scene
         layout = self.layout
 
+        # TRANSFORM FROM 2D TRACK
         box = layout.box()
         row = box.row()
         row.label("Transform from 2D Track")
@@ -258,6 +259,7 @@ class ToolsUI(bpy.types.Panel):
 
         row = box.row()
         row.operator("vse_transform_tools.track_transform")
+
 
 def register():
     addon_updater_ops.register(bl_info)

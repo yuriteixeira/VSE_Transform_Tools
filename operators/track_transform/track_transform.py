@@ -25,7 +25,8 @@ class TrackTransform(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         scene = context.scene
-        if (scene.vse_transform_tools_tracker_1 != "" and
+
+        if (scene.vse_transform_tools_tracker_1 != "None" and
                 scene.sequence_editor and
                 scene.sequence_editor.active_strip and
                 scene.sequence_editor.active_strip.type == "TRANSFORM"):
@@ -36,6 +37,8 @@ class TrackTransform(bpy.types.Operator):
         scene = context.scene
         res_x = scene.render.resolution_x
         res_y = scene.render.resolution_y
+
+        tracker_names = []
 
         for movieclip in bpy.data.movieclips:
             for track in movieclip.tracking.tracks:
@@ -96,6 +99,7 @@ class TrackTransform(bpy.types.Operator):
             transform_strip.keyframe_insert(
                 data_path="translate_start_y", frame=scene.frame_current)
 
+        ref_track = None
         if scene.vse_transform_tools_use_rotation or scene.vse_transform_tools_use_scale:
             for movieclip in bpy.data.movieclips:
                 for track in movieclip.tracking.tracks:
@@ -103,7 +107,7 @@ class TrackTransform(bpy.types.Operator):
                         ref_track = track
                         break
 
-        if scene.vse_transform_tools_use_rotation:
+        if scene.vse_transform_tools_use_rotation and ref_track:
             for marker in ref_track.markers:
                 if marker.frame == start_frame:
 
@@ -137,7 +141,7 @@ class TrackTransform(bpy.types.Operator):
                 transform_strip.keyframe_insert(
                     data_path="rotation_start", frame=scene.frame_current)
 
-        if scene.vse_transform_tools_use_scale:
+        if scene.vse_transform_tools_use_scale and ref_track:
             for marker in ref_track.markers:
                 if marker.frame == start_frame:
 
