@@ -10,7 +10,10 @@ def get_res_factor():
     """
     fac = 1.0
 
-    if bpy.context.space_data.proxy_render_size == 'SCENE':
-        fac = bpy.context.scene.render.resolution_percentage / 100
+    prs = bpy.context.space_data.proxy_render_size
+    res_perc = bpy.context.scene.render.resolution_percentage
+
+    if prs == 'SCENE':
+        fac = res_perc / 100
 
     return fac

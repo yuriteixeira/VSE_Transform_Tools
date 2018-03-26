@@ -1,8 +1,32 @@
 import bpy
+import os
 
 from .get_pos_x import get_pos_x
 from .get_pos_y import get_pos_y
 from .get_strip_box import get_strip_box
+from .get_res_factor import get_res_factor
+
+def has_proxy(strip):
+    """
+    Find out if the strip has a proxy file for the current proxy setting
+    """
+
+    prs = bpy.context.space_data.proxy_render_size
+
+    filepath = bpy.path.abspath(strip.filepath)
+    folder = os.path.join(filepath, 'BL_proxy')
+
+    if strip.proxy and strip.proxy.use_proxy_custom_directory:
+        folder = bpy.path.abspath(strip.proxy.directory)
+
+    proxy_path = os.path.join(folder, strip.name, prs.lower() + '.avi')
+    if strip.proxy and strip.proxy.use_proxy_custom_file:
+        proxy_path = bpy.path.abspath(strip.proxy.filepath)
+
+    if os.path.isfile(proxy_path):
+        return True
+
+    return False
 
 
 def get_transform_box(strip):
@@ -61,19 +85,34 @@ def get_transform_box(strip):
     width = right - left
     height = top - bottom
 
+
     strip_in = strip.input_1
     if strip_in.use_crop and not strip_in.use_translation:
+        prs = bpy.context.space_data.proxy_render_size
+
         len_crop_x = (strip_in.crop.min_x + strip_in.crop.max_x)
         len_crop_y = (strip_in.crop.min_y + strip_in.crop.max_y)
 
         if hasattr(strip_in, 'elements'):
             owidth = strip_in.elements[0].orig_width
             oheight = strip_in.elements[0].orig_height
-            if len_crop_x >= owidth or len_crop_y >= oheight:
-                left = 0
-                right = 0
-                bottom = 0
-                top = 0
+
+            if prs != "SCENE" and has_proxy(strip_in):
+                if prs == 'PROXY_25':
+                    owidth *= 4
+                    oheight *= 4
+                elif prs == 'PROXY_50':
+                    owidth *= 2
+                    oheight *= 2
+                elif prs == 'PROXY_75':
+                    owidth = (owith * 4) / 3
+                    oheight = (oheight * 4) / 3
+
+                if len_crop_x >= owidth or len_crop_y >= oheight:
+                    left = 0
+                    right = 0
+                    bottom = 0
+                    top = 0
 
         elif len_crop_x >= res_x or len_crop_y >= res_y:
             left = 0
@@ -81,6 +120,7 @@ def get_transform_box(strip):
             bottom = 0
             top = 0
 
+    """
     if strip.use_translation:
         off_x = strip.transform.offset_x
         off_y = strip.transform.offset_y
@@ -119,6 +159,7 @@ def get_transform_box(strip):
         right = left + len_crop_x
         bottom = off_y
         top = off_y + len_crop_y
+    """
 
     if right - left <= 0 or top - bottom <= 0:
         left = right = bottom = top = 0
