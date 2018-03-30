@@ -39,16 +39,29 @@ class Autocrop(bpy.types.Operator):
 
         group_box = get_group_box(strips)
 
+        all_strips = scene.sequence_editor.sequences_all
+        inputs = []
+        for strip in all_strips:
+            if hasattr(strip, "input_1"):
+                inputs.append(strip.input_1)
+            if hasattr(strip, "input_2"):
+                inputs.append(strip.input_2)
+
+        parents = []
+        for strip in all_strips:
+            if not strip in inputs and not strip.type == "SOUND":
+                parents.append(strip)
+
         min_left, max_right, min_bottom, max_top = group_box
 
         total_width = max_right - min_left
         total_height = max_top - min_bottom
 
-        nontransforms = get_nontransforms(strips)
+        nontransforms = get_nontransforms(parents)
         for strip in nontransforms:
             reposition_strip(strip, group_box)
 
-        transforms = get_transforms(strips)
+        transforms = get_transforms(parents)
         for strip in transforms:
             reposition_transform_strip(strip, group_box)
 
