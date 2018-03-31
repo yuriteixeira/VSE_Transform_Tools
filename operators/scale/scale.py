@@ -446,6 +446,9 @@ class Scale(bpy.types.Operator):
 def reset_transform_scale(strip):
     """Reset a strip to it's factor"""
     strip_in = strip.input_1
+    res_x = bpy.context.scene.render.resolution_x
+    res_y = bpy.context.scene.render.resolution_y
+
     if hasattr(strip_in, 'elements'):
         len_crop_x = strip_in.elements[0].orig_width
         len_crop_y = strip_in.elements[0].orig_height
@@ -454,11 +457,17 @@ def reset_transform_scale(strip):
             len_crop_x -= (strip_in.crop.min_x + strip_in.crop.max_x)
             len_crop_y -= (strip_in.crop.min_y + strip_in.crop.max_y)
 
-        res_x = bpy.context.scene.render.resolution_x
-        res_y = bpy.context.scene.render.resolution_y
-
         ratio_x = len_crop_x / res_x
         ratio_y = len_crop_y / res_y
+
+        strip.scale_start_x = ratio_x
+        strip.scale_start_y = ratio_y
+
+    elif strip_in.type == "SCENE":
+        strip_scene = bpy.data.scenes[strip_in.name]
+
+        ratio_x = strip_scene.render.resolution_x / res_x
+        ratio_y = strip_scene.render.resolution_y / res_y
 
         strip.scale_start_x = ratio_x
         strip.scale_start_y = ratio_y

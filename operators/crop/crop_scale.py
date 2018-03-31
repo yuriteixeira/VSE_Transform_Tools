@@ -68,12 +68,18 @@ def crop_scale(self, strip, crops):
 
     orig_width = res_x
     orig_height = res_y
-    if hasattr(strip_in, 'elements'):
+    if hasattr(strip_in, 'elements') and strip_in.type == "MOVIE":
         orig_width = strip_in.elements[0].orig_width
         orig_height = strip_in.elements[0].orig_height
 
         orig_width /= proxy_fac
         orig_height /= proxy_fac
+
+    elif strip_in.type == "SCENE":
+        strip_scene = bpy.data.scenes[strip_in.name]
+
+        orig_width = strip_scene.render.resolution_x
+        orig_height = strip_scene.render.resolution_y
 
     strip_in.crop.min_x = crop_left
     strip_in.crop.max_x = crop_right
