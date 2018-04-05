@@ -12,7 +12,7 @@ class Pixelate(bpy.types.Operator):
     """
     ![Demo](https://i.imgur.com/u8nUPj6.gif)
 
-    Pixelate a clip by adding 2 transform modifiers: 1 shrinking,
+    Pixelate a clip by adding 2 transform effects: 1 shrinking,
     1 expanding.
     """
     bl_idname = "vse_transform_tools.pixelate"
