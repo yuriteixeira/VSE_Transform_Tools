@@ -144,9 +144,14 @@ class Pixelate(bpy.types.Operator):
 
                 return {'FINISHED'}
 
+            else:
+                bpy.types.SpaceSequenceEditor.draw_handler_remove(
+                    self.handle_pixelation, 'PREVIEW')
+                return {'FINISHED'}
+
         if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
-                self.handle_alpha, 'PREVIEW')
+                    self.handle_pixelation, 'PREVIEW')
             return {'FINISHED'}
 
         return {'RUNNING_MODAL'}
