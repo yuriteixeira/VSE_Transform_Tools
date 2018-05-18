@@ -14,7 +14,7 @@ bl_info = {
     "name": "VSE Transform tool",
     "description": "Quickly transform, crop and fade video strips in Blender's Video Sequence Editor",
     "author": "kgeogeo, DoubleZ, doakey3",
-    "version": (1, 2, 1),
+    "version": (1, 2, 2),
     "blender": (2, 7, 9),
     "wiki_url": "https://github.com/doakey3/VSE_Transform_Tools",
     "tracker_url": "https://github.com/doakey3/VSE_Transform_Tools/issues",
