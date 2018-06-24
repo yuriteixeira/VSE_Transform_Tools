@@ -171,7 +171,7 @@ def make_readme():
 
     intro = markdown("""
 ## Installation
-1. Go to the [Releases](https://github.com/doakey3/VSE_Transform_Tools/releases) page and download the latest "VSE_Transform_Tools.zip"
+1. Go to the [Releases](https://github.com/doakey3/VSE_Transform_Tools/releases) page and download the latest `VSE_Transform_Tools.zip`
 2. Open Blender
 3. Go to File > User Preferences > Addons
 4. Click "Install From File" and navigate to the downloaded .zip file and install

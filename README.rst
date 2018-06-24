@@ -8,7 +8,7 @@
     <h2>Installation</h2>
     
     <ol>
-    <li>Go to the <a href="https://github.com/doakey3/VSE_Transform_Tools/releases">Releases</a> page and download the latest "VSE<em>Transform</em>Tools.zip"</li>
+    <li>Go to the <a href="https://github.com/doakey3/VSE_Transform_Tools/releases">Releases</a> page and download the latest <code>VSE_Transform_Tools.zip</code></li>
     <li>Open Blender</li>
     <li>Go to File &gt; User Preferences &gt; Addons</li>
     <li>Click "Install From File" and navigate to the downloaded .zip file and install</li>
