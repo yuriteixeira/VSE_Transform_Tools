@@ -14,7 +14,7 @@ bl_info = {
     "name": "VSE Transform tool",
     "description": "Quickly transform, crop and fade video strips in Blender's Video Sequence Editor",
     "author": "kgeogeo, DoubleZ, doakey3",
-    "version": (1, 2, 2),
+    "version": (1, 2, 3),
     "blender": (2, 7, 9),
     "wiki_url": "https://github.com/doakey3/VSE_Transform_Tools",
     "tracker_url": "https://github.com/doakey3/VSE_Transform_Tools/issues",
@@ -290,6 +290,7 @@ def register():
     kmi = km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.autocrop", 'C', 'PRESS', shift=True)
+    kmi = km.keymap_items.new("vse_transform_tools.mouse_track", 'M', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.call_menu", 'I', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.duplicate", "D", 'PRESS', shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.pixelate", 'P', 'PRESS')

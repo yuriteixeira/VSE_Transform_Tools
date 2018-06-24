@@ -9,6 +9,7 @@ from .delete import Delete
 from .duplicate import Duplicate
 from .grab import Grab
 from .meta_toggle import MetaToggle
+from .mouse_track import MouseTrack
 from .pixelate import Pixelate
 from .rotate import Rotate
 from .scale import Scale
