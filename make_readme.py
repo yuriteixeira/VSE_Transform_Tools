@@ -171,7 +171,7 @@ def make_readme():
 
     intro = markdown("""
 ## Installation
-1. Go to the [Releases](https://github.com/doakey3/VSE_Transform_Tools/releases) page and download the latest VSE_Transform_Tools.zip
+1. Go to the [Releases](https://github.com/doakey3/VSE_Transform_Tools/releases) page and download the latest "VSE_Transform_Tools.zip"
 2. Open Blender
 3. Go to File > User Preferences > Addons
 4. Click "Install From File" and navigate to the downloaded .zip file and install
@@ -272,7 +272,7 @@ def make_readme():
         },
         'vse_transform_tools.track_transform': {
             'name': 'Track Transform',
-            'description': 'Use a pair of track points to pin a strip to another. The UI for this tool is located in the menu to the right of the sequencer in the "Tools" submenu. To pin rotation and/or scale, you must use 2 tracking points. <br> ![UI](https://i.imgur.com/wEZLu8a.jpg)',
+            'description': 'Use a pair of track points to pin a strip to another. The UI for this tool is located in the menu to the right of the sequencer in the Tools submenu. To pin rotation and/or scale, you must use 2 tracking points. <br> ![UI](https://i.imgur.com/wEZLu8a.jpg)',
             'shortcuts': [';'],
             'demo': 'https://i.imgur.com/nWto3hH.gif',
         },

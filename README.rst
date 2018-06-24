@@ -8,7 +8,7 @@
     <h2>Installation</h2>
     
     <ol>
-    <li>Go to the <a href="https://github.com/doakey3/VSE_Transform_Tools/releases">Releases</a> page and download the latest VSE<em>Transform</em>Tools.zip</li>
+    <li>Go to the <a href="https://github.com/doakey3/VSE_Transform_Tools/releases">Releases</a> page and download the latest "VSE<em>Transform</em>Tools.zip"</li>
     <li>Open Blender</li>
     <li>Go to File &gt; User Preferences &gt; Addons</li>
     <li>Click "Install From File" and navigate to the downloaded .zip file and install</li>
@@ -85,10 +85,10 @@
     pin a strip to another. The UI
     for this tool is located in the
     menu to the right of the
-    sequencer in the "Tools"
-    submenu. To pin rotation and/or
-    scale, you must use 2 tracking
-    points. <br>
+    sequencer in the Tools submenu.
+    To pin rotation and/or scale,
+    you must use 2 tracking points.
+    <br>
     ![UI](https://i.imgur.com/wEZLu8a.jpg)">Track Transform</a></td>
         </tr>
     </table>
@@ -518,7 +518,7 @@
         </tr>
     </table>
         <h3><a name="Track_Transform" href="#top_Track_Transform">Track Transform</a></h3>
-    <p>Use a pair of track points to pin a strip to another. The UI for this tool is located in the menu to the right of the sequencer in the "Tools" submenu. To pin rotation and/or scale, you must use 2 tracking points. <br> <img src="https://i.imgur.com/wEZLu8a.jpg" alt="UI" /></p>
+    <p>Use a pair of track points to pin a strip to another. The UI for this tool is located in the menu to the right of the sequencer in the Tools submenu. To pin rotation and/or scale, you must use 2 tracking points. <br> <img src="https://i.imgur.com/wEZLu8a.jpg" alt="UI" /></p>
     
     <table>
         <tr>
