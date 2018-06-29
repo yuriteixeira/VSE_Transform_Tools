@@ -10,7 +10,11 @@ def set_quads(self, context):
     self.corner_quads = []
 
     active_strip = context.scene.sequence_editor.active_strip
-    angle = math.radians(active_strip.rotation_start)
+    if active_strip.type == "TRANSFORM":
+        angle = math.radians(active_strip.rotation_start)
+    else:
+        angle = 0
+
     rect_size = 7.5
 
     for corner in self.corners:

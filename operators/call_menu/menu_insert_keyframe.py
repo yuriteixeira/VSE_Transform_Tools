@@ -8,9 +8,11 @@ class MenuInsertKeyframe(bpy.types.Menu):
     def draw(self, context):
         types = []
         use_translations = []
+        use_crops = []
         for strip in bpy.context.selected_sequences:
             types.append(strip.type)
             use_translations.append(strip.use_translation)
+            use_crops.append(strip.use_crop)
 
         layout = self.layout
 
@@ -51,6 +53,9 @@ class MenuInsertKeyframe(bpy.types.Menu):
             layout.operator("vse_transform_tools.insert_keyframe",
                             text="Alpha").ch = (0, 0, 0, 1, 0)
 
+            if True in use_crops:
+                layout.operator("vse_transform_tools.insert_keyframe",
+                                text="Crop").ch = (0, 0, 0, 0, 1)
 
         if "TRANSFORM" in types:
             layout.separator()

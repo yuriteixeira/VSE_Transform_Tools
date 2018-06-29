@@ -182,7 +182,7 @@ def make_readme():
     operator_info = {
         'vse_transform_tools.add_transform': {
             'name': 'Add Transform',
-            'description': "A transform modifier must be added to a strip before the strip can be grabbed, scaled, rotated, or cropped by this addon. Any strips with 'Image Offset' enabled will transfer this offset to the transform strip",
+            'description': "A transform modifier must be added to a strip before the strip can be scaled or rotated by this addon. If you're planning to make keyframes to adjust the scale or the rotation, ensure that you are modifying a transform strip by adding one with this operator.",
             'shortcuts': ['T; Add Transform'],
             'demo': 'https://i.imgur.com/v4racQW.gif',
         },

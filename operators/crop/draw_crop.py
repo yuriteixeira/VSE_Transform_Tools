@@ -10,7 +10,10 @@ def draw_crop(self, context):
     bgl.glColor4f(0.0, 1.0, 1.0, 1.0)
 
     active_strip = context.scene.sequence_editor.active_strip
-    angle = math.radians(active_strip.rotation_start)
+    if active_strip.type == "TRANSFORM":
+        angle = math.radians(active_strip.rotation_start)
+    else:
+        angle = 0
 
     theme = context.user_preferences.themes['Default']
     active_color = theme.view_3d.object_active

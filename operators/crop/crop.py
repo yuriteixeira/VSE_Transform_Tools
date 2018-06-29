@@ -7,6 +7,7 @@ from mathutils.geometry import intersect_point_quad_2d
 
 from ..utils.geometry import get_preview_offset
 from ..utils.geometry import rotate_point
+from ..utils.geometry import get_strip_box
 
 from ..utils.selection import get_highest_transform
 
@@ -85,7 +86,10 @@ class Crop(bpy.types.Operator):
             offset_x, offset_y, fac, preview_zoom = get_preview_offset()
 
             active_strip = context.scene.sequence_editor.active_strip
-            angle = math.radians(active_strip.rotation_start)
+            if active_strip.type == "TRANSFORM":
+                angle = math.radians(active_strip.rotation_start)
+            else:
+                angle = 0
 
             origin = self.max_corners[2] - self.max_corners[0]
 
@@ -150,21 +154,43 @@ class Crop(bpy.types.Operator):
                      self.crop_top / self.scale_factor_y,
                      ]
 
-            crop_scale(self, active_strip, crops)
-
-            strip_in = active_strip.input_1
             scene = context.scene
-            if scene.tool_settings.use_keyframe_insert_auto:
-                cf = context.scene.frame_current
-                active_strip.keyframe_insert(data_path='translate_start_x', frame=cf)
-                active_strip.keyframe_insert(data_path='translate_start_y', frame=cf)
-                active_strip.keyframe_insert(data_path='scale_start_x', frame=cf)
-                active_strip.keyframe_insert(data_path='scale_start_y', frame=cf)
 
-                strip_in.crop.keyframe_insert(data_path='min_x', frame=cf)
-                strip_in.crop.keyframe_insert(data_path='max_x', frame=cf)
-                strip_in.crop.keyframe_insert(data_path='min_y', frame=cf)
-                strip_in.crop.keyframe_insert(data_path='max_y', frame=cf)
+            if active_strip.type == "TRANSFORM":
+                crop_scale(self, active_strip, crops)
+
+                strip_in = active_strip.input_1
+
+                if scene.tool_settings.use_keyframe_insert_auto:
+                    cf = context.scene.frame_current
+                    active_strip.keyframe_insert(data_path='translate_start_x')
+                    active_strip.keyframe_insert(data_path='translate_start_y')
+                    active_strip.keyframe_insert(data_path='scale_start_x')
+                    active_strip.keyframe_insert(data_path='scale_start_y')
+
+                    strip_in.crop.keyframe_insert(data_path='min_x')
+                    strip_in.crop.keyframe_insert(data_path='max_x')
+                    strip_in.crop.keyframe_insert(data_path='min_y')
+                    strip_in.crop.keyframe_insert(data_path='max_y')
+
+            else:
+                active_strip.use_crop = True
+                active_strip.crop.min_x = crops[0]
+                active_strip.crop.max_x = crops[1]
+                active_strip.crop.min_y = crops[2]
+                active_strip.crop.max_y = crops[3]
+
+                active_strip.transform.offset_x = self.init_pos_x - self.init_crop_left + crops[0]
+                active_strip.transform.offset_y = self.init_pos_y - self.init_crop_bottom + crops[2]
+
+                if scene.tool_settings.use_keyframe_insert_auto:
+                    active_strip.crop.keyframe_insert(data_path='min_x')
+                    active_strip.crop.keyframe_insert(data_path='max_x')
+                    active_strip.crop.keyframe_insert(data_path='min_y')
+                    active_strip.crop.keyframe_insert(data_path='max_y')
+
+                    active_strip.transform.keyframe_insert(data_path="offset_x")
+                    active_strip.transform.keyframe_insert(data_path="offset_y")
 
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_crop, 'PREVIEW')
@@ -175,7 +201,18 @@ class Crop(bpy.types.Operator):
             crops = [self.init_crop_left, self.init_crop_right,
                      self.init_crop_bottom, self.init_crop_top]
 
-            crop_scale(self, active_strip, crops)
+            if active_strip.type == "TRANSFORM":
+                crop_scale(self, active_strip, crops)
+
+            else:
+                active_strip.use_crop = True
+                active_strip.crop.min_x = crops[0]
+                active_strip.crop.max_x = crops[1]
+                active_strip.crop.min_y = crops[2]
+                active_strip.crop.max_y = crops[3]
+
+                active_strip.transform.offset_x = crops[0]
+                active_strip.transform.offset_y = crops[2]
 
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_crop, 'PREVIEW')
@@ -192,26 +229,62 @@ class Crop(bpy.types.Operator):
         strip = get_highest_transform(scene.sequence_editor.active_strip)
         scene.sequence_editor.active_strip = strip
 
-        if not strip.type == "TRANSFORM":
+        box = get_strip_box(strip)
+        width = box[1] - box[0]
+        height = box[3] - box[2]
+
+        res_equal = res_x == width and res_y == height
+
+        if not strip.type == "TRANSFORM" and not res_equal and not strip.use_translation:
             bpy.ops.vse_transform_tools.add_transform()
             strip.select = False
             strip = scene.sequence_editor.active_strip
 
-        strip_in = strip.input_1
+        elif strip.use_translation or (strip.type != "TRANSFORM" and res_equal):
 
-        if not strip_in.use_crop:
-            strip_in.use_crop = True
+            strip.use_translation = True
+            strip.use_crop = True
 
-            strip_in.crop.min_x = 0
-            strip_in.crop.max_x = 0
-            strip_in.crop.min_y = 0
-            strip_in.crop.max_y = 0
+            self.init_crop_left = strip.crop.min_x
+            self.init_crop_right = strip.crop.max_x
+            self.init_crop_bottom = strip.crop.min_y
+            self.init_crop_top = strip.crop.max_y
 
-        if event.alt:
+            self.init_pos_x = strip.transform.offset_x
+            self.init_pos_y = strip.transform.offset_y
+
+            self.crop_left = strip.crop.min_x
+            self.crop_right = strip.crop.max_x
+            self.crop_bottom = strip.crop.min_y
+            self.crop_top = strip.crop.max_y
+
+            strip.crop.min_x = 0
+            strip.crop.max_x = 0
+            strip.crop.min_y = 0
+            strip.crop.max_y = 0
+
+            strip.transform.offset_x -= self.init_crop_left
+            strip.transform.offset_y -= self.init_crop_bottom
+
+            if event.alt:
+                return {'FINISHED'}
+
+        if strip.type == "TRANSFORM":
+            strip_in = strip.input_1
+
+            if not strip_in.use_crop:
+                strip_in.use_crop = True
+
+                strip_in.crop.min_x = 0
+                strip_in.crop.max_x = 0
+                strip_in.crop.min_y = 0
+                strip_in.crop.max_y = 0
+
+            if event.alt:
+                crop_scale(self, strip, [0, 0, 0, 0])
+                return {'FINISHED'}
+
             crop_scale(self, strip, [0, 0, 0, 0])
-            return {'FINISHED'}
-
-        crop_scale(self, strip, [0, 0, 0, 0])
 
         args = (self, context)
         self.handle_crop = bpy.types.SpaceSequenceEditor.draw_handler_add(

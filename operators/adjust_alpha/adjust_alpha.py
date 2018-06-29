@@ -80,9 +80,8 @@ class AdjustAlpha(bpy.types.Operator):
 
             scene = context.scene
             if scene.tool_settings.use_keyframe_insert_auto:
-                cf = context.scene.frame_current
                 for strip in self.tab:
-                    strip.keyframe_insert(data_path='blend_alpha', frame=cf)
+                    strip.keyframe_insert(data_path='blend_alpha')
 
             return {'FINISHED'}
 

@@ -242,14 +242,13 @@ class Grab(bpy.types.Operator):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
                 if scene.tool_settings.use_keyframe_insert_auto:
-                    cf = context.scene.frame_current
                     for strip in self.tab:
                         if strip.type == "TRANSFORM":
-                            strip.keyframe_insert(data_path='translate_start_x', frame=cf)
-                            strip.keyframe_insert(data_path='translate_start_y', frame=cf)
+                            strip.keyframe_insert(data_path='translate_start_x')
+                            strip.keyframe_insert(data_path='translate_start_y')
                         else:
-                            strip.transform.keyframe_insert(data_path='offset_x', frame=cf)
-                            strip.transform.keyframe_insert(data_path='offset_y', frame=cf)
+                            strip.transform.keyframe_insert(data_path='offset_x')
+                            strip.transform.keyframe_insert(data_path='offset_y')
 
                 context.area.header_text_set()
                 return {'FINISHED'}
@@ -294,9 +293,9 @@ class Grab(bpy.types.Operator):
                 elif transform.use_translation:
                     box = get_strip_box(transform)
                     width = box[1] - box[0]
-                    height = box[2] - box[3]
+                    height = box[3] - box[2]
                     transform.transform.offset_x = (res_x / 2) - (width / 2)
-                    transform.transform.offset_y = (res_y / 2) + (height / 2)
+                    transform.transform.offset_y = (res_y / 2) - (height / 2)
             return {'FINISHED'}
 
         else:

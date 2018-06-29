@@ -21,12 +21,13 @@
         <tr>
             <td width=222px><a name="top_Add_Transform" href="#Add_Transform" title="A transform modifier must be
     added to a strip before the
-    strip can be grabbed, scaled,
-    rotated, or cropped by this
-    addon. Any strips with 'Image
-    Offset' enabled will transfer
-    this offset to the transform
-    strip">Add Transform</a></td>
+    strip can be scaled or rotated
+    by this addon. If you're
+    planning to make keyframes to
+    adjust the scale or the
+    rotation, ensure that you are
+    modifying a transform strip by
+    adding one with this operator.">Add Transform</a></td>
             <td width=222px><a name="top_Crop" href="#Crop" title="">Crop</a></td>
             <td width=222px><a name="top_Meta_Toggle" href="#Meta_Toggle" title="Toggles the selected strip if
     it is a META. If the selected
@@ -93,7 +94,7 @@
         </tr>
     </table>
         <h3><a name="Add_Transform" href="#top_Add_Transform">Add Transform</a></h3>
-    <p>A transform modifier must be added to a strip before the strip can be grabbed, scaled, rotated, or cropped by this addon. Any strips with 'Image Offset' enabled will transfer this offset to the transform strip</p>
+    <p>A transform modifier must be added to a strip before the strip can be scaled or rotated by this addon. If you're planning to make keyframes to adjust the scale or the rotation, ensure that you are modifying a transform strip by adding one with this operator.</p>
     
     <table>
         <tr>

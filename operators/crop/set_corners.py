@@ -13,7 +13,10 @@ def set_corners(self, context):
     user.
     """
     active_strip = context.scene.sequence_editor.active_strip
-    angle = math.radians(active_strip.rotation_start)
+    if active_strip.type == "TRANSFORM":
+        angle = math.radians(active_strip.rotation_start)
+    else:
+        angle = 0
 
     sin = math.sin(angle)
     cos = math.cos(angle)
