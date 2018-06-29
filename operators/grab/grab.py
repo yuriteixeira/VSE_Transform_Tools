@@ -9,12 +9,14 @@ from ..utils.geometry import get_pos_x
 from ..utils.geometry import get_pos_y
 from ..utils.geometry import set_pos_x
 from ..utils.geometry import set_pos_y
-from ..utils.geometry import  get_res_factor
+from ..utils.geometry import get_res_factor
 from ..utils.geometry import get_group_box
-from ..utils.geometry import  mouse_to_res
-from ..utils.geometry import  get_preview_offset
+from ..utils.geometry import get_strip_box
+from ..utils.geometry import mouse_to_res
+from ..utils.geometry import get_preview_offset
 
 from ..utils.selection import ensure_transforms
+from ..utils.selection import get_highest_transform
 from ..utils.selection import get_visible_strips
 
 from ..utils.draw import draw_snap
@@ -89,11 +91,7 @@ class Grab(bpy.types.Operator):
 
             self.vec_act = self.mouse_pos - self.reduction_vec - self.first_mouse_pos
 
-
             func_constrain_axis_mmb(self, context, event.type, event.value, 0)
-
-            #angle = 0
-            #if self.local_axis:
 
             func_constrain_axis(self, context, event.type, event.value, 0)
 
@@ -221,13 +219,16 @@ class Grab(bpy.types.Operator):
             elif self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
-
             for strip, init_pos in zip(self.tab, self.tab_init):
                 pos_x = init_pos[0] + self.vec_act.x + trans_offset_x
                 pos_y = init_pos[1] + self.vec_act.y + trans_offset_y
 
-                strip.translate_start_x = set_pos_x(strip, pos_x)
-                strip.translate_start_y = set_pos_y(strip, pos_y)
+                if strip.type == "TRANSFORM":
+                    strip.translate_start_x = set_pos_x(strip, pos_x)
+                    strip.translate_start_y = set_pos_y(strip, pos_y)
+                else:
+                    strip.transform.offset_x = pos_x
+                    strip.transform.offset_y = pos_y
 
             if (event.type == 'LEFTMOUSE' or
                event.type == 'RET' or
@@ -243,8 +244,12 @@ class Grab(bpy.types.Operator):
                 if scene.tool_settings.use_keyframe_insert_auto:
                     cf = context.scene.frame_current
                     for strip in self.tab:
-                        strip.keyframe_insert(data_path='translate_start_x', frame=cf)
-                        strip.keyframe_insert(data_path='translate_start_y', frame=cf)
+                        if strip.type == "TRANSFORM":
+                            strip.keyframe_insert(data_path='translate_start_x', frame=cf)
+                            strip.keyframe_insert(data_path='translate_start_y', frame=cf)
+                        else:
+                            strip.transform.keyframe_insert(data_path='offset_x', frame=cf)
+                            strip.transform.keyframe_insert(data_path='offset_y', frame=cf)
 
                 context.area.header_text_set()
                 return {'FINISHED'}
@@ -258,8 +263,14 @@ class Grab(bpy.types.Operator):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
                 for strip, init_pos in zip(self.tab, self.tab_init):
-                    strip.translate_start_x = set_pos_x(strip, init_pos[0])
-                    strip.translate_start_y = set_pos_y(strip, init_pos[1])
+                    if strip.type == "TRANSFORM":
+                        strip.translate_start_x = set_pos_x(strip, init_pos[0])
+                        strip.translate_start_y = set_pos_y(strip, init_pos[1])
+                    else:
+                        strip.transform.offset_x = init_pos[0]
+                        strip.transform.offset_y = init_pos[1]
+
+
                 context.area.header_text_set()
                 return {'FINISHED'}
 
@@ -268,20 +279,27 @@ class Grab(bpy.types.Operator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
+        scene = context.scene
+
+        res_x = scene.render.resolution_x
+        res_y = scene.render.resolution_y
+
         if event.alt:
-            selected = ensure_transforms()
+            selected = bpy.context.selected_sequences
             for strip in selected:
-                strip.select = True
-                strip.translate_start_x = 0
-                strip.translate_start_y = 0
+                transform = get_highest_transform(strip)
+                if transform.type == 'TRANSFORM':
+                    strip.translate_start_x = 0
+                    strip.translate_start_y = 0
+                elif transform.use_translation:
+                    box = get_strip_box(transform)
+                    width = box[1] - box[0]
+                    height = box[2] - box[3]
+                    transform.transform.offset_x = (res_x / 2) - (width / 2)
+                    transform.transform.offset_y = (res_y / 2) + (height / 2)
             return {'FINISHED'}
 
         else:
-            scene = context.scene
-
-            res_x = scene.render.resolution_x
-            res_y = scene.render.resolution_y
-
             mouse_x = event.mouse_region_x
             mouse_y = event.mouse_region_y
 
@@ -302,7 +320,17 @@ class Grab(bpy.types.Operator):
 
             fac = get_res_factor()
 
+            #self.tab = ensure_transforms()
+
+            image_offset_strips = []
+            selected = context.selected_sequences
+            for strip in selected:
+                if strip.use_translation:
+                    image_offset_strips.append(strip)
+                    strip.select = False
+
             self.tab = ensure_transforms()
+            self.tab.extend(image_offset_strips)
             visible_strips = get_visible_strips()
 
             for strip in visible_strips:
@@ -317,8 +345,13 @@ class Grab(bpy.types.Operator):
 
             for strip in self.tab:
                 strip.select = True
-                pos_x = get_pos_x(strip)
-                pos_y = get_pos_y(strip)
+                if strip.type == "TRANSFORM":
+                    pos_x = get_pos_x(strip)
+                    pos_y = get_pos_y(strip)
+                else:
+                    pos_x = strip.transform.offset_x
+                    pos_y = strip.transform.offset_y
+
                 self.tab_init.append([pos_x, pos_y])
 
             if self.tab:

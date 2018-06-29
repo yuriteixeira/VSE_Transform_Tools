@@ -7,8 +7,10 @@ class MenuInsertKeyframe(bpy.types.Menu):
 
     def draw(self, context):
         types = []
+        use_translations = []
         for strip in bpy.context.selected_sequences:
             types.append(strip.type)
+            use_translations.append(strip.use_translation)
 
         layout = self.layout
 
@@ -42,8 +44,13 @@ class MenuInsertKeyframe(bpy.types.Menu):
             layout.separator()
 
         if not all(elem == "SOUND" for elem in types):
+            if True in use_translations:
+                layout.operator("vse_transform_tools.insert_keyframe",
+                                text="Location").ch = (1, 0, 0, 0, 0)
+
             layout.operator("vse_transform_tools.insert_keyframe",
                             text="Alpha").ch = (0, 0, 0, 1, 0)
+
 
         if "TRANSFORM" in types:
             layout.separator()

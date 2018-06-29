@@ -15,6 +15,7 @@ from ..utils import process_input
 
 from ..utils.selection import get_visible_strips
 from ..utils.selection import ensure_transforms
+from ..utils.selection import get_highest_transform
 
 from ..utils.draw import draw_px_point
 from ..utils.draw import draw_snap
@@ -334,10 +335,14 @@ class Scale(bpy.types.Operator):
         self.vertical_interests = [0, res_y]
 
         if event.alt :
-            selected = ensure_transforms()
+            selected = context.selected_sequences
             for strip in selected:
-                strip.select = True
-                reset_transform_scale(strip)
+                transform = get_highest_transform(strip)
+                if transform.type == 'TRANSFORM':
+                    reset_transform_scale(transform)
+                else:
+                    transform.use_translation = True
+                    transform.blend_type = 'ALPHA_OVER'
 
             return {'FINISHED'}
 

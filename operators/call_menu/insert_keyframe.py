@@ -55,8 +55,13 @@ class InsertKeyframe(bpy.types.Operator):
                         data_path="max_y", frame=cf)
 
             elif seq.select and not seq.type == "SOUND":
-                seq.keyframe_insert(
-                    data_path="blend_alpha", frame=cf)
+                if self.ch[0] == 1 and seq.use_translation:
+                    seq.transform.keyframe_insert(data_path="offset_x", frame=cf)
+                    seq.transform.keyframe_insert(data_path="offset_y", frame=cf)
+
+                if self.ch[3] == 1:
+                    seq.keyframe_insert(
+                        data_path="blend_alpha", frame=cf)
 
         # Apparently redrawing is bad...
         # bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
