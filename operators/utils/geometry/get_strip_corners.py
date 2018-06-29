@@ -54,13 +54,20 @@ def get_strip_corners(strip):
         bottom_left, top_left, top_right, bottom_right = corners
 
     else:
+
         box = get_strip_box(strip)
         left, right, bottom, top = box
 
         bottom_left = Vector([left, bottom])
         top_left = Vector([left, top])
+
         top_right = Vector([right, top])
         bottom_right = Vector([right, bottom])
+
+        #if hasattr(strip, 'elements') and not strip.type == 'IMAGE' and proxy_fac < 1.0:
+        #    top_left = Vector([left, (bottom + (top - bottom)) / proxy_fac])
+        #    top_right = Vector([(left + (right - left)) / proxy_fac, (bottom + (top - bottom)) / proxy_fac])
+        #    bottom_right = Vector([(left + (right - left)) / proxy_fac, bottom])
 
     res_x = scene.render.resolution_x
     res_y = scene.render.resolution_y

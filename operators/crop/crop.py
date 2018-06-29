@@ -7,7 +7,6 @@ from mathutils.geometry import intersect_point_quad_2d
 
 from ..utils.geometry import get_preview_offset
 from ..utils.geometry import rotate_point
-from ..utils.geometry import get_strip_box
 
 from ..utils.selection import get_highest_transform
 
@@ -229,18 +228,12 @@ class Crop(bpy.types.Operator):
         strip = get_highest_transform(scene.sequence_editor.active_strip)
         scene.sequence_editor.active_strip = strip
 
-        box = get_strip_box(strip)
-        width = box[1] - box[0]
-        height = box[3] - box[2]
-
-        res_equal = res_x == width and res_y == height
-
-        if not strip.type == "TRANSFORM" and not res_equal and not strip.use_translation:
+        if not strip.type == "TRANSFORM" and not strip.use_translation:
             bpy.ops.vse_transform_tools.add_transform()
             strip.select = False
             strip = scene.sequence_editor.active_strip
 
-        elif strip.use_translation or (strip.type != "TRANSFORM" and res_equal):
+        elif not strip.type == "TRANSFORM" and strip.use_translation:
 
             strip.use_translation = True
             strip.use_crop = True
