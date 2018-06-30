@@ -365,7 +365,7 @@
             <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/R.png" alt="R"></td>
             <td><p>Begin rotating, adding transform if needed.</p>
     </td>
-            <td align="center" rowspan="9"><img src="https://i.imgur.com/u8nUPj6.gif"></td>
+            <td align="center" rowspan="9"><img src="https://i.imgur.com/3ru1Xl6.gif"></td>
         </tr>
         <tr>
             <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SHIFT.png" alt="SHIFT"></td>

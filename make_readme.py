@@ -250,7 +250,7 @@ def make_readme():
             'name': 'Rotate',
             'description': "",
             'shortcuts': ['R; Begin rotating, adding transform if needed.', 'Shift; Hold to enable fine tuning', 'Ctrl; Hold to enable stepwise rotation', 'RIGHTMOUSE; Escape rotate mode', 'Esc; Escape rotate mode', 'LEFTMOUSE; Set rotation, end rotate mode', 'RET; Set rotation, end rotate mode', 'ZERO ONE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE PERIOD; Set rotation to value entered', 'ALT R; Set rotation to 0 degrees'],
-            'demo': 'https://i.imgur.com/u8nUPj6.gif',
+            'demo': 'https://i.imgur.com/3ru1Xl6.gif',
         },
         'vse_transform_tools.scale': {
             'name': 'Scale',
