@@ -1,5 +1,6 @@
 import bpy
 from mathutils import Vector
+import math
 
 from ..utils.geometry import  mouse_to_res
 
@@ -15,14 +16,19 @@ class MouseTrack(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         scene = context.scene
-        if (scene.sequence_editor and
-                scene.sequence_editor.active_strip and
-                scene.sequence_editor.active_strip.type == "TRANSFORM"):
-            return True
+        strip = scene.sequence_editor.active_strip
+        if (scene.sequence_editor and strip):
+            if strip.type == "TRANSFORM":
+                return True
+            elif strip.use_translation:
+                return True
         return False
 
     def modal(self, context, event):
         scene = context.scene
+        fps = scene.render.fps / scene.render.fps_base
+        fc = scene.frame_current
+        cushion = fc + math.ceil(fps / 2)
 
         strip = scene.sequence_editor.active_strip
 
@@ -35,20 +41,45 @@ class MouseTrack(bpy.types.Operator):
         mouse_vec = Vector([mouse_x, mouse_y])
         mouse_pos = mouse_to_res(mouse_vec)
 
-        if strip.translation_unit == 'PERCENT':
-            x = ((mouse_pos.x * 100) / res_x) - 50
-            y = ((mouse_pos.y * 100) / res_y) - 50
-        else:
+        if strip.type == "TRANSFORM":
             x = mouse_pos.x - (res_x / 2)
             y = mouse_pos.y - (res_y / 2)
 
-        strip.translate_start_x = x
-        strip.translate_start_y = y
+            if strip.translation_unit == 'PERCENT':
+                x = ((mouse_pos.x * 100) / res_x) - 50
+                y = ((mouse_pos.y * 100) / res_y) - 50
 
-        strip.keyframe_insert(
-            data_path="translate_start_x", frame=scene.frame_current)
-        strip.keyframe_insert(
-            data_path="translate_start_y", frame=scene.frame_current)
+            strip.translate_start_x = x
+            strip.translate_start_y = y
+
+            for i in range(fc, cushion):
+                try:
+                    strip.keyframe_delete('translate_start_x', frame=i)
+                    strip.keyframe_delete('translate_start_y', frame=i)
+                except RuntimeError:
+                    pass
+
+            strip.keyframe_insert(
+                data_path="translate_start_x")
+            strip.keyframe_insert(
+                data_path="translate_start_y")
+
+        else:
+            strip.transform.offset_x = mouse_pos.x
+            strip.transform.offset_y = mouse_pos.y
+
+            # Doing this for image_offset strips has been unnecessary for me
+            for i in range(fc, cushion):
+                try:
+                    strip.transform.keyframe_delete('offset_x', frame=i)
+                    strip.transform.keyframe_delete('offset_y', frame=i)
+                except RuntimeError:
+                    pass
+
+            strip.transform.keyframe_insert(
+                data_path="offset_x")
+            strip.transform.keyframe_insert(
+                data_path="offset_y")
 
         if event.type == 'M' and event.value == 'RELEASE':
             return {'FINISHED'}
