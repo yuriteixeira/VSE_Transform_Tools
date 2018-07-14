@@ -8,6 +8,7 @@ from .crop import Crop
 from .delete import Delete
 from .duplicate import Duplicate
 from .grab import Grab
+from .group import Group
 from .meta_toggle import MetaToggle
 from .mouse_track import MouseTrack
 from .pixelate import Pixelate

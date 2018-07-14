@@ -25,6 +25,7 @@ class Delete(bpy.types.Operator):
         return False
 
     def invoke(self, context, event):
+        scene = context.scene
         selected = []
 
         for strip in context.selected_sequences:
@@ -33,7 +34,27 @@ class Delete(bpy.types.Operator):
         for strip in selected:
             strip.select = True
 
+        delete_count = len(selected)
+
+        dead_scenes = []
+        if event.shift:
+            for strip in selected:
+                if strip.type == "SCENE":
+                    for s in scene.sequence_editor.sequences_all:
+                        if s.type == "SCENE" and s.scene == strip.scene:
+                            s.select = True
+                            delete_count += 1
+                    dead_scenes.append(strip.scene)
+                elif hasattr(strip, 'filepath'):
+                    for s in scene.sequence_editor.sequences_all:
+                        if hasattr(s, 'filepath') and s.filepath == strip.filepath:
+                            s.select = True
+                            delete_count += 1
+
         bpy.ops.sequencer.delete()
+
+        for sce in dead_scenes:
+            bpy.data.scenes.remove(sce, True)
 
         selection_length = len(selected)
         report_message = ' '.join(

@@ -28,19 +28,6 @@
     rotation, ensure that you are
     modifying a transform strip by
     adding one with this operator.">Add Transform</a></td>
-            <td width=222px><a name="top_Crop" href="#Crop" title="">Crop</a></td>
-            <td width=222px><a name="top_Meta_Toggle" href="#Meta_Toggle" title="Toggles the selected strip if
-    it is a META. If the selected
-    strip is not a meta,
-    recursively checks inputs until
-    a META strip is encountered and
-    toggles it. If no META is
-    found, this operator does
-    nothing.">Meta Toggle</a></td>
-            <td width=222px><a name="top_Scale" href="#Scale" title="">Scale</a></td>
-        </tr>
-        <tr>
-            <td width=222px><a name="top_Adjust_Alpha" href="#Adjust_Alpha" title="">Adjust Alpha</a></td>
             <td width=222px><a name="top_Delete" href="#Delete" title="Deletes all selected strips as
     well as any strips that are
     inputs of those strips. For
@@ -53,13 +40,13 @@
     continuously add keyframes to
     transform strip while tracking
     the position of the mouse.">Mouse Track</a></td>
-            <td width=222px><a name="top_Select" href="#Select" title="">Select</a></td>
+            <td width=222px><a name="top_Set_Cursor_2D" href="#Set_Cursor_2D" title="Set the pivot point (point of
+    origin) location. This will
+    affect how strips are rotated
+    and scaled.">Set Cursor 2D</a></td>
         </tr>
         <tr>
-            <td width=222px><a name="top_Autocrop" href="#Autocrop" title="Sets the scene resolution to
-    fit all visible content in the
-    preview window without changing
-    strip sizes.">Autocrop</a></td>
+            <td width=222px><a name="top_Adjust_Alpha" href="#Adjust_Alpha" title="">Adjust Alpha</a></td>
             <td width=222px><a name="top_Duplicate" href="#Duplicate" title="Duplicates all selected strips
     and any strips that are inputs
     of those strips. Calls the Grab
@@ -68,20 +55,6 @@
             <td width=222px><a name="top_Pixelate" href="#Pixelate" title="Pixelate a clip by adding 2
     transform modifiers: 1
     shrinking, 1 expanding.">Pixelate</a></td>
-            <td width=222px><a name="top_Set_Cursor_2D" href="#Set_Cursor_2D" title="Set the pivot point (point of
-    origin) location. This will
-    affect how strips are rotated
-    and scaled.">Set Cursor 2D</a></td>
-        </tr>
-        <tr>
-            <td width=222px><a name="top_Call_Menu" href="#Call_Menu" title="Bring up the menu for inserting
-    a keyframe. Alternatively, you
-    may enable automatic
-    keyframing. <br> ![Automatic
-    Keyframe
-    Insertion](https://i.imgur.com/kFtT1ja.jpg)">Call Menu</a></td>
-            <td width=222px><a name="top_Grab" href="#Grab" title="">Grab</a></td>
-            <td width=222px><a name="top_Rotate" href="#Rotate" title="">Rotate</a></td>
             <td width=222px><a name="top_Track_Transform" href="#Track_Transform" title="Use a pair of track points to
     pin a strip to another. The UI
     for this tool is located in the
@@ -91,6 +64,37 @@
     you must use 2 tracking points.
     <br>
     ![UI](https://i.imgur.com/wEZLu8a.jpg)">Track Transform</a></td>
+        </tr>
+        <tr>
+            <td width=222px><a name="top_Autocrop" href="#Autocrop" title="Sets the scene resolution to
+    fit all visible content in the
+    preview window without changing
+    strip sizes.">Autocrop</a></td>
+            <td width=222px><a name="top_Grab" href="#Grab" title="">Grab</a></td>
+            <td width=222px><a name="top_Rotate" href="#Rotate" title="">Rotate</a></td>
+            <td width=222px rowspan="3"></td>
+        </tr>
+        <tr>
+            <td width=222px><a name="top_Call_Menu" href="#Call_Menu" title="Bring up the menu for inserting
+    a keyframe. Alternatively, you
+    may enable automatic
+    keyframing. <br> ![Automatic
+    Keyframe
+    Insertion](https://i.imgur.com/kFtT1ja.jpg)">Call Menu</a></td>
+            <td width=222px><a name="top_Group" href="#Group" title="">Group</a></td>
+            <td width=222px><a name="top_Scale" href="#Scale" title="">Scale</a></td>
+        </tr>
+        <tr>
+            <td width=222px><a name="top_Crop" href="#Crop" title="">Crop</a></td>
+            <td width=222px><a name="top_Meta_Toggle" href="#Meta_Toggle" title="Toggles the selected strip if
+    it is a META. If the selected
+    strip is not a meta,
+    recursively checks inputs until
+    a META strip is encountered and
+    toggles it. If no META is
+    found, this operator does
+    nothing.">Meta Toggle</a></td>
+            <td width=222px><a name="top_Select" href="#Select" title="">Select</a></td>
         </tr>
     </table>
         <h3><a name="Add_Transform" href="#top_Add_Transform">Add Transform</a></h3>
@@ -225,7 +229,12 @@
             <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/DEL.png" alt="DEL"></td>
             <td><p>Delete</p>
     </td>
-            <td align="center" rowspan="1"><img src="https://i.imgur.com/B0L7XoV.gif"></td>
+            <td align="center" rowspan="2"><img src="https://i.imgur.com/B0L7XoV.gif"></td>
+        </tr>
+        <tr>
+            <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SHIFT.png" alt="SHIFT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/DEL.png" alt="DEL"></td>
+            <td><p>Delete strips and remove any other strips in the timeline with the same source. For scene strips, the scenes themselves will also be deleted.</p>
+    </td>
         </tr>
     </table>
         <h3><a name="Duplicate" href="#top_Duplicate">Duplicate</a></h3>
@@ -305,6 +314,24 @@
         <tr>
             <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ALT.png" alt="ALT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/G.png" alt="G"></td>
             <td><p>Set position to 0,0</p>
+    </td>
+        </tr>
+    </table>
+        <h3><a name="Group" href="#top_Group">Group</a></h3>
+    <p></p>
+    
+    <table>
+        <tr>
+            <th width=208px>Shortcut</th>
+            <th width=417px>Function</th>
+        <tr>
+            <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/CTRL.png" alt="CTRL"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/G.png" alt="G"></td>
+            <td><p>Group together selected sequences</p>
+    </td>
+        </tr>
+        <tr>
+            <td align="center"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/ALT.png" alt="ALT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/SHIFT.png" alt="SHIFT"><img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/G.png" alt="G"></td>
+            <td><p>Ungroup selected meta strip</p>
     </td>
         </tr>
     </table>

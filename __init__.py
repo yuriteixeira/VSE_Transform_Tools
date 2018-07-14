@@ -280,7 +280,11 @@ def register():
 
     kmi = km.keymap_items.new("vse_transform_tools.add_transform", 'T', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS')
-    kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS', alt=True)
+    kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS', alt=True, shift=False)
+
+    kmi = km.keymap_items.new("vse_transform_tools.group", 'G', 'PRESS', ctrl=True)
+    kmi = km.keymap_items.new("vse_transform_tools.group", 'G', 'PRESS', ctrl=False, alt=True, shift=True),
+
     kmi = km.keymap_items.new("vse_transform_tools.scale", 'S', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.scale", 'S', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.rotate", 'R', 'PRESS')
@@ -295,6 +299,7 @@ def register():
     kmi = km.keymap_items.new("vse_transform_tools.duplicate", "D", 'PRESS', shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.pixelate", 'P', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.delete", "DEL", "PRESS")
+    kmi = km.keymap_items.new("vse_transform_tools.delete", "DEL", "PRESS", shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.meta_toggle", "TAB", "PRESS")
 
     mouse_buttons = ['LEFT', 'RIGHT']

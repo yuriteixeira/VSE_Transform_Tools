@@ -44,6 +44,10 @@ def get_strip_box(strip):
     elif not hasattr(strip, 'elements'):
         len_crop_x = res_x
         len_crop_y = res_y
+
+        if strip.type == "SCENE":
+            len_crop_x = strip.scene.render.resolution_x
+            len_crop_y = strip.scene.render.resolution_y
         if strip.use_crop:
             len_crop_x -= (strip.crop.min_x + strip.crop.max_x)
             len_crop_y -= (strip.crop.min_y + strip.crop.max_y)

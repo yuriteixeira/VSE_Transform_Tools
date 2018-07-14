@@ -68,7 +68,6 @@ class MouseTrack(bpy.types.Operator):
             strip.transform.offset_x = mouse_pos.x
             strip.transform.offset_y = mouse_pos.y
 
-            # Doing this for image_offset strips has been unnecessary for me
             for i in range(fc, cushion):
                 try:
                     strip.transform.keyframe_delete('offset_x', frame=i)

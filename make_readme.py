@@ -213,7 +213,7 @@ def make_readme():
         'vse_transform_tools.delete': {
             'name': 'Delete',
             'description': "Deletes all selected strips as well as any strips that are inputs of those strips. For example, deleting a transform strip with this operator will also delete the strip it was transforming.",
-            'shortcuts': ['DEL; Delete'],
+            'shortcuts': ['DEL; Delete', 'Shift DEL; Delete strips and remove any other strips in the timeline with the same source. For scene strips, the scenes themselves will also be deleted.'],
             'demo': 'https://i.imgur.com/B0L7XoV.gif',
         },
         'vse_transform_tools.duplicate': {
@@ -227,6 +227,12 @@ def make_readme():
             'description': "",
             'shortcuts': ['G; Grab', 'Shift; Hold to enable fine tuning', 'Ctrl; Hold to enable snapping', 'RIGHTMOUSE; Escape grab mode', 'Esc; Escape grab mode', 'LEFTMOUSE; Set position, end grab mode', 'RET; Set position, end grab mode', 'ZERO ONE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE PERIOD; Set position by value entered', 'X Y; Constrain grabbing to the respective axis', 'MIDDLEMOUSE; Constrain grabbing to axis', 'ALT G; Set position to 0,0'],
             'demo': 'https://i.imgur.com/yQCFI0s.gif',
+        },
+        'vse_transform_tools.group': {
+            'name': 'Group',
+            'description': "",
+            'shortcuts': ['Ctrl G; Group together selected sequences', 'Alt Shift G; Ungroup selected meta strip'],
+            'demo': ''
         },
         'vse_transform_tools.meta_toggle': {
             'name': 'Meta Toggle',
