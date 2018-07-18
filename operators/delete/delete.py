@@ -54,6 +54,8 @@ class Delete(bpy.types.Operator):
         bpy.ops.sequencer.delete()
 
         for sce in dead_scenes:
+            for obj in sce.objects:
+                bpy.data.objects.remove(obj, True)
             bpy.data.scenes.remove(sce, True)
 
         selection_length = len(selected)

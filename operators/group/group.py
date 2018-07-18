@@ -1,6 +1,7 @@
 import bpy
 
 from ..utils.geometry import get_group_box
+from ..utils.selection import get_input_tree
 
 class Group(bpy.types.Operator):
     bl_idname = "vse_transform_tools.group"
@@ -21,6 +22,14 @@ class Group(bpy.types.Operator):
             return {"FINISHED"}
 
         selected = context.selected_sequences
+
+        for strip in selected:
+            tree = get_input_tree(strip)
+            for child in tree:
+                child.select = True
+                if not child in selected:
+                    selected.append(child)
+
         left, right, bottom, top = get_group_box(selected)
 
         res_x = context.scene.render.resolution_x
