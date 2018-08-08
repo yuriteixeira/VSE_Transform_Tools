@@ -242,7 +242,7 @@ def make_readme():
         },
         'vse_transform_tools.mouse_track': {
             'name': 'Mouse Track',
-            'description': 'Select a transform strip, Press Alt+A to play, hold M to continuously add keyframes to transform strip while tracking the position of the mouse.',
+            'description': 'Select a strip, Press Alt+A to play, hold M to continuously add keyframes to transform strip while tracking the position of the mouse.',
             'shortcuts': ['M; Hold to add keyframes, release to stop'],
             'demo': 'https://i.imgur.com/6091cqv.gif',
         },

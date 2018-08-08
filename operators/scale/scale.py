@@ -468,7 +468,7 @@ def reset_transform_scale(strip):
         strip.scale_start_y = ratio_y
 
     elif strip_in.type == "SCENE":
-        strip_scene = bpy.data.scenes[strip_in.name]
+        strip_scene = strip_in.scene
 
         ratio_x = strip_scene.render.resolution_x / res_x
         ratio_y = strip_scene.render.resolution_y / res_y
