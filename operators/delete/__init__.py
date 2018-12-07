@@ -1,1 +1,1 @@
-from .delete import Delete
+from .delete import PREV_OT_delete

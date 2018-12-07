@@ -1,1 +1,1 @@
-from .autocrop import Autocrop
+from .autocrop import PREV_OT_autocrop

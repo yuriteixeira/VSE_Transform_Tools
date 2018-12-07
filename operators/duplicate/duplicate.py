@@ -5,10 +5,8 @@ from ..utils.selection import get_input_tree
 from .get_vertical_translation import get_vertical_translation
 
 
-class Duplicate(bpy.types.Operator):
+class PREV_OT_duplicate(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/IJh7v3z.gif)
-
     Duplicates all selected strips and any strips that are inputs
     of those strips.
     Calls the Grab operator immediately after duplicating.

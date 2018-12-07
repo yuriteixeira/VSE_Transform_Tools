@@ -28,8 +28,6 @@ def reposition_strip(strip, group_box):
     available_width = res_x - total_width
     available_height = res_y - total_height
 
-    print(strip.name)
-
     if strip.use_translation:
         strip.transform.offset_x -= min_left
         strip.transform.offset_y -= min_bottom

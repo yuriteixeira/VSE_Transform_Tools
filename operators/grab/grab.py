@@ -22,9 +22,9 @@ from ..utils.selection import get_visible_strips
 from ..utils.draw import draw_snap
 
 
-class Grab(bpy.types.Operator):
+class PREV_OT_grab(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/yQCFI0s.gif)
+    Move strip(s) in 2D space
     """
     bl_idname = "vse_transform_tools.grab"
     bl_label = "Grab"
@@ -250,7 +250,7 @@ class Grab(bpy.types.Operator):
                             strip.transform.keyframe_insert(data_path='offset_x')
                             strip.transform.keyframe_insert(data_path='offset_y')
 
-                context.area.header_text_set()
+                context.area.header_text_set('')
                 return {'FINISHED'}
 
             if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
@@ -270,7 +270,7 @@ class Grab(bpy.types.Operator):
                         strip.transform.offset_y = init_pos[1]
 
 
-                context.area.header_text_set()
+                context.area.header_text_set('')
                 return {'FINISHED'}
 
             return {'RUNNING_MODAL'}

@@ -8,32 +8,15 @@ def draw_snap(self, loc, orientation):
     """
     Draws the purple snap lines
     """
-    bgl.glEnable(bgl.GL_BLEND)
-    bgl.glLineWidth(2)
-    bgl.glPushMatrix()
-
-    r = 1.0
-    g = 0.0
-    b = 1.0
-    a = 0.5
-    bgl.glColor4f(r, g, b, a)
+    color = (1.0, 0.0, 1.0, 0.5)
+    thickness = 2
 
     if orientation == "VERTICAL":
-        bgl.glTranslatef(loc, 0, 0)
-
-        start = Vector([0, -10000])
-        end = Vector([0, 10000])
-        draw_line(start, end)
+        v1 = [loc, -10000]
+        v2 = [loc, 10000]
 
     elif orientation == "HORIZONTAL":
-        bgl.glTranslatef(0, loc, 0)
-
-        start = Vector([-10000, 0])
-        end = Vector([10000, 0])
-        draw_line(start, end)
-
-    bgl.glPopMatrix()
-
-    bgl.glLineWidth(1)
-    bgl.glDisable(bgl.GL_BLEND)
-    bgl.glColor4f(0.0, 0.0, 0.0, 1.0)
+        v1 = [-10000, loc]
+        v2 = [10000, loc]
+    
+    draw_line(v1, v2, thickness, color)

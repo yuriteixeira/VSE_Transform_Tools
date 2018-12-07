@@ -1,7 +1,7 @@
 import bpy
 
 
-class MenuInsertKeyframe(bpy.types.Menu):
+class PREV_MT_menu_insert_keyframe(bpy.types.Menu):
     bl_label = "Insert KeyFrame Menu"
     bl_idname = "VSE_MT_Insert_keyframe_Menu"
 

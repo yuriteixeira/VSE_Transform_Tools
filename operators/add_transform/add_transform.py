@@ -4,20 +4,15 @@ from ..utils.geometry import get_transform_box
 from ..utils.geometry import get_strip_box
 from ..utils.selection import get_input_tree
 
-class AddTransform(bpy.types.Operator):
+class PREV_OT_add_transform(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/v4racQW.gif)
-
-    A transform modifier must be added to a strip before the strip can
-    be grabbed, scaled, rotated, or cropped by this addon.
-    Any strips with "Image Offset" enabled will transfer this offset to
-    the transform strip
+    Adds a transform modifier to the selected strip(s)
     """
     bl_idname = "vse_transform_tools.add_transform"
     bl_label = "Add Transform"
-    bl_description = "Add transform modifier to selected strips"
+    bl_description = "Add transform modifier to the selected strip(s)"
     bl_options = {'REGISTER', 'UNDO'}
-
+    
     @classmethod
     def poll(cls, context):
         if context.scene.sequence_editor:
@@ -25,7 +20,6 @@ class AddTransform(bpy.types.Operator):
         return False
 
     def execute(self, context):
-        bpy.ops.vse_transform_tools.check_update()
 
         scene = context.scene
 

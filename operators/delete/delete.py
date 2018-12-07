@@ -2,10 +2,8 @@ import bpy
 from ..utils.selection import get_input_tree
 
 
-class Delete(bpy.types.Operator):
+class PREV_OT_delete(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/B0L7XoV.gif)
-
     Deletes all selected strips as well as any strips that are inputs
     of those strips.
     For example, deleting a transform strip with this operator will

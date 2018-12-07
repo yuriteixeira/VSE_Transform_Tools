@@ -1,15 +1,12 @@
 import bpy
-import bgl
 
 from ..geometry.get_group_box import get_group_box
 from ..geometry.get_preview_offset import get_preview_offset
 
+from .draw_line import draw_line
+from .draw_stippled_line import draw_stippled_line
+
 def draw_axes(self, context, angle):
-    bgl.glEnable(bgl.GL_BLEND)
-    bgl.glLineWidth(2)
-
-    bgl.glPushMatrix()
-
     transforms = []
     strips = bpy.context.selected_sequences
     for strip in strips:
@@ -29,20 +26,19 @@ def draw_axes(self, context, angle):
     x = (group_pos_x * fac * preview_zoom) + offset_x
     y = (group_pos_y * fac * preview_zoom) + offset_y
 
-    bgl.glTranslatef(x, y, 0)
-    bgl.glRotatef(angle, 0, 0, 1)
+    green = (0, 1, 0, 1)
+    red = (1, 0, 0, 1)
+    thickness = 1
+    stipple_length = 10
+    far = 10000
 
-    bgl.glBegin(bgl.GL_LINES)
-    bgl.glColor4f(1.0, 0.0, 0.0, 0.2 * self.choose_axis + self.axis_x * 0.8)
-    bgl.glVertex2f(-10000, 0)
-    bgl.glVertex2f(10000, 0)
-    bgl.glColor4f(0.0, 1.0, 0.0, 0.2 * self.choose_axis + self.axis_y * 0.8)
-    bgl.glVertex2f(0, -10000)
-    bgl.glVertex2f(0, 10000)
-    bgl.glEnd()
-
-    bgl.glPopMatrix()
-
-    bgl.glLineWidth(1)
-    bgl.glDisable(bgl.GL_BLEND)
-    bgl.glColor4f(0.0, 0.0, 0.0, 1.0)
+    if self.choose_axis and not self.axis_y:
+        draw_line([-far, y], [far, y], 2, red)
+        draw_stippled_line([x, -far], [x, far], thickness, stipple_length, green)
+    elif self.choose_axis and not self.axis_x:
+        draw_stippled_line([-far, y], [far, y], thickness, stipple_length, red)
+        draw_line([x, -far], [x, far], thickness, green)
+    elif self.axis_x:
+        draw_line([-far, y], [far, y], thickness, red)
+    elif self.axis_y:
+        draw_line([x, -far], [x, far], thickness, green)

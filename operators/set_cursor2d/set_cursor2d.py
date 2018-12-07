@@ -5,9 +5,8 @@ from mathutils import Vector
 from .get_important_edge_points import get_important_edge_points
 
 
-class SetCursor2d(bpy.types.Operator):
+class PREV_OT_set_cursor_2d(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/1uTD9C1.gif)
     Set the pivot point (point of origin) location. This will affect
     how strips are rotated and scaled.
     """

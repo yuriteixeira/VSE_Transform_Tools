@@ -3,10 +3,8 @@ from ..utils.selection import get_input_tree
 import math
 
 
-class TrackTransform(bpy.types.Operator):
+class SEQUENCER_OT_track_transform(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/nWto3hH.gif)
-
     Use a pair of track points to pin a strip to another. The UI for
     this tool is located in the menu to the right of the sequencer in
     the "Tools" submenu.
@@ -19,7 +17,7 @@ class TrackTransform(bpy.types.Operator):
     """
     bl_idname = "vse_transform_tools.track_transform"
     bl_label = "Track Transform"
-    bl_description = "Generate a Transform Strip with Animated Position/Rotation/Scale to Match Tracker(s)"
+    bl_description = "Pin selected transform strip to tracker(s)"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod

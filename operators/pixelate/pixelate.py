@@ -8,10 +8,8 @@ from ..utils.selection import get_input_tree
 from ..utils import process_input
 
 
-class Pixelate(bpy.types.Operator):
+class PREV_OT_pixelate(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/u8nUPj6.gif)
-
     Pixelate a clip by adding 2 transform effects: 1 shrinking,
     1 expanding.
     """

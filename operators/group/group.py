@@ -3,7 +3,7 @@ import bpy
 from ..utils.geometry import get_group_box
 from ..utils.selection import get_input_tree
 
-class Group(bpy.types.Operator):
+class PREV_OT_group(bpy.types.Operator):
     bl_idname = "vse_transform_tools.group"
     bl_label = "Group"
     bl_description = "Group VSE Strips together"

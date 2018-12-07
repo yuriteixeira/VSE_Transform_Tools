@@ -1,7 +1,7 @@
 import bpy
 
 
-class CallMenu(bpy.types.Operator):
+class PREV_OT_call_menu(bpy.types.Operator):
     """
     ![Demo](https://i.imgur.com/9Cx6XKj.gif)
 

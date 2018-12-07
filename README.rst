@@ -35,11 +35,13 @@
     strip with this operator will
     also delete the strip it was
     transforming.">Delete</a></td>
-            <td width=222px><a name="top_Mouse_Track" href="#Mouse_Track" title="Select a strip, Press Alt+A to
-    play, hold M to continuously
-    add keyframes to transform
-    strip while tracking the
-    position of the mouse.">Mouse Track</a></td>
+            <td width=222px><a name="top_Mouse_Track" href="#Mouse_Track" title="Select a transform strip or a
+    strip with "image offset"
+    enabled. Press Alt+A to play,
+    hold M to continuously add
+    keyframes to transform strip
+    while tracking the position of
+    the mouse.">Mouse Track</a></td>
             <td width=222px><a name="top_Set_Cursor_2D" href="#Set_Cursor_2D" title="Set the pivot point (point of
     origin) location. This will
     affect how strips are rotated
@@ -351,7 +353,7 @@
         </tr>
     </table>
         <h3><a name="Mouse_Track" href="#top_Mouse_Track">Mouse Track</a></h3>
-    <p>Select a strip, Press Alt+A to play, hold M to continuously add keyframes to transform strip while tracking the position of the mouse.</p>
+    <p>Select a transform strip or a strip with "image offset" enabled. Press Alt+A to play, hold M to continuously add keyframes to transform strip while tracking the position of the mouse.</p>
     
     <table>
         <tr>

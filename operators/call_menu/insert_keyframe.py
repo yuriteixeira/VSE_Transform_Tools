@@ -1,12 +1,12 @@
 import bpy
 
 
-class InsertKeyframe(bpy.types.Operator):
+class PREV_OT_insert_keyframe(bpy.types.Operator):
     bl_idname = "vse_transform_tools.insert_keyframe"
     bl_label = "Transform Insert KeyFrame"
     bl_options = {'REGISTER', 'UNDO'}
 
-    ch = bpy.props.IntVectorProperty(
+    ch: bpy.props.IntVectorProperty(
         name="ch",
         default=(0, 0, 0, 0, 0),
         size=5

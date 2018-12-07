@@ -1,1 +1,1 @@
-from .add_transform import AddTransform
+from .add_transform import PREV_OT_add_transform

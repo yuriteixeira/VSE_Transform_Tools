@@ -1,6 +1,5 @@
 import bpy
-import bgl
-import math
+
 from mathutils import Vector
 from mathutils.geometry import intersect_point_quad_2d
 
@@ -10,12 +9,43 @@ from ..utils.geometry import mouse_to_res
 
 from ..utils.selection import get_visible_strips
 
-from .draw_select import draw_select
+from ..utils.geometry import get_preview_offset
+from ..utils.geometry import get_strip_corners
+
+from ..utils.draw import draw_line
+
+def draw_select(self, context):
+    theme = context.user_preferences.themes['Default']
+    active_color = theme.view_3d.object_active
+    select_color = theme.view_3d.object_selected
+    opacity = 0.9 - (self.seconds / self.fadeout_duration)
+
+    active_strip = context.scene.sequence_editor.active_strip
+    
+    offset_x, offset_y, fac, preview_zoom = get_preview_offset()
+    
+    for strip in context.selected_sequences:
+        if strip == active_strip:
+            color = (active_color[0], active_color[1], active_color[2], opacity)
+        else:
+            color = (select_color[0], select_color[1], select_color[2], opacity)
+        
+        corners = get_strip_corners(strip)
+        vertices = []
+        for corner in corners:
+            corner_x = int(corner[0] * preview_zoom * fac) + offset_x
+            corner_y = int(corner[1] * preview_zoom * fac) + offset_y
+            vertices.append([corner_x, corner_y])
+        
+        draw_line(vertices[0], vertices[1], 2, color)
+        draw_line(vertices[1], vertices[2], 2, color)
+        draw_line(vertices[2], vertices[3], 2, color)
+        draw_line(vertices[3], vertices[0], 2, color)
 
 
-class Select(bpy.types.Operator):
+class PREV_OT_select(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/EVzmMAm.gif)
+    Selects a strip(s) when clicked
     """
     bl_idname = "vse_transform_tools.select"
     bl_label = "Select"
@@ -23,7 +53,7 @@ class Select(bpy.types.Operator):
 
     timer = None
     seconds = 0
-    fadeout_duration = 0.20
+    fadeout_duration = 0.1
     handle_select = None
 
     @classmethod
@@ -49,7 +79,7 @@ class Select(bpy.types.Operator):
         return {'PASS_THROUGH'}
 
     def invoke(self, context, event):
-        bpy.ops.vse_transform_tools.initialize_pivot()
+        #bpy.ops.vse_transform_tools.initialize_pivot()
 
         scene = context.scene
 
@@ -118,7 +148,7 @@ class Select(bpy.types.Operator):
         self.handle_select = bpy.types.SpaceSequenceEditor.draw_handler_add(
             draw_select, args, 'PREVIEW', 'POST_PIXEL')
 
-        self.timer = context.window_manager.event_timer_add(0.01, context.window)
+        self.timer = context.window_manager.event_timer_add(0.01, window=context.window)
 
         context.window_manager.modal_handler_add(self)
 

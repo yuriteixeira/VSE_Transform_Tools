@@ -18,9 +18,9 @@ from ..utils.draw import draw_px_point
 from .apply_strip_rotation import apply_strip_rotation
 
 
-class Rotate(bpy.types.Operator):
+class PREV_OT_rotate(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/SyL2HeA.gif)
+    Rotate selected strip(s)
     """
     bl_idname = "vse_transform_tools.rotate"
     bl_label = "Rotate"
@@ -34,6 +34,8 @@ class Rotate(bpy.types.Operator):
 
     center_area = Vector([0, 0])
     center_real = Vector([0, 0])
+    
+    mouse_pos = Vector([-1, -1])
 
     rot_prev = 0
     vec_init = Vector([0, 0])
@@ -59,6 +61,8 @@ class Rotate(bpy.types.Operator):
         context.area.tag_redraw()
 
         if self.tab:
+            self.mouse_pos = Vector([event.mouse_region_x, event.mouse_region_y])
+            
             self.vec_act = Vector([event.mouse_region_x, event.mouse_region_y])
             self.vec_act -= self.center_area
 
@@ -119,7 +123,7 @@ class Rotate(bpy.types.Operator):
                     for strip in self.tab:
                         strip.keyframe_insert(data_path='rotation_start')
 
-            context.area.header_text_set()
+            context.area.header_text_set('')
             return {'FINISHED'}
 
         if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
@@ -134,7 +138,7 @@ class Rotate(bpy.types.Operator):
 
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_line, 'PREVIEW')
-            context.area.header_text_set()
+            context.area.header_text_set('')
             return {'FINISHED'}
 
         return {'RUNNING_MODAL'}

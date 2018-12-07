@@ -1,1 +1,1 @@
-from .duplicate import Duplicate
+from .duplicate import PREV_OT_duplicate

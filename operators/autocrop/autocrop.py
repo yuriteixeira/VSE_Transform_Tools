@@ -10,10 +10,8 @@ from ..utils.geometry import reposition_strip
 from ..utils.geometry import reposition_transform_strip
 
 
-class Autocrop(bpy.types.Operator):
+class PREV_OT_autocrop(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/IarxF14.gif)
-
     Sets the scene resolution to fit all visible content in
     the preview window without changing strip sizes.
     """

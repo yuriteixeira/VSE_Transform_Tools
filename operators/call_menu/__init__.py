@@ -1,3 +1,3 @@
-from .call_menu import CallMenu
-from .insert_keyframe import InsertKeyframe
-from .menu_insert_keyframe import MenuInsertKeyframe
+from .call_menu import PREV_OT_call_menu
+from .insert_keyframe import PREV_OT_insert_keyframe
+from .menu_insert_keyframe import PREV_MT_menu_insert_keyframe

@@ -1,6 +1,4 @@
 import bpy
-import bgl
-import blf
 
 from mathutils import Vector
 
@@ -9,7 +7,7 @@ from .draw_alpha_controls import draw_alpha_controls
 from ..utils import process_input
 
 
-class AdjustAlpha(bpy.types.Operator):
+class PREV_OT_adjust_alpha(bpy.types.Operator):
     """
     ![Demo](https://i.imgur.com/PNsjamH.gif)
     """

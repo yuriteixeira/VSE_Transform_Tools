@@ -4,7 +4,7 @@ import math
 
 from ..utils.geometry import  mouse_to_res
 
-class MouseTrack(bpy.types.Operator):
+class PREV_OT_mouse_track(bpy.types.Operator):
     """
     Track mouse position and apply as keyframes to a transform modifier
     """

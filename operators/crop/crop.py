@@ -14,9 +14,9 @@ from .draw_crop import draw_crop
 from .crop_scale import crop_scale
 
 
-class Crop(bpy.types.Operator):
+class PREV_OT_crop(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/k4r2alY.gif)
+    Crop the active strip
     """
     bl_idname = "vse_transform_tools.crop"
     bl_label = "Crop"

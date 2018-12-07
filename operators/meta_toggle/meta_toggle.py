@@ -2,10 +2,8 @@ import bpy
 from ..utils.selection import get_input_tree
 
 
-class MetaToggle(bpy.types.Operator):
+class PREV_OT_meta_toggle(bpy.types.Operator):
     """
-    ![Demo](https://i.imgur.com/ya0nEgV.gif)
-
     Toggles the selected strip if it is a META. If the selected strip is
     not a meta, recursively checks inputs until a META strip is
     encountered and toggles it. If no META is found, this operator does

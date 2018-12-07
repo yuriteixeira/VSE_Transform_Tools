@@ -20,7 +20,7 @@ from ..utils.selection import get_highest_transform
 from ..utils.draw import draw_px_point
 from ..utils.draw import draw_snap
 
-class Scale(bpy.types.Operator):
+class PREV_OT_scale(bpy.types.Operator):
     """
     ![Demo](https://i.imgur.com/oAxSEYB.gif)
     """
@@ -35,7 +35,7 @@ class Scale(bpy.types.Operator):
 
     first_mouse = Vector([0, 0])
     pos_clic = Vector([0, 0])
-    mouse_pos = Vector([0, 0])
+    mouse_pos = Vector([-1, -1])
 
     vec_init = Vector([0, 0])
     vec_act = Vector([0, 0])
@@ -299,7 +299,7 @@ class Scale(bpy.types.Operator):
 
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')
-                context.area.header_text_set()
+                context.area.header_text_set('')
                 return {'FINISHED'}
 
             if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
@@ -316,7 +316,7 @@ class Scale(bpy.types.Operator):
 
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')
-                context.area.header_text_set()
+                context.area.header_text_set('')
                 return {'FINISHED'}
 
         else:
