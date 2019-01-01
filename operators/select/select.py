@@ -15,28 +15,32 @@ from ..utils.geometry import get_strip_corners
 from ..utils.draw import draw_line
 
 def draw_select(self, context):
-    theme = context.user_preferences.themes['Default']
-    active_color = theme.view_3d.object_active
-    select_color = theme.view_3d.object_selected
+    #theme = context.user_preferences.themes['Default']
+    #active_color = theme.view_3d.object_active
+    #select_color = theme.view_3d.object_selected
+
+    active_color = (1.0, 0.5, 0, 1.0)
+    select_color = (1.0, 0.25, 0, 1.0)
+
     opacity = 0.9 - (self.seconds / self.fadeout_duration)
 
     active_strip = context.scene.sequence_editor.active_strip
-    
+
     offset_x, offset_y, fac, preview_zoom = get_preview_offset()
-    
+
     for strip in context.selected_sequences:
         if strip == active_strip:
             color = (active_color[0], active_color[1], active_color[2], opacity)
         else:
             color = (select_color[0], select_color[1], select_color[2], opacity)
-        
+
         corners = get_strip_corners(strip)
         vertices = []
         for corner in corners:
             corner_x = int(corner[0] * preview_zoom * fac) + offset_x
             corner_y = int(corner[1] * preview_zoom * fac) + offset_y
             vertices.append([corner_x, corner_y])
-        
+
         draw_line(vertices[0], vertices[1], 2, color)
         draw_line(vertices[1], vertices[2], 2, color)
         draw_line(vertices[2], vertices[3], 2, color)

@@ -12,7 +12,7 @@ def get_visible_strips():
     sequence_editor = scene.sequence_editor
 
     if len(scene.sequence_editor.meta_stack) > 0:
-            strips = list(sequence_editor.meta_stack[-1].sequences)
+        strips = list(sequence_editor.meta_stack[-1].sequences)
     else:
         strips = list(scene.sequence_editor.sequences)
 

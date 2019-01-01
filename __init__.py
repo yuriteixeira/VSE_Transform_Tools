@@ -10,7 +10,6 @@ bl_info = {
 }
 
 """
-
 RegEx Classname
 ===============
 [A-Z][A-Z0-9_]*_{ABBREV}_[A-Za-z0-9_]+
@@ -40,6 +39,11 @@ def draw_callback_px_2d_cursor(self, context):
     
     v1 = [c2d[0] - 5, c2d[1]]
     v2 = [c2d[0] + 5, c2d[1]]
+    
+    draw_line(v1, v2, 2, (1, 0, 0, 1))
+    
+    v1 = [c2d[0], c2d[1] - 5]
+    v2 = [c2d[0], c2d[1] + 5]
     
     draw_line(v1, v2, 2, (1, 0, 0, 1))
 
