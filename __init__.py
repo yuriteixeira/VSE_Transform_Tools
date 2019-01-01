@@ -2,7 +2,7 @@ bl_info = {
     "name": "VSE Transform Tools",
     "description": "Quickly manipulate video strips in Blender's Video Sequence Editor",
     "author": "kgeogeo, DoubleZ, doakey3",
-    "version": (1, 2, 6),
+    "version": (1, 2, 7),
     "blender": (2, 80, 0),
     "wiki_url": "https://github.com/doakey3/VSE_Transform_Tools",
     "tracker_url": "https://github.com/doakey3/VSE_Transform_Tools/issues",
@@ -36,15 +36,15 @@ def draw_callback_px_2d_cursor(self, context):
     c2d = context.region.view2d.view_to_region(
         context.scene.seq_cursor2d_loc[0],
         context.scene.seq_cursor2d_loc[1], clip=False)
-    
+
     v1 = [c2d[0] - 5, c2d[1]]
     v2 = [c2d[0] + 5, c2d[1]]
-    
+
     draw_line(v1, v2, 2, (1, 0, 0, 1))
-    
+
     v1 = [c2d[0], c2d[1] - 5]
     v2 = [c2d[0], c2d[1] + 5]
-    
+
     draw_line(v1, v2, 2, (1, 0, 0, 1))
 
 
@@ -142,7 +142,7 @@ def get_tracker_list(self, context):
         for track in movieclip.tracking.tracks:
             tracks.append((track.name, track.name, ""))
     return tracks
-    
+
 
 def init_properties():
     bpy.types.Scene.seq_cursor2d_loc = bpy.props.IntVectorProperty(
@@ -169,7 +169,7 @@ def init_properties():
     )
 
     bpy.types.SEQUENCER_HT_header.append(Add_Icon_Pivot_Point)
-    
+
     bpy.types.Scene.vse_transform_tools_use_rotation = bpy.props.BoolProperty(
         name="Rotation",
         default=True
@@ -189,7 +189,7 @@ def init_properties():
         name="Tracker 2",
         items=get_tracker_list
         )
-    
+
 classes = [
     PREV_OT_initialize_pivot,
     PREV_OT_set_cursor_2d,
@@ -220,59 +220,59 @@ def register():
     from bpy.utils import register_class
     for cls in classes:
         register_class(cls)
-        
+
     init_properties()
-    
+
     wm = bpy.context.window_manager
     km = wm.keyconfigs.addon.keymaps.new(name="SequencerPreview", space_type="SEQUENCE_EDITOR", region_type="WINDOW")
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.add_transform", 'T', 'PRESS')
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS', alt=True, shift=False)
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.scale", 'S', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.scale", 'S', 'PRESS', alt=True)
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.rotate", 'R', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.rotate", 'R', 'PRESS', alt=True)
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.autocrop", 'C', 'PRESS', shift=True)
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS', alt=True)
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.delete", "DEL", "PRESS")
     kmi = km.keymap_items.new("vse_transform_tools.delete", "DEL", "PRESS", shift=True)
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.duplicate", "D", 'PRESS', shift=True)
 
     kmi = km.keymap_items.new("vse_transform_tools.group", 'G', 'PRESS', ctrl=True)
     kmi = km.keymap_items.new("vse_transform_tools.group", 'G', 'PRESS', ctrl=False, alt=True, shift=True)
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.meta_toggle", "TAB", "PRESS")
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.adjust_alpha", 'Q', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.adjust_alpha", 'Q', 'PRESS', alt=True)
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.call_menu", 'I', 'PRESS')
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.pixelate", 'P', 'PRESS')
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.mouse_track", 'M', 'PRESS')
-    
+
     #smb = bpy.data.window_managers["WinMan"].keyconfigs.active.preferences.select_mouse
     #smb = bpy.context.user_preferences.inputs.select_mouse
-    
+
     smb = "RIGHT"
     kmi = km.keymap_items.new("vse_transform_tools.select", smb + 'MOUSE', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.select", smb + 'MOUSE', 'PRESS', shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.select", 'A', 'PRESS')
-    
+
     omb = "LEFT"
     kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", omb + 'MOUSE', 'PRESS')
     kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", omb + 'MOUSE', 'PRESS', ctrl=True)
-    
+
     addon_keymaps.append(km)
 
 def unregister():
