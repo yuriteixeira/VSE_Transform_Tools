@@ -177,6 +177,8 @@ def make_readme():
 4. Click "Install From File" and navigate to the downloaded .zip file and install
 5. Check the box next to "VSE Transform Tools"
 6. Save User Settings so the addon remains active every time you open Blender
+
+Use the correct release for your Blender version. Add-ons for Blender 2.80 and above will not work for Blender 2.79
 """.strip(), extras=['cuddled_lists'])
 
     operator_info = {

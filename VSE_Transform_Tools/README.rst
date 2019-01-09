@@ -16,8 +16,6 @@
     <li>Save User Settings so the addon remains active every time you open Blender</li>
     </ol>
     
-    <p>Use the correct release for your Blender version. Add-ons for Blender 2.80 and above will not work for Blender 2.79</p>
-    
     <h2>Operators</h2>
     <table>
         <tr>
