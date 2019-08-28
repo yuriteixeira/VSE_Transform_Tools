@@ -6,6 +6,9 @@ from ..geometry.get_preview_offset import get_preview_offset
 from .draw_line import draw_line
 from .draw_stippled_line import draw_stippled_line
 
+from .colors import get_color_axis_x, get_color_axis_y
+
+
 def draw_axes(self, context, angle):
     transforms = []
     strips = bpy.context.selected_sequences
@@ -26,19 +29,19 @@ def draw_axes(self, context, angle):
     x = (group_pos_x * fac * preview_zoom) + offset_x
     y = (group_pos_y * fac * preview_zoom) + offset_y
 
-    green = (0, 1, 0, 1)
-    red = (1, 0, 0, 1)
+    color_axis_x = get_color_axis_x(context)
+    color_axis_y = get_color_axis_y(context)
     thickness = 1
     stipple_length = 10
     far = 10000
 
     if self.choose_axis and not self.axis_y:
-        draw_line([-far, y], [far, y], 2, red)
-        draw_stippled_line([x, -far], [x, far], thickness, stipple_length, green)
+        draw_line([-far, y], [far, y], 2, color_axis_x)
+        draw_stippled_line([x, -far], [x, far], thickness, stipple_length, color_axis_y)
     elif self.choose_axis and not self.axis_x:
-        draw_stippled_line([-far, y], [far, y], thickness, stipple_length, red)
-        draw_line([x, -far], [x, far], thickness, green)
+        draw_stippled_line([-far, y], [far, y], thickness, stipple_length, color_axis_x)
+        draw_line([x, -far], [x, far], thickness, color_axis_y)
     elif self.axis_x:
-        draw_line([-far, y], [far, y], thickness, red)
+        draw_line([-far, y], [far, y], thickness, color_axis_x)
     elif self.axis_y:
-        draw_line([x, -far], [x, far], thickness, green)
+        draw_line([x, -far], [x, far], thickness, color_axis_y)
