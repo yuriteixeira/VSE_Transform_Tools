@@ -110,7 +110,7 @@ class PREV_OT_initialize_pivot(bpy.types.Operator):
 
 
 class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
-    bl_label = "Transform Tools"
+    bl_label = "Transform"
     bl_idname = "SEQUENCER_MT_transform_tools_menu"
 
     @classmethod
@@ -167,6 +167,30 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
 
         layout.operator_context = 'INVOKE_DEFAULT'
 
+
+class vse_transform_tools_select(WorkSpaceTool):
+    bl_space_type='SEQUENCE_EDITOR'
+    bl_context_mode='PREVIEW'
+    bl_idname = "transform_tool.select"
+    bl_label = "Select"
+    bl_description = (
+        "Move Strip in the Preview"
+    )
+    bl_icon = "ops.generic.select"
+    bl_widget = None
+    operator="transform.translate",
+    bl_keymap = (
+        ("vse_transform_tools.select", {"type": 'LEFTMOUSE', "value": 'PRESS'},
+         {"properties": []}),
+        ("vse_transform_tools.select", {"type": 'LEFTMOUSE', "value": 'PRESS', "shift": True},
+         {"properties": []}),
+        ("vse_transform_tools.select", {"type": 'A', "value": 'PRESS'},
+         {"properties": []}),
+    )
+
+
+    def draw_settings(context, layout, tool):
+        tool.operator_properties("vse_transform_tools.select")
 
 class vse_transform_tools_grab(WorkSpaceTool):
     bl_space_type='SEQUENCE_EDITOR'
@@ -404,7 +428,8 @@ def register():
 
     addon_keymaps.append(km)
  
-    bpy.utils.register_tool(vse_transform_tools_grab, after={"builtin.sample"}, separator=True, group=False)
+    bpy.utils.register_tool(vse_transform_tools_select, after={"builtin.sample"}, separator=True, group=False)
+    bpy.utils.register_tool(vse_transform_tools_grab)
     bpy.utils.register_tool(vse_transform_tools_rotate)
     bpy.utils.register_tool(vse_transform_tools_scale)
  
@@ -421,6 +446,7 @@ def unregister():
     addon_keymaps.clear()
 
 def unregister():
+    bpy.utils.unregister_tool(vse_transform_tools_select)
     bpy.utils.unregister_tool(vse_transform_tools_grab)
     bpy.utils.unregister_tool(vse_transform_tools_rotate)
     bpy.utils.unregister_tool(vse_transform_tools_scale)  
