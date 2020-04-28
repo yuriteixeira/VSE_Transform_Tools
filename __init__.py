@@ -188,7 +188,6 @@ class vse_transform_tools_select(WorkSpaceTool):
          {"properties": []}),
     )
 
-
     def draw_settings(context, layout, tool):
         tool.operator_properties("vse_transform_tools.select")
 
@@ -198,7 +197,7 @@ class vse_transform_tools_grab(WorkSpaceTool):
     bl_idname = "transform_tool.grab"
     bl_label = "Move"
     bl_description = (
-        "Move Strip in the Preview"
+        "Move Strip in Preview"
     )
     bl_icon = "ops.transform.translate"
     bl_widget = None
@@ -218,10 +217,11 @@ class vse_transform_tools_rotate(WorkSpaceTool):
     bl_idname = "transform_tool.rotate"
     bl_label = "Rotate"
     bl_description = (
-        "Rotate Strip in the Preview"
+        "Rotate Strip in Preview"
     )
     bl_icon = "ops.transform.rotate"
     bl_widget = None
+    operator="transform.translate",
     bl_keymap = (
         ("vse_transform_tools.rotate", {"type": 'LEFTMOUSE', "value": 'PRESS'}, None),
         ("vse_transform_tools.rotate", {"type": 'LEFTMOUSE', "value": 'PRESS', "ctrl": True},
@@ -238,10 +238,11 @@ class vse_transform_tools_scale(WorkSpaceTool):
     bl_idname = "transform_tool.scale"
     bl_label = "Scale"
     bl_description = (
-        "Scale Strip in the Preview"
+        "Scale Strip in Preview"
     )
     bl_icon = "ops.transform.resize"
     bl_widget = None
+    operator="transform.translate",
     bl_keymap = (
         ("vse_transform_tools.scale", {"type": 'LEFTMOUSE', "value": 'PRESS'}, None),
         ("vse_transform_tools.scale", {"type": 'LEFTMOUSE', "value": 'PRESS', "ctrl": True},
@@ -250,6 +251,27 @@ class vse_transform_tools_scale(WorkSpaceTool):
 
     def draw_settings(context, layout, tool):
         tool.operator_properties("vse_transform_tools.scale")
+
+
+class vse_transform_tools_crop(WorkSpaceTool):
+    bl_space_type='SEQUENCE_EDITOR'
+    bl_context_mode='PREVIEW'
+    bl_idname = "transform_tool.crop"
+    bl_label = "Crop"
+    bl_description = (
+        "Crop Strip in Preview"
+    )
+    bl_icon = "ops.sequencer.blade"
+    bl_widget = None
+    operator="transform.translate",
+    bl_keymap = (
+        ("vse_transform_tools.crop", {"type": 'LEFTMOUSE', "value": 'PRESS'}, None),
+        ("vse_transform_tools.crop", {"type": 'LEFTMOUSE', "value": 'PRESS', "ctrl": True},
+         {"properties": []}),
+    )
+
+    def draw_settings(context, layout, tool):
+        tool.operator_properties("vse_transform_tools.crop")
 
 
 class SEQUENCER_PT_track_transform_ui(bpy.types.Panel):
@@ -432,6 +454,7 @@ def register():
     bpy.utils.register_tool(vse_transform_tools_grab)
     bpy.utils.register_tool(vse_transform_tools_rotate)
     bpy.utils.register_tool(vse_transform_tools_scale)
+    bpy.utils.register_tool(vse_transform_tools_crop)
  
     bpy.types.SEQUENCER_MT_editor_menus.append(Add_Menu)
 
@@ -449,6 +472,7 @@ def unregister():
     bpy.utils.unregister_tool(vse_transform_tools_select)
     bpy.utils.unregister_tool(vse_transform_tools_grab)
     bpy.utils.unregister_tool(vse_transform_tools_rotate)
-    bpy.utils.unregister_tool(vse_transform_tools_scale)  
+    bpy.utils.unregister_tool(vse_transform_tools_scale)
+    bpy.utils.unregister_tool(vse_transform_tools_crop)
 
     bpy.types.SEQUENCER_MT_editor_menus.remove(Add_Menu)
