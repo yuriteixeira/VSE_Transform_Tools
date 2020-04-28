@@ -13,8 +13,8 @@ def draw_crop(self, context):
     #active_color = theme.view_3d.object_active
 
     #active_color = (active_color[0], active_color[1], active_color[2], 1.0)
-    active_color = (1.0, 0.5, 0, 1)
-    color = (0, 1.0, 1.0, 1.0)
+    active_color = (1.0, 1, 1, 1)
+    color = (1, 0.5, 0.0, 1.0)
 
     set_corners(self, context)
     set_quads(self, context)

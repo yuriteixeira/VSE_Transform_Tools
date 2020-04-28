@@ -244,14 +244,15 @@ class PREV_OT_scale(bpy.types.Operator):
             elif self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
-            info_x = round(diff_x, precision)
-            info_y = round(diff_y, precision)
-            if not self.axis_x:
-                context.area.header_text_set("Scale: %.4f along local Y" % info_y)
-            if not self.axis_y:
-                context.area.header_text_set("Scale: %.4f along local X" % info_x)
-            if self.axis_x and self.axis_y :
-                context.area.header_text_set("Scale X:%.4f Y: %.4f" % (info_x, info_y))
+            # Doesn't restore Header Menu
+            # info_x = round(diff_x, precision)
+            # info_y = round(diff_y, precision)
+            # if not self.axis_x:
+                # context.area.header_text_set("Scale: %.4f along local Y" % info_y)
+            # if not self.axis_y:
+                # context.area.header_text_set("Scale: %.4f along local X" % info_x)
+            # if self.axis_x and self.axis_y :
+                # context.area.header_text_set("Scale X:%.4f Y: %.4f" % (info_x, info_y))
 
             for strip, init_s, init_t in zip(self.tab, self.tab_init_s, self.tab_init_t):
                 strip.scale_start_x =  init_s[0] * round(diff_x, precision)
@@ -299,7 +300,7 @@ class PREV_OT_scale(bpy.types.Operator):
 
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')
-                context.area.header_text_set('')
+                #context.area.header_text_set('')
                 return {'FINISHED'}
 
             if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
@@ -316,7 +317,7 @@ class PREV_OT_scale(bpy.types.Operator):
 
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')
-                context.area.header_text_set('')
+                #context.area.header_text_set('')
                 return {'FINISHED'}
 
         else:

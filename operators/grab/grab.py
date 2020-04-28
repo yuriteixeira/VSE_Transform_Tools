@@ -119,16 +119,17 @@ class PREV_OT_grab(bpy.types.Operator):
             elif 'SHIFT' in event.type and event.value == 'RELEASE':
                 self.initially_shifted = False
 
-            info_x = round(self.vec_act.x, 5)
-            info_y = round(self.vec_act.y, 5)
-            if not self.axis_x:
-                self.vec_act = Vector((0, self.vec_act.y))
-                context.area.header_text_set("D: %.4f along global Y" % info_y)
-            if not self.axis_y:
-                self.vec_act = Vector((self.vec_act.x, 0))
-                context.area.header_text_set("D: %.4f along global X" % info_x)
-            if self.axis_x and self.axis_y:
-                context.area.header_text_set("Dx: %.4f Dy: %.4f" % (info_x, info_y))
+            # Doesn't restore Header Menu
+            # info_x = round(self.vec_act.x, 5)
+            # info_y = round(self.vec_act.y, 5)
+            # if not self.axis_x:
+                # self.vec_act = Vector((0, self.vec_act.y))
+                # context.area.header_text_set("D: %.4f along global Y" % info_y)
+            # if not self.axis_y:
+                # self.vec_act = Vector((self.vec_act.x, 0))
+                # context.area.header_text_set("D: %.4f along global X" % info_x)
+            # if self.axis_x and self.axis_y:
+                # context.area.header_text_set("Dx: %.4f Dy: %.4f" % (info_x, info_y))
 
             snap_distance = int(max([res_x, res_y]) / 100)
 
@@ -250,7 +251,7 @@ class PREV_OT_grab(bpy.types.Operator):
                             strip.transform.keyframe_insert(data_path='offset_x')
                             strip.transform.keyframe_insert(data_path='offset_y')
 
-                context.area.header_text_set('')
+                #context.area.header_text_set('')
                 return {'FINISHED'}
 
             if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
@@ -270,7 +271,7 @@ class PREV_OT_grab(bpy.types.Operator):
                         strip.transform.offset_y = init_pos[1]
 
 
-                context.area.header_text_set('')
+                #context.area.header_text_set('')
                 return {'FINISHED'}
 
             return {'RUNNING_MODAL'}

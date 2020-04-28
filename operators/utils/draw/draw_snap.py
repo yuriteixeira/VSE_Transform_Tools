@@ -8,8 +8,8 @@ def draw_snap(self, loc, orientation):
     """
     Draws the purple snap lines
     """
-    color = (1.0, 0.0, 1.0, 0.5)
-    thickness = 2
+    color = (1.0, 5.0, 0.0, 0.5)
+    thickness = 1
 
     if orientation == "VERTICAL":
         v1 = [loc, -10000]
