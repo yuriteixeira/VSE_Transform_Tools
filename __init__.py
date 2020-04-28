@@ -190,6 +190,9 @@ class vse_transform_tools_select(WorkSpaceTool):
 
     def draw_settings(context, layout, tool):
         tool.operator_properties("vse_transform_tools.select")
+        scene = context.scene
+        strip = scene.sequence_editor.active_strip
+        layout.label(text=strip.name)
 
 class vse_transform_tools_grab(WorkSpaceTool):
     bl_space_type='SEQUENCE_EDITOR'
@@ -207,8 +210,20 @@ class vse_transform_tools_grab(WorkSpaceTool):
          {"properties": []}),
     )
 
+    @classmethod
+    def poll(cls, context):
+        if context.scene.sequence_editor:
+            return True
+        return False
+
     def draw_settings(context, layout, tool):
+        scene = context.scene
+        strip = scene.sequence_editor.active_strip
         tool.operator_properties("vse_transform_tools.grab")
+        layout.prop(strip, "interpolation")
+        layout.prop(strip, "translation_unit")
+        layout.prop(strip, "translate_start_x", text="X")
+        layout.prop(strip, "translate_start_y", text="Y")
 
 
 class vse_transform_tools_rotate(WorkSpaceTool):
@@ -230,6 +245,9 @@ class vse_transform_tools_rotate(WorkSpaceTool):
 
     def draw_settings(context, layout, tool):
         tool.operator_properties("vse_transform_tools.rotate")
+        scene = context.scene
+        strip = scene.sequence_editor.active_strip
+        layout.prop(strip, "rotation_start", text="Rotation")
 
 
 class vse_transform_tools_scale(WorkSpaceTool):
@@ -251,6 +269,12 @@ class vse_transform_tools_scale(WorkSpaceTool):
 
     def draw_settings(context, layout, tool):
         tool.operator_properties("vse_transform_tools.scale")
+        scene = context.scene
+        strip = scene.sequence_editor.active_strip
+        layout.prop(strip, "interpolation")
+        layout.prop(strip, "translation_unit")
+        layout.prop(strip, "scale_start_x", text="X")
+        layout.prop(strip, "scale_start_y", text="Y")
 
 
 class vse_transform_tools_crop(WorkSpaceTool):
@@ -272,6 +296,9 @@ class vse_transform_tools_crop(WorkSpaceTool):
 
     def draw_settings(context, layout, tool):
         tool.operator_properties("vse_transform_tools.crop")
+        scene = context.scene
+        strip = scene.sequence_editor.active_strip
+        layout.label(text=strip.name)
 
 
 class SEQUENCER_PT_track_transform_ui(bpy.types.Panel):
