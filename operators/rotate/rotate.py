@@ -101,9 +101,8 @@ class PREV_OT_rotate(bpy.types.Operator):
                 rot *= self.stepwise_increment
                 rot %= 360
 
-            # Doesn't restore Header Menu
-            # info_rot = (rot)
-            # context.area.header_text_set("Rotation %.4f " % info_rot)
+            info_rot = (rot)
+            context.area.header_text_set("Rotation %.4f " % info_rot)
 
         if (event.type == 'LEFTMOUSE' or
            event.type == 'RET' or
@@ -124,7 +123,7 @@ class PREV_OT_rotate(bpy.types.Operator):
                     for strip in self.tab:
                         strip.keyframe_insert(data_path='rotation_start')
 
-            #context.area.header_text_set('')
+            context.area.header_text_set(None)
             return {'FINISHED'}
 
         if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
@@ -139,7 +138,7 @@ class PREV_OT_rotate(bpy.types.Operator):
 
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_line, 'PREVIEW')
-            #context.area.header_text_set('')
+            context.area.header_text_set(None)
             return {'FINISHED'}
 
         return {'RUNNING_MODAL'}
@@ -167,7 +166,6 @@ class PREV_OT_rotate(bpy.types.Operator):
             self.key_val = ''
             self.slow_additions = []
             rotated_count = 0
-
 
             self.tab = ensure_transforms()
             active_strip = scene.sequence_editor.active_strip
