@@ -325,7 +325,7 @@ class PREV_OT_grab(bpy.types.Operator):
             image_offset_strips = []
             selected = context.selected_sequences
             for strip in selected:
-                if strip.type != 'SOUND':
+                if not strip.type == 'SOUND':
                     if strip.use_translation:
                         image_offset_strips.append(strip)
                         strip.select = False
