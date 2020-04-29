@@ -192,7 +192,8 @@ class vse_transform_tools_select(WorkSpaceTool):
         tool.operator_properties("vse_transform_tools.select")
         scene = context.scene
         strip = scene.sequence_editor.active_strip
-        layout.label(text=strip.name)
+        if scene and strip and strip.type == 'TRANSFORM':
+            layout.label(text=strip.name)
 
 class vse_transform_tools_grab(WorkSpaceTool):
     bl_space_type='SEQUENCE_EDITOR'
