@@ -21,6 +21,7 @@ def draw_select(self, context):
 
     active_color = (1.0, 1.0, 1.0, 1.0)
     select_color = (1.0, 0.5, 0, 1.0)
+    outline_color = (0, 0, 0, 0.7)
 
     opacity = 0.9 - (self.seconds / self.fadeout_duration)
 
@@ -41,10 +42,15 @@ def draw_select(self, context):
             corner_y = int(corner[1] * preview_zoom * fac) + offset_y
             vertices.append([corner_x, corner_y])
 
-        draw_line(vertices[0], vertices[1], 1, color)
-        draw_line(vertices[1], vertices[2], 1, color)
-        draw_line(vertices[2], vertices[3], 1, color)
-        draw_line(vertices[3], vertices[0], 1, color)
+        draw_line(vertices[0], vertices[1], 1.5, outline_color)
+        draw_line(vertices[1], vertices[2], 1.5, outline_color)
+        draw_line(vertices[2], vertices[3], 1.5, outline_color)
+        draw_line(vertices[3], vertices[0], 1.5, outline_color)
+
+        draw_line(vertices[0], vertices[1], 0.5, color)
+        draw_line(vertices[1], vertices[2], 0.5, color)
+        draw_line(vertices[2], vertices[3], 0.5, color)
+        draw_line(vertices[3], vertices[0], 0.5, color)
 
 
 class PREV_OT_select(bpy.types.Operator):
@@ -57,7 +63,7 @@ class PREV_OT_select(bpy.types.Operator):
 
     timer = None
     seconds = 0
-    fadeout_duration = 0.1
+    fadeout_duration = 100
     handle_select = None
 
     @classmethod
