@@ -15,6 +15,7 @@ def draw_crop(self, context):
     #active_color = (active_color[0], active_color[1], active_color[2], 1.0)
     active_color = (1.0, 1, 1, 1)
     color = (1, 0.5, 0.0, 1.0)
+    outline_color = (0, 0, 0, 1)
 
     set_corners(self, context)
     set_quads(self, context)
@@ -23,10 +24,15 @@ def draw_crop(self, context):
     for corner in self.corners:
         vertices.append([corner[0], corner[1]])
 
-    draw_line(vertices[0], vertices[1], 1, color)
-    draw_line(vertices[1], vertices[2], 1, color)
-    draw_line(vertices[2], vertices[3], 1, color)
-    draw_line(vertices[3], vertices[0], 1, color)
+    draw_line(vertices[0], vertices[1], 1.5, outline_color)
+    draw_line(vertices[1], vertices[2], 1.5, outline_color)
+    draw_line(vertices[2], vertices[3], 1.5, outline_color)
+    draw_line(vertices[3], vertices[0], 1.5, outline_color)
+
+    draw_line(vertices[0], vertices[1], 0.5, color)
+    draw_line(vertices[1], vertices[2], 0.5, color)
+    draw_line(vertices[2], vertices[3], 0.5, color)
+    draw_line(vertices[3], vertices[0], 0.5, color)
 
     for i in range(len(self.corner_quads)):
         quad = self.corner_quads[i]
