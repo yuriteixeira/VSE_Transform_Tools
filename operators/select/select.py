@@ -15,13 +15,9 @@ from ..utils.geometry import get_strip_corners
 from ..utils.draw import draw_line
 
 def draw_select(self, context):
-    #theme = context.user_preferences.themes['Default']
-    #active_color = theme.view_3d.object_active
-    #select_color = theme.view_3d.object_selected
-
-    active_color = (1.0, 1.0, 1.0, 1.0)
-    select_color = (1.0, 0.5, 0, 1.0)
-    outline_color = (0, 0, 0, 0.7)
+    active_color = context.preferences.themes[0].sequence_editor.active_strip
+    select_color = context.preferences.themes[0].sequence_editor.selected_strip
+    outline_color = (0, 0, 0, 0.2)
 
     opacity = 0.9 - (self.seconds / self.fadeout_duration)
 
