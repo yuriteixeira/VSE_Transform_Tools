@@ -9,12 +9,10 @@ from ..utils.draw import draw_line
 def draw_crop(self, context):
     active_strip = context.scene.sequence_editor.active_strip
 
-    #theme = context.user_preferences.themes['Default']
-    #active_color = theme.view_3d.object_active
-
-    #active_color = (active_color[0], active_color[1], active_color[2], 1.0)
-    active_color = (1.0, 1, 1, 1)
-    color = (1, 0.5, 0.0, 1.0)
+    active_color = context.preferences.themes[0].sequence_editor.active_strip
+    active_color = (active_color[0], active_color[1], active_color[2], 1.0)
+    color = context.preferences.themes[0].sequence_editor.frame_current
+    color = (color[0], color[1], color[2], 1.0)
     outline_color = (0, 0, 0, 1)
 
     set_corners(self, context)
