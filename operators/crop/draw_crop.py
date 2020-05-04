@@ -22,15 +22,15 @@ def draw_crop(self, context):
     for corner in self.corners:
         vertices.append([corner[0], corner[1]])
 
-    draw_line(vertices[0], vertices[1], 1.5, outline_color)
-    draw_line(vertices[1], vertices[2], 1.5, outline_color)
-    draw_line(vertices[2], vertices[3], 1.5, outline_color)
-    draw_line(vertices[3], vertices[0], 1.5, outline_color)
+    draw_line(vertices[0], vertices[1], 2, outline_color)
+    draw_line(vertices[1], vertices[2], 2, outline_color)
+    draw_line(vertices[2], vertices[3], 2, outline_color)
+    draw_line(vertices[3], vertices[0], 2, outline_color)
 
-    draw_line(vertices[0], vertices[1], 0.5, color)
-    draw_line(vertices[1], vertices[2], 0.5, color)
-    draw_line(vertices[2], vertices[3], 0.5, color)
-    draw_line(vertices[3], vertices[0], 0.5, color)
+    draw_line(vertices[0], vertices[1], 1, color)
+    draw_line(vertices[1], vertices[2], 1, color)
+    draw_line(vertices[2], vertices[3], 1, color)
+    draw_line(vertices[3], vertices[0], 1, color)
 
     for i in range(len(self.corner_quads)):
         quad = self.corner_quads[i]
