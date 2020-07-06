@@ -299,7 +299,7 @@ class PREV_OT_scale(bpy.types.Operator):
 
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')
-                context.area.header_text_set('')
+                context.area.header_text_set(None)
                 return {'FINISHED'}
 
             if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
@@ -316,7 +316,7 @@ class PREV_OT_scale(bpy.types.Operator):
 
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')
-                context.area.header_text_set('')
+                context.area.header_text_set(None)
                 return {'FINISHED'}
 
         else:

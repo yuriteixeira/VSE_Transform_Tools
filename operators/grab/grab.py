@@ -250,7 +250,7 @@ class PREV_OT_grab(bpy.types.Operator):
                             strip.transform.keyframe_insert(data_path='offset_x')
                             strip.transform.keyframe_insert(data_path='offset_y')
 
-                context.area.header_text_set('')
+                context.area.header_text_set(None)
                 return {'FINISHED'}
 
             if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
@@ -270,7 +270,7 @@ class PREV_OT_grab(bpy.types.Operator):
                         strip.transform.offset_y = init_pos[1]
 
 
-                context.area.header_text_set('')
+                context.area.header_text_set(None)
                 return {'FINISHED'}
 
             return {'RUNNING_MODAL'}
@@ -324,9 +324,10 @@ class PREV_OT_grab(bpy.types.Operator):
             image_offset_strips = []
             selected = context.selected_sequences
             for strip in selected:
-                if strip.use_translation:
-                    image_offset_strips.append(strip)
-                    strip.select = False
+                if not strip.type == 'SOUND':
+                    if strip.use_translation:
+                        image_offset_strips.append(strip)
+                        strip.select = False
 
             self.tab = ensure_transforms()
             self.tab.extend(image_offset_strips)
