@@ -14,12 +14,12 @@ from ..utils.geometry import get_strip_corners
 
 from ..utils.draw import draw_line
 
-def draw_select(self, context):
+def draw_select(context, seconds, fadeout_duration):
     active_color = context.preferences.themes[0].sequence_editor.active_strip
     select_color = context.preferences.themes[0].sequence_editor.selected_strip
     outline_color = (0, 0, 0, 0.2)
 
-    opacity = 1 - (self.seconds / self.fadeout_duration)
+    opacity = 1 - (seconds / fadeout_duration)
 
     active_strip = context.scene.sequence_editor.active_strip
 
@@ -150,7 +150,7 @@ class PREV_OT_select(bpy.types.Operator):
                 for strip in strips:
                     strip.select = True
 
-        args = (self, context)
+        args = (context, self.seconds, self.fadeout_duration)
         self.handle_select = bpy.types.SpaceSequenceEditor.draw_handler_add(
             draw_select, args, 'PREVIEW', 'POST_PIXEL')
 
