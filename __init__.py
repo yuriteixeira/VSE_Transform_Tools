@@ -60,7 +60,7 @@ def Add_Icon_Pivot_Point(self, context):
 def Add_Menu(self, context):
     layout = self.layout
     st = context.space_data
-
+    
     if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
         layout.menu("SEQUENCER_MT_transform_tools_menu")
 
@@ -122,7 +122,7 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
         layout = self.layout
         layout.operator_context = 'INVOKE_REGION_PREVIEW'
         #st = context.space_data
-
+        
         #if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
 
         layout.operator("vse_transform_tools.add_transform")
@@ -152,7 +152,7 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
 
         layout.operator("vse_transform_tools.call_menu", text="Insert Keyframe")
         layout.operator("vse_transform_tools.mouse_track")
-
+        
         layout.separator()
 
         layout.operator("vse_transform_tools.adjust_alpha")
@@ -418,15 +418,6 @@ def init_properties():
         items=get_tracker_list
         )
 
-def remove_properties():
-    del bpy.types.Scene.seq_cursor2d_loc
-    del bpy.types.Scene.seq_pivot_type
-    bpy.types.SEQUENCER_HT_header.remove(Add_Icon_Pivot_Point)
-    del bpy.types.Scene.vse_transform_tools_use_rotation
-    del bpy.types.Scene.vse_transform_tools_use_scale
-    del bpy.types.Scene.vse_transform_tools_tracker_1
-    del bpy.types.Scene.vse_transform_tools_tracker_2
-
 classes = [
     PREV_OT_initialize_pivot,
     PREV_OT_set_cursor_2d,
@@ -468,31 +459,31 @@ def register():
 
     kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS', alt=True, shift=False)
     kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS')
-
+    
     kmi = km.keymap_items.new("vse_transform_tools.scale", 'S', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.scale", 'S', 'PRESS')
-
+    
     kmi = km.keymap_items.new("vse_transform_tools.rotate", 'R', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.rotate", 'R', 'PRESS')
-
+    
     kmi = km.keymap_items.new("vse_transform_tools.autocrop", 'C', 'PRESS', shift=True)
 
     kmi = km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS')
-
+    
     kmi = km.keymap_items.new("vse_transform_tools.delete", "DEL", "PRESS", shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.delete", "DEL", "PRESS")
-
+    
     kmi = km.keymap_items.new("vse_transform_tools.duplicate", "D", 'PRESS', shift=True)
 
     kmi = km.keymap_items.new("vse_transform_tools.group", 'G', 'PRESS', ctrl=False, alt=True, shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.group", 'G', 'PRESS', ctrl=True)
-
+    
     kmi = km.keymap_items.new("vse_transform_tools.meta_toggle", "TAB", "PRESS")
 
     kmi = km.keymap_items.new("vse_transform_tools.adjust_alpha", 'Q', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.adjust_alpha", 'Q', 'PRESS')
-
+    
     kmi = km.keymap_items.new("vse_transform_tools.call_menu", 'I', 'PRESS')
 
     kmi = km.keymap_items.new("vse_transform_tools.pixelate", 'P', 'PRESS')
@@ -512,13 +503,13 @@ def register():
     kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", omb + 'MOUSE', 'PRESS', ctrl=True)
 
     addon_keymaps.append(km)
-
+ 
     bpy.utils.register_tool(vse_transform_tools_select, after={"builtin.sample"}, separator=True, group=False)
     bpy.utils.register_tool(vse_transform_tools_grab)
     bpy.utils.register_tool(vse_transform_tools_rotate)
     bpy.utils.register_tool(vse_transform_tools_scale)
     bpy.utils.register_tool(vse_transform_tools_crop)
-
+ 
     bpy.types.SEQUENCER_MT_editor_menus.append(Add_Menu)
 
 def unregister():
@@ -526,12 +517,18 @@ def unregister():
     for cls in reversed(classes):
         unregister_class(cls)
 
-    remove_properties()
-
     wm = bpy.context.window_manager
     for km in addon_keymaps:
         wm.keyconfigs.addon.keymaps.remove(km)
     addon_keymaps.clear()
+
+    del bpy.types.Scene.seq_cursor2d_loc
+    del bpy.types.Scene.seq_pivot_type
+    bpy.types.SEQUENCER_HT_header.remove(Add_Icon_Pivot_Point)
+    del bpy.types.Scene.vse_transform_tools_use_rotation
+    del bpy.types.Scene.vse_transform_tools_use_scale
+    del bpy.types.Scene.vse_transform_tools_tracker_1
+    del bpy.types.Scene.vse_transform_tools_tracker_2
 
     bpy.utils.unregister_tool(vse_transform_tools_select)
     bpy.utils.unregister_tool(vse_transform_tools_grab)
