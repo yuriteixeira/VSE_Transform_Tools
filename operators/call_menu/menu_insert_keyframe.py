@@ -7,12 +7,8 @@ class PREV_MT_menu_insert_keyframe(bpy.types.Menu):
 
     def draw(self, context):
         types = []
-        use_translations = []
-        use_crops = []
         for strip in bpy.context.selected_sequences:
             types.append(strip.type)
-            use_translations.append(strip.use_translation)
-            use_crops.append(strip.use_crop)
 
         layout = self.layout
 
@@ -46,16 +42,14 @@ class PREV_MT_menu_insert_keyframe(bpy.types.Menu):
             layout.separator()
 
         if not all(elem == "SOUND" for elem in types):
-            if True in use_translations:
-                layout.operator("vse_transform_tools.insert_keyframe",
-                                text="Location").ch = (1, 0, 0, 0, 0)
+            layout.operator("vse_transform_tools.insert_keyframe",
+                            text="Location").ch = (1, 0, 0, 0, 0)
 
             layout.operator("vse_transform_tools.insert_keyframe",
                             text="Alpha").ch = (0, 0, 0, 1, 0)
 
-            if True in use_crops:
-                layout.operator("vse_transform_tools.insert_keyframe",
-                                text="Crop").ch = (0, 0, 0, 0, 1)
+            layout.operator("vse_transform_tools.insert_keyframe",
+                            text="Crop").ch = (0, 0, 0, 0, 1)
 
         if "TRANSFORM" in types:
             layout.separator()

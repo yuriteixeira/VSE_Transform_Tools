@@ -53,11 +53,11 @@ class PREV_OT_insert_keyframe(bpy.types.Operator):
                         data_path="max_y")
 
             elif seq.select and not seq.type == "SOUND":
-                if self.ch[0] == 1 and seq.use_translation:
+                if self.ch[0] == 1:
                     seq.transform.keyframe_insert(data_path="offset_x")
                     seq.transform.keyframe_insert(data_path="offset_y")
 
-                if self.ch[4] == 1 and seq.use_crop:
+                if self.ch[4] == 1:
                     seq.transform.keyframe_insert(data_path="offset_x")
                     seq.transform.keyframe_insert(data_path="offset_y")
 

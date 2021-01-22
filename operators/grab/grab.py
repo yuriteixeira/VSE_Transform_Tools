@@ -290,7 +290,7 @@ class PREV_OT_grab(bpy.types.Operator):
                 if transform.type == 'TRANSFORM':
                     strip.translate_start_x = 0
                     strip.translate_start_y = 0
-                elif transform.use_translation:
+                else:
                     box = get_strip_box(transform)
                     width = box[1] - box[0]
                     height = box[3] - box[2]
@@ -325,9 +325,8 @@ class PREV_OT_grab(bpy.types.Operator):
             selected = context.selected_sequences
             for strip in selected:
                 if not strip.type == 'SOUND':
-                    if strip.use_translation:
-                        image_offset_strips.append(strip)
-                        strip.select = False
+                    image_offset_strips.append(strip)
+                    strip.select = False
 
             self.tab = ensure_transforms()
             self.tab.extend(image_offset_strips)
