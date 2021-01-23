@@ -173,7 +173,6 @@ class PREV_OT_crop(bpy.types.Operator):
                     strip_in.crop.keyframe_insert(data_path='max_y')
 
             else:
-                active_strip.use_crop = True
                 active_strip.crop.min_x = crops[0]
                 active_strip.crop.max_x = crops[1]
                 active_strip.crop.min_y = crops[2]
@@ -204,7 +203,6 @@ class PREV_OT_crop(bpy.types.Operator):
                 crop_scale(self, active_strip, crops)
 
             else:
-                active_strip.use_crop = True
                 active_strip.crop.min_x = crops[0]
                 active_strip.crop.max_x = crops[1]
                 active_strip.crop.min_y = crops[2]
@@ -228,15 +226,12 @@ class PREV_OT_crop(bpy.types.Operator):
         strip = get_highest_transform(scene.sequence_editor.active_strip)
         scene.sequence_editor.active_strip = strip
 
-        if not strip.type == "TRANSFORM" and not strip.use_translation:
-            bpy.ops.vse_transform_tools.add_transform()
-            strip.select = False
-            strip = scene.sequence_editor.active_strip
-
-        elif not strip.type == "TRANSFORM" and strip.use_translation:
-
-            strip.use_translation = True
-            strip.use_crop = True
+        if not strip.type == "TRANSFORM":
+        #     bpy.ops.vse_transform_tools.add_transform()
+        #     strip.select = False
+        #     strip = scene.sequence_editor.active_strip
+        #
+        # elif not strip.type == "TRANSFORM" and strip.use_translation:
 
             self.init_crop_left = strip.crop.min_x
             self.init_crop_right = strip.crop.max_x
@@ -265,13 +260,10 @@ class PREV_OT_crop(bpy.types.Operator):
         if strip.type == "TRANSFORM":
             strip_in = strip.input_1
 
-            if not strip_in.use_crop:
-                strip_in.use_crop = True
-
-                strip_in.crop.min_x = 0
-                strip_in.crop.max_x = 0
-                strip_in.crop.min_y = 0
-                strip_in.crop.max_y = 0
+            strip_in.crop.min_x = 0
+            strip_in.crop.max_x = 0
+            strip_in.crop.min_y = 0
+            strip_in.crop.max_y = 0
 
             if event.alt:
                 crop_scale(self, strip, [0, 0, 0, 0])

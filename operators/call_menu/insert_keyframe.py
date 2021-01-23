@@ -42,7 +42,7 @@ class PREV_OT_insert_keyframe(bpy.types.Operator):
                     seq.keyframe_insert(
                         data_path="blend_alpha")
 
-                if self.ch[4] == 1 and seq.input_1.use_crop:
+                if self.ch[4] == 1:
                     seq.input_1.crop.keyframe_insert(
                         data_path="min_x")
                     seq.input_1.crop.keyframe_insert(

@@ -28,9 +28,8 @@ def reposition_strip(strip, group_box):
     available_width = res_x - total_width
     available_height = res_y - total_height
 
-    if strip.use_translation:
-        strip.transform.offset_x -= min_left
-        strip.transform.offset_y -= min_bottom
+    strip.transform.offset_x -= min_left
+    strip.transform.offset_y -= min_bottom
     
     # While this part works, it makes the strip blurry. Users shouldn't use this technique.
     """
@@ -99,7 +98,7 @@ def reposition_strip(strip, group_box):
             strip.use_translation = False
     """
     
-    if not hasattr(strip, 'elements') and strip.use_crop:
+    if not hasattr(strip, 'elements'):
         if strip.crop.min_x < available_width:
             available_width -= strip.crop.min_x
             strip.crop.min_x = 0

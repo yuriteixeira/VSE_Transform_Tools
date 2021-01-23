@@ -340,7 +340,6 @@ class PREV_OT_scale(bpy.types.Operator):
                 if transform.type == 'TRANSFORM':
                     reset_transform_scale(transform)
                 else:
-                    transform.use_translation = True
                     transform.blend_type = 'ALPHA_OVER'
 
             return {'FINISHED'}
@@ -457,9 +456,8 @@ def reset_transform_scale(strip):
         len_crop_x = strip_in.elements[0].orig_width
         len_crop_y = strip_in.elements[0].orig_height
 
-        if strip_in.use_crop:
-            len_crop_x -= (strip_in.crop.min_x + strip_in.crop.max_x)
-            len_crop_y -= (strip_in.crop.min_y + strip_in.crop.max_y)
+        len_crop_x -= (strip_in.crop.min_x + strip_in.crop.max_x)
+        len_crop_y -= (strip_in.crop.min_y + strip_in.crop.max_y)
 
         ratio_x = len_crop_x / res_x
         ratio_y = len_crop_y / res_y

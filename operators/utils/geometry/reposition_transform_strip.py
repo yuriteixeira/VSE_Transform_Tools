@@ -85,9 +85,8 @@ def reposition_transform_strip(strip, group_box):
 
     offset_x, null, offset_y, null = get_strip_box(strip)
 
-    if strip.use_translation:
-        strip.transform.offset_x = 0
-        strip.transform.offset_y = 0
+    strip.transform.offset_x = 0
+    strip.transform.offset_y = 0
 
     if strip.translation_unit == 'PERCENT':
         primary_offset_x = (primary_offset_x / total_width) * 100

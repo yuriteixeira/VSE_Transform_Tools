@@ -17,12 +17,7 @@ class PREV_OT_mouse_track(bpy.types.Operator):
     def poll(cls, context):
         scene = context.scene
         strip = scene.sequence_editor.active_strip
-        if (scene.sequence_editor and strip):
-            if strip.type == "TRANSFORM":
-                return True
-            elif strip.use_translation:
-                return True
-        return False
+        return scene.sequence_editor and strip and strip.type != "SOUND"
 
     def modal(self, context, event):
         scene = context.scene

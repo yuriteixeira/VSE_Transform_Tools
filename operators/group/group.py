@@ -38,11 +38,9 @@ class PREV_OT_group(bpy.types.Operator):
         bpy.ops.sequencer.meta_make()
 
         active = context.scene.sequence_editor.active_strip
-        active.use_translation = True
         active.blend_type = "ALPHA_OVER"
 
         if not (left == right == bottom == top == 0):
-            active.use_crop = True
             active.crop.min_x = left
             active.crop.max_x = res_x - right
 
