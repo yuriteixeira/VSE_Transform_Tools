@@ -132,9 +132,14 @@ class PREV_OT_rotate(bpy.types.Operator):
                 init_rot = self.tab_init[i]
                 init_t = self.tab_init_t[i]
 
-                strip.rotation_start = init_rot
-                strip.translate_start_x = set_pos_x(strip, init_t[0])
-                strip.translate_start_y = set_pos_y(strip, init_t[1])
+                if strip.type == "TRANSFORM":
+                    strip.rotation_start = init_rot
+                    strip.translate_start_x = set_pos_x(strip, init_t[0])
+                    strip.translate_start_y = set_pos_y(strip, init_t[1])
+                else:
+                    strip.transform.rotation = math.radians(init_rot)
+                    strip.transform.offset_x = set_pos_x(strip, init_t[0])
+                    strip.transform.offset_y = set_pos_y(strip, init_t[1])
 
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_line, 'PREVIEW')
@@ -150,7 +155,8 @@ class PREV_OT_rotate(bpy.types.Operator):
         bpy.ops.vse_transform_tools.initialize_pivot()
 
         if event.alt:
-            selected = ensure_transforms()
+            # selected = ensure_transforms()
+            selected = bpy.context.selected_sequences
             for strip in selected:
                 strip.select = True
                 strip.rotation_start = 0.0
@@ -167,7 +173,8 @@ class PREV_OT_rotate(bpy.types.Operator):
             self.slow_additions = []
             rotated_count = 0
 
-            self.tab = ensure_transforms()
+            # self.tab = ensure_transforms()
+            self.tab = bpy.context.selected_sequences
             active_strip = scene.sequence_editor.active_strip
 
             for strip in self.tab:
@@ -175,7 +182,10 @@ class PREV_OT_rotate(bpy.types.Operator):
                 pos_x = get_pos_x(strip)
                 pos_y = get_pos_y(strip)
 
-                self.tab_init.append(strip.rotation_start)
+                if strip.type == "TRANSFORM":
+                    self.tab_init.append(strip.rotation_start)
+                else:
+                    self.tab_init.append(math.degrees(strip.transform.rotation))
                 self.tab_init_t.append([pos_x, pos_y])
 
                 flip_x = 1
@@ -238,7 +248,10 @@ class PREV_OT_rotate(bpy.types.Operator):
 
                 self.vec_prev = Vector(self.vec_init)
 
-                self.init_rot = active_strip.rotation_start
+                if active_strip.type == "TRANSFORM":
+                    self.init_rot = active_strip.rotation_start
+                else:
+                    self.init_rot = math.degrees(active_strip.transform.rotation)
 
             args = (self, context)
             self.handle_line = bpy.types.SpaceSequenceEditor.draw_handler_add(

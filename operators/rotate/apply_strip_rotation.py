@@ -41,7 +41,10 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
 
     if (pivot_type == '1' or
        pivot_type in ['0', '3'] and len(self.tab) == 1):
-        strip.rotation_start = strip_rot
+        if strip.type == "TRANSFORM":
+            strip.rotation_start = strip_rot
+        else:
+            strip.transform.rotation = strip_rot / 180 * 3.14159
 
     elif pivot_type in ['0', '3'] and len(self.tab) > 1:
         pos_init = Vector([init_t[0], init_t[1]])
@@ -66,10 +69,16 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
         pos_y = set_pos_y(strip, pos_y)
 
         if np.x == 0 and np.y == 0:
-            strip.rotation_start = strip_rot
+            if strip.type == "TRANSFORM":
+                strip.rotation_start = strip_rot
+            else:
+                strip.transform.rotation = math.radians(strip_rot)
 
         else:
-            strip.rotation_start = strip_rot
+            if strip.type == "TRANSFORM":
+                strip.rotation_start = strip_rot
+            else:
+                strip.transform.rotation = math.radians(strip_rot)
             strip.translate_start_x = pos_x
             strip.translate_start_y = pos_y
 
@@ -93,7 +102,10 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
             point_rot = flip_x * flip_y * p_rot_degs
             np = rotate_point(pos_init, point_rot)
 
-        strip.rotation_start = strip_rot
+        if strip.type == "TRANSFORM":
+            strip.rotation_start = strip_rot
+        else:
+            strip.transform.rotation = strip_rot
 
         pos_x = set_pos_x(strip, np.x + center_c2d.x)
         pos_y = set_pos_y(strip, np.y + center_c2d.y)
