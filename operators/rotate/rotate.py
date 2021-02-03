@@ -152,7 +152,7 @@ class PREV_OT_rotate(bpy.types.Operator):
             selected = bpy.context.selected_sequences
             for strip in selected:
                 strip.select = True
-                strip.rotation_start = 0.0
+                set_rotation(strip, 0.0)
             return {'FINISHED'}
 
         else:
