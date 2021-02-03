@@ -10,8 +10,13 @@ from ..utils.geometry import get_preview_offset
 from ..utils import func_constrain_axis_mmb
 from ..utils import func_constrain_axis
 from ..utils import process_input
+from ..utils.geometry.get_rotation import get_rotation
+from ..utils.geometry.get_scale_x import get_scale_x
+from ..utils.geometry.get_scale_y import get_scale_y
 from ..utils.geometry.set_pos_x import set_pos_x
 from ..utils.geometry.set_pos_y import set_pos_y
+from ..utils.geometry.set_scale_x import set_scale_x
+from ..utils.geometry.set_scale_y import set_scale_y
 
 from ..utils.selection import get_visible_strips
 from ..utils.selection import ensure_transforms
@@ -97,11 +102,11 @@ class PREV_OT_scale(bpy.types.Operator):
 
             func_constrain_axis_mmb(
                 self, context, event.type, event.value,
-                self.sign_rot * context.scene.sequence_editor.active_strip.rotation_start)
+                self.sign_rot * get_rotation(context.scene.sequence_editor.active_strip))
 
             func_constrain_axis(
                 self, context, event.type, event.value,
-                self.sign_rot * context.scene.sequence_editor.active_strip.rotation_start)
+                self.sign_rot * get_rotation(context.scene.sequence_editor.active_strip))
 
             process_input(self, event.type, event.value)
             if self.key_val != '':
@@ -254,8 +259,8 @@ class PREV_OT_scale(bpy.types.Operator):
                 context.area.header_text_set("Scale X:%.4f Y: %.4f" % (info_x, info_y))
 
             for strip, init_s, init_t in zip(self.tab, self.tab_init_s, self.tab_init_t):
-                strip.scale_start_x =  init_s[0] * round(diff_x, precision)
-                strip.scale_start_y =  init_s[1] * round(diff_y, precision)
+                set_scale_x(strip, init_s[0] * round(diff_x, precision))
+                set_scale_y(strip, init_s[1] * round(diff_y, precision))
 
                 flip_x = 1
                 if strip.use_flip_x:
@@ -280,7 +285,7 @@ class PREV_OT_scale(bpy.types.Operator):
 
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_line, 'PREVIEW')
 
-                if self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                if self.handle_snap is not None and "RNA_HANDLE_REMOVED" not in str(self.handle_snap):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
                 scene = context.scene
@@ -304,8 +309,10 @@ class PREV_OT_scale(bpy.types.Operator):
 
             if event.type == 'ESC' or event.type == 'RIGHTMOUSE':
                 for strip, init_s, init_t in zip(self.tab, self.tab_init_s, self.tab_init_t):
-                    strip.scale_start_x = init_s[0]
-                    strip.scale_start_y = init_s[1]
+                    set_scale_x(strip, init_s[0])
+                    set_scale_y(strip, init_s[1])
+                    # strip.scale_start_x = init_s[0]
+                    # strip.scale_start_y = init_s[1]
                     set_pos_x(strip, init_t[0])
                     set_pos_y(strip, init_t[1])
 
@@ -336,11 +343,15 @@ class PREV_OT_scale(bpy.types.Operator):
         if event.alt :
             selected = context.selected_sequences
             for strip in selected:
-                transform = get_highest_transform(strip)
-                if transform.type == 'TRANSFORM':
-                    reset_transform_scale(transform)
+                if strip.type == "TRANSFORM":
+                    reset_transform_scale(strip)
                 else:
-                    transform.blend_type = 'ALPHA_OVER'
+                    strip.blend_type = "ALPHA_OVER"
+                # transform = get_highest_transform(strip)
+                # if transform.type == 'TRANSFORM':
+                #     reset_transform_scale(transform)
+                # else:
+                #     transform.blend_type = 'ALPHA_OVER'
 
             return {'FINISHED'}
 
@@ -360,7 +371,8 @@ class PREV_OT_scale(bpy.types.Operator):
 
             scaled_count = 0
 
-            self.tab = ensure_transforms()
+            # self.tab = ensure_transforms()
+            self.tab = bpy.context.selected_sequences
             visible_strips = get_visible_strips()
 
             for strip in visible_strips:
@@ -375,7 +387,7 @@ class PREV_OT_scale(bpy.types.Operator):
 
             for strip in self.tab:
                 strip.select = True
-                self.tab_init_s.append([strip.scale_start_x, strip.scale_start_y])
+                self.tab_init_s.append([get_scale_x(strip), get_scale_y(strip)])
                 self.tab_init_t.append([get_pos_x(strip), get_pos_y(strip)])
 
                 flip_x = 1
@@ -462,8 +474,10 @@ def reset_transform_scale(strip):
         ratio_x = len_crop_x / res_x
         ratio_y = len_crop_y / res_y
 
-        strip.scale_start_x = ratio_x
-        strip.scale_start_y = ratio_y
+        set_scale_x(strip, ratio_x)
+        set_scale_y(strip, ratio_y)
+        # strip.scale_start_x = ratio_x
+        # strip.scale_start_y = ratio_y
 
     elif strip_in.type == "SCENE":
         strip_scene = strip_in.scene
@@ -471,9 +485,13 @@ def reset_transform_scale(strip):
         ratio_x = strip_scene.render.resolution_x / res_x
         ratio_y = strip_scene.render.resolution_y / res_y
 
-        strip.scale_start_x = ratio_x
-        strip.scale_start_y = ratio_y
+        # strip.scale_start_x = ratio_x
+        # strip.scale_start_y = ratio_y
+        set_scale_x(strip, ratio_x)
+        set_scale_y(strip, ratio_y)
 
     else:
-        strip.scale_start_x = 1.0
-        strip.scale_start_y = 1.0
+        set_scale_x(strip, 1.0)
+        set_scale_y(strip, 1.0)
+        # strip.scale_start_x = 1.0
+        # strip.scale_start_y = 1.0
