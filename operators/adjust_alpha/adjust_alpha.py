@@ -104,12 +104,13 @@ class PREV_OT_adjust_alpha(bpy.types.Operator):
             mouse_y = event.mouse_region_y
             self.first_mouse = Vector((mouse_x, mouse_y))
 
-            opacities = []
-
             selected_strips = []
             for strip in context.selected_sequences:
                 if not strip.type == 'SOUND':
                     selected_strips.append(strip)
+
+            self.tab = []
+            opacities = []
 
             for strip in selected_strips:
                 self.tab.append(strip)
