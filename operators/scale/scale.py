@@ -3,8 +3,6 @@ from mathutils import Vector
 
 from ..utils.geometry import get_pos_x
 from ..utils.geometry import get_pos_y
-from ..utils.geometry import set_pos_x
-from ..utils.geometry import set_pos_y
 from ..utils.geometry import get_res_factor
 from ..utils.geometry import get_group_box
 from ..utils.geometry import get_preview_offset
@@ -12,6 +10,8 @@ from ..utils.geometry import get_preview_offset
 from ..utils import func_constrain_axis_mmb
 from ..utils import func_constrain_axis
 from ..utils import process_input
+from ..utils.geometry.set_pos_x import set_pos_x
+from ..utils.geometry.set_pos_y import set_pos_y
 
 from ..utils.selection import get_visible_strips
 from ..utils.selection import ensure_transforms
@@ -266,12 +266,12 @@ class PREV_OT_scale(bpy.types.Operator):
                     flip_y = -1
 
                 if context.scene.seq_pivot_type in ['0', '3']:
-                    strip.translate_start_x = set_pos_x(strip, (init_t[0] - flip_x * self.center_real.x) * round(diff_x, precision) + flip_x * self.center_real.x)
-                    strip.translate_start_y = set_pos_y(strip, (init_t[1] - flip_y * self.center_real.y) * round(diff_y, precision) + flip_y * self.center_real.y)
+                    set_pos_x(strip, (init_t[0] - flip_x * self.center_real.x) * round(diff_x, precision) + flip_x * self.center_real.x)
+                    set_pos_y(strip, (init_t[1] - flip_y * self.center_real.y) * round(diff_y, precision) + flip_y * self.center_real.y)
 
                 if context.scene.seq_pivot_type == '2':
-                    strip.translate_start_x = set_pos_x(strip, (init_t[0] - self.center_c2d.x) * round(diff_x, precision) + self.center_c2d.x)
-                    strip.translate_start_y = set_pos_y(strip, (init_t[1] - self.center_c2d.y) * round(diff_y, precision) + self.center_c2d.y)
+                    set_pos_x(strip, (init_t[0] - self.center_c2d.x) * round(diff_x, precision) + self.center_c2d.x)
+                    set_pos_y(strip, (init_t[1] - self.center_c2d.y) * round(diff_y, precision) + self.center_c2d.y)
 
             if (event.type == 'LEFTMOUSE' or
                event.type == 'RET' or
@@ -306,8 +306,8 @@ class PREV_OT_scale(bpy.types.Operator):
                 for strip, init_s, init_t in zip(self.tab, self.tab_init_s, self.tab_init_t):
                     strip.scale_start_x = init_s[0]
                     strip.scale_start_y = init_s[1]
-                    strip.translate_start_x = set_pos_x(strip, init_t[0])
-                    strip.translate_start_y = set_pos_y(strip, init_t[1])
+                    set_pos_x(strip, init_t[0])
+                    set_pos_y(strip, init_t[1])
 
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_line, 'PREVIEW')
 

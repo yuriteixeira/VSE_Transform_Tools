@@ -20,7 +20,6 @@ def get_pos_x(strip):
 
     if strip.translation_unit == 'PERCENT':
         pos = strip.translate_start_x * res_x / 100
-
     else:
         pos = strip.translate_start_x
 

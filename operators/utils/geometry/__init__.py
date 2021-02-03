@@ -11,5 +11,5 @@ from .mouse_to_res import mouse_to_res
 from .reposition_strip import reposition_strip
 from .reposition_transform_strip import reposition_transform_strip
 from .rotate_point import rotate_point
-from .set_pos_x import set_pos_x
-from .set_pos_y import set_pos_y
+from .set_pos_x import prepare_set_pos_x
+from .set_pos_y import prepare_set_pos_y

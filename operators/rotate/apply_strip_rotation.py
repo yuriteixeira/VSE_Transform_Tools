@@ -2,8 +2,8 @@ import bpy
 import math
 from mathutils import Vector
 
-from ..utils.geometry import set_pos_x
-from ..utils.geometry import set_pos_y
+from ..utils.geometry import prepare_set_pos_x
+from ..utils.geometry import prepare_set_pos_y
 from ..utils.geometry import rotate_point
 from ..utils.geometry import get_res_factor
 
@@ -63,10 +63,10 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
             np = rotate_point(pos_init, point_rot)
 
         pos_x = np.x + flip_x * self.center_real.x
-        pos_x = set_pos_x(strip, pos_x)
+        pos_x = prepare_set_pos_x(strip, pos_x)
 
         pos_y = np.y + flip_y * self.center_real.y
-        pos_y = set_pos_y(strip, pos_y)
+        pos_y = prepare_set_pos_y(strip, pos_y)
 
         if np.x == 0 and np.y == 0:
             if strip.type == "TRANSFORM":
@@ -107,8 +107,8 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
         else:
             strip.transform.rotation = strip_rot
 
-        pos_x = set_pos_x(strip, np.x + center_c2d.x)
-        pos_y = set_pos_y(strip, np.y + center_c2d.y)
+        pos_x = prepare_set_pos_x(strip, np.x + center_c2d.x)
+        pos_y = prepare_set_pos_y(strip, np.y + center_c2d.y)
 
         strip.translate_start_x = pos_x
         strip.translate_start_y = pos_y

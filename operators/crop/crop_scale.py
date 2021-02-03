@@ -4,9 +4,9 @@ import math
 from ..utils.geometry import get_transform_box
 from ..utils.geometry import get_pos_x
 from ..utils.geometry import get_pos_y
-from ..utils.geometry import set_pos_x
-from ..utils.geometry import set_pos_y
 from ..utils.geometry import get_preview_offset
+from ..utils.geometry.set_pos_x import set_pos_x
+from ..utils.geometry.set_pos_y import set_pos_y
 
 
 def crop_scale(self, strip, crops):
@@ -128,8 +128,8 @@ def crop_scale(self, strip, crops):
     pos_y -= (left_shift * sin) / 2
     pos_y += (right_shift * sin) / 2
 
-    strip.translate_start_x = set_pos_x(strip, pos_x)
-    strip.translate_start_y = set_pos_y(strip, pos_y)
+    set_pos_x(strip, pos_x)
+    set_pos_y(strip, pos_y)
 
     self.scale_factor_x = (res_x / orig_width) * strip.scale_start_x
     self.scale_factor_y = (res_y / orig_height) * strip.scale_start_y

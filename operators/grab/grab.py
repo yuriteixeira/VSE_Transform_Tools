@@ -7,13 +7,13 @@ from ..utils import func_constrain_axis
 
 from ..utils.geometry import get_pos_x
 from ..utils.geometry import get_pos_y
-from ..utils.geometry import set_pos_x
-from ..utils.geometry import set_pos_y
 from ..utils.geometry import get_res_factor
 from ..utils.geometry import get_group_box
 from ..utils.geometry import get_strip_box
 from ..utils.geometry import mouse_to_res
 from ..utils.geometry import get_preview_offset
+from ..utils.geometry.set_pos_x import set_pos_x
+from ..utils.geometry.set_pos_y import set_pos_y
 
 from ..utils.selection import ensure_transforms
 from ..utils.selection import get_highest_transform
@@ -223,12 +223,8 @@ class PREV_OT_grab(bpy.types.Operator):
                 pos_x = init_pos[0] + self.vec_act.x + trans_offset_x
                 pos_y = init_pos[1] + self.vec_act.y + trans_offset_y
 
-                if strip.type == "TRANSFORM":
-                    strip.translate_start_x = set_pos_x(strip, pos_x)
-                    strip.translate_start_y = set_pos_y(strip, pos_y)
-                else:
-                    strip.transform.offset_x = pos_x
-                    strip.transform.offset_y = pos_y
+                set_pos_x(strip, pos_x)
+                set_pos_y(strip, pos_y)
 
             if (event.type == 'LEFTMOUSE' or
                event.type == 'RET' or
@@ -262,13 +258,8 @@ class PREV_OT_grab(bpy.types.Operator):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
                 for strip, init_pos in zip(self.tab, self.tab_init):
-                    if strip.type == "TRANSFORM":
-                        strip.translate_start_x = set_pos_x(strip, init_pos[0])
-                        strip.translate_start_y = set_pos_y(strip, init_pos[1])
-                    else:
-                        strip.transform.offset_x = init_pos[0]
-                        strip.transform.offset_y = init_pos[1]
-
+                    set_pos_x(strip, init_pos[0])
+                    set_pos_y(strip, init_pos[1])
 
                 context.area.header_text_set(None)
                 return {'FINISHED'}
@@ -344,12 +335,8 @@ class PREV_OT_grab(bpy.types.Operator):
 
             for strip in self.tab:
                 strip.select = True
-                if strip.type == "TRANSFORM":
-                    pos_x = get_pos_x(strip)
-                    pos_y = get_pos_y(strip)
-                else:
-                    pos_x = strip.transform.offset_x
-                    pos_y = strip.transform.offset_y
+                pos_x = get_pos_x(strip)
+                pos_y = get_pos_y(strip)
 
                 self.tab_init.append([pos_x, pos_y])
 

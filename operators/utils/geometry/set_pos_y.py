@@ -1,6 +1,7 @@
 import bpy
 
-def set_pos_y(strip, pos):
+
+def prepare_set_pos_y(strip, pos):
     """
     Set the Y position of a transform strip, accounting for whether or
     not the translation unit is set to PERCENT
@@ -16,3 +17,16 @@ def set_pos_y(strip, pos):
         pos = pos * 100 / res_y
 
     return pos
+
+
+def set_pos_y(strip, pos):
+    """
+    Set the Y position of either a transform strip or an unified transform-able strip
+
+    :param strip: The strip
+    :param pos:  the new Y position in pixels (or percent for transform strip using it)
+    """
+    if strip.type == "TRANSFORM":
+        strip.translate_start_y = pos
+    else:
+        strip.transform.offset_y = pos
