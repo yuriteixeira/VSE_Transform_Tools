@@ -12,7 +12,7 @@ class PREV_MT_menu_insert_keyframe(bpy.types.Menu):
 
         layout = self.layout
 
-        if "TRANSFORM" in types:
+        if "TRANSFORM" in types or not all(elem == "SOUND" for elem in types):
             layout.operator("vse_transform_tools.insert_keyframe",
                             text="Location").ch = (1, 0, 0, 0, 0)
 
@@ -26,7 +26,7 @@ class PREV_MT_menu_insert_keyframe(bpy.types.Menu):
                             text="LocRot").ch = (1, 1, 0, 0, 0)
 
             layout.operator("vse_transform_tools.insert_keyframe",
-                            text="LocScale").ch =(1, 0, 1, 0, 0)
+                            text="LocScale").ch = (1, 0, 1, 0, 0)
 
             layout.operator("vse_transform_tools.insert_keyframe",
                             text="RotScale").ch = (0, 1, 1, 0, 0)
@@ -37,22 +37,25 @@ class PREV_MT_menu_insert_keyframe(bpy.types.Menu):
             layout.separator()
 
             layout.operator("vse_transform_tools.insert_keyframe",
-                        text="Crop").ch = (0, 0, 0, 0, 1)
-
-            layout.separator()
-
-        if not all(elem == "SOUND" for elem in types):
-            layout.operator("vse_transform_tools.insert_keyframe",
-                            text="Location").ch = (1, 0, 0, 0, 0)
-
-            layout.operator("vse_transform_tools.insert_keyframe",
-                            text="Alpha").ch = (0, 0, 0, 1, 0)
-
-            layout.operator("vse_transform_tools.insert_keyframe",
                             text="Crop").ch = (0, 0, 0, 0, 1)
 
-        if "TRANSFORM" in types:
             layout.separator()
 
             layout.operator("vse_transform_tools.insert_keyframe",
                             text="All").ch = (1, 1, 1, 1, 1)
+
+        # if not all(elem == "SOUND" for elem in types):
+        #     layout.operator("vse_transform_tools.insert_keyframe",
+        #                     text="Location").ch = (1, 0, 0, 0, 0)
+        #
+        #     layout.operator("vse_transform_tools.insert_keyframe",
+        #                     text="Alpha").ch = (0, 0, 0, 1, 0)
+        #
+        #     layout.operator("vse_transform_tools.insert_keyframe",
+        #                     text="Crop").ch = (0, 0, 0, 0, 1)
+        #
+        # if "TRANSFORM" in types:
+        #     layout.separator()
+        #
+        #     layout.operator("vse_transform_tools.insert_keyframe",
+        #                     text="All").ch = (1, 1, 1, 1, 1)

@@ -57,6 +57,16 @@ class PREV_OT_insert_keyframe(bpy.types.Operator):
                     seq.transform.keyframe_insert(data_path="offset_x")
                     seq.transform.keyframe_insert(data_path="offset_y")
 
+                if self.ch[1] == 1:
+                    seq.transform.keyframe_insert(data_path="rotation")
+
+                if self.ch[2] == 1:
+                    seq.transform.keyframe_insert(data_path="scale_x")
+                    seq.transform.keyframe_insert(data_path="scale_y")
+
+                if self.ch[3] == 1:
+                    seq.keyframe_insert(data_path="blend_alpha")
+
                 if self.ch[4] == 1:
                     seq.transform.keyframe_insert(data_path="offset_x")
                     seq.transform.keyframe_insert(data_path="offset_y")
@@ -69,10 +79,6 @@ class PREV_OT_insert_keyframe(bpy.types.Operator):
                         data_path="min_y")
                     seq.crop.keyframe_insert(
                         data_path="max_y")
-
-                if self.ch[3] == 1:
-                    seq.keyframe_insert(
-                        data_path="blend_alpha", frame=cf)
 
         # Apparently redrawing is bad...
         # bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
