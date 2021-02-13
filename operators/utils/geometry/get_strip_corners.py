@@ -47,27 +47,40 @@ def get_strip_corners(strip):
         top_right = Vector([right, top])
         bottom_right = Vector([right, bottom])
 
-        corners = [bottom_left, top_left, top_right, bottom_right]
-        for i in range(len(corners)):
-            corners[i] = rotate_point(corners[i], rot, origin)
-
-        bottom_left, top_left, top_right, bottom_right = corners
-
     else:
 
-        box = get_strip_box(strip)
-        left, right, bottom, top = box
+        scene = bpy.context.scene
+        res_x = scene.render.resolution_x
+        res_y = scene.render.resolution_y
 
-        bottom_left = Vector([left, bottom])
-        top_left = Vector([left, top])
+        try:
+            orig_width = strip.elements[0].orig_width
+            orig_height = strip.elements[0].orig_height
+        except AttributeError:
+            # For instance, for text strips, which don't have attached sequence to get their intrinsic size
+            orig_width = res_x
+            orig_height = res_y
 
-        top_right = Vector([right, top])
-        bottom_right = Vector([right, bottom])
+        # distances from the anchor point
+        distance_right = (orig_width / 2 - strip.crop.max_x) * strip.transform.scale_x
+        distance_left = (orig_width / 2 - strip.crop.min_x) * strip.transform.scale_x
+        distance_top = (orig_height / 2 - strip.crop.max_y) * strip.transform.scale_y
+        distance_bottom = (orig_height / 2 - strip.crop.min_y) * strip.transform.scale_y
 
-        #if hasattr(strip, 'elements') and not strip.type == 'IMAGE' and proxy_fac < 1.0:
-        #    top_left = Vector([left, (bottom + (top - bottom)) / proxy_fac])
-        #    top_right = Vector([(left + (right - left)) / proxy_fac, (bottom + (top - bottom)) / proxy_fac])
-        #    bottom_right = Vector([(left + (right - left)) / proxy_fac, bottom])
+        origin = Vector([res_x / 2 + strip.transform.offset_x, res_y / 2 + strip.transform.offset_y])
+
+        bottom_left = Vector([-distance_left, -distance_bottom]) + origin
+        top_left = Vector([-distance_left, distance_top]) + origin
+        top_right = Vector([distance_right, distance_top]) + origin
+        bottom_right = Vector([distance_right, -distance_bottom]) + origin
+
+        rot = strip.transform.rotation
+
+    corners = [bottom_left, top_left, top_right, bottom_right]
+    for i in range(len(corners)):
+        corners[i] = rotate_point(corners[i], rot, origin)
+
+    bottom_left, top_left, top_right, bottom_right = corners
 
     res_x = scene.render.resolution_x
     res_y = scene.render.resolution_y
