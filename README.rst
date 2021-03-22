@@ -8,7 +8,7 @@
     <h2>Installation</h2>
     
     <ol>
-    <li>Go to the <a href="https://github.com/doakey3/VSE_Transform_Tools/releases">Releases</a> page and download the latest <code>VSE_Transform_Tools.zip</code></li>
+    <li>Go to the <a href="https://github.com/zeograd/VSE_Transform_Tools/releases">Releases</a> page and download the latest <code>VSE_Transform_Tools.zip</code></li>
     <li>Open Blender</li>
     <li>Go to File &gt; User Preferences &gt; Addons</li>
     <li>Click "Install From File" and navigate to the downloaded .zip file and install</li>
@@ -16,20 +16,18 @@
     <li>Save User Settings so the addon remains active every time you open Blender</li>
     </ol>
     
-    <p>Use the correct release for your Blender version. Add-ons for Blender 2.80 and above will not work for Blender 2.79</p>
+    <p>This fork is focused on Blender 2.92+, using the unified transformation API it introduced. For use with Blender 2.91 and below, please refer to a different fork.</p>
+    <p>Using the unified transformation API means that adding a transform strip is now unneceassy in most cases, as strips can be offset, scaled, rotated, cropped, ... using
+their own transform properties.</p>
+    <p>It means you can add a strip and immediately starts moving, scaling, transforming it with keyboard shortcuts without cluttering the VSE with extra transform strips.</p>
+    <p>Expect some regressions due to this API change. Forks and PR are welcome to address them. Likewise, the rest of this documentation is partly obsolete, refering to some
+    features which might be broken or useless thanks to improvement in Blender itself.</p>
     
     <h2>Operators</h2>
     <table>
         <tr>
-            <td width=222px><a name="top_Add_Transform" href="#Add_Transform" title="A transform modifier must be
-    added to a strip before the
-    strip can be scaled or rotated
-    by this addon. If you're
-    planning to make keyframes to
-    adjust the scale or the
-    rotation, ensure that you are
-    modifying a transform strip by
-    adding one with this operator.">Add Transform</a></td>
+            <td width=222px><a name="top_Add_Transform" href="#Add_Transform" title="A transform modifier can be
+    added to a strip.">Add Transform</a></td>
             <td width=222px><a name="top_Delete" href="#Delete" title="Deletes all selected strips as
     well as any strips that are
     inputs of those strips. For
@@ -102,7 +100,7 @@
         </tr>
     </table>
         <h3><a name="Add_Transform" href="#top_Add_Transform">Add Transform</a></h3>
-    <p>A transform modifier must be added to a strip before the strip can be scaled or rotated by this addon. If you're planning to make keyframes to adjust the scale or the rotation, ensure that you are modifying a transform strip by adding one with this operator.</p>
+    <p>A transform modifier can be added to a strip. It is now mostly useless thanks to the unified API introduced in Blender 2.92.</p>
     
     <table>
         <tr>
