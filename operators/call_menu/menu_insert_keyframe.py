@@ -37,6 +37,11 @@ class PREV_MT_menu_insert_keyframe(bpy.types.Menu):
             layout.separator()
 
             layout.operator("vse_transform_tools.insert_keyframe",
+                            text="Alpha").ch = (0, 0, 0, 1, 0)
+
+            layout.separator()
+
+            layout.operator("vse_transform_tools.insert_keyframe",
                             text="Crop").ch = (0, 0, 0, 0, 1)
 
             layout.separator()
