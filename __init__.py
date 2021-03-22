@@ -1,9 +1,9 @@
 bl_info = {
     "name": "VSE Transform Tools",
     "description": "Quickly manipulate video strips in Blender's Video Sequence Editor",
-    "author": "kgeogeo, DoubleZ, doakey3, NathanLovato",
-    "version": (1, 2, 8),
-    "blender": (2, 80, 0),
+    "author": "kgeogeo, DoubleZ, doakey3, NathanLovato, zeograd",
+    "version": (1, 2, 9),
+    "blender": (2, 92, 0),
     "wiki_url": "https://github.com/doakey3/VSE_Transform_Tools",
     "tracker_url": "https://github.com/doakey3/VSE_Transform_Tools/issues",
     "category": "Sequencer"
