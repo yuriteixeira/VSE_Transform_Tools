@@ -17,8 +17,7 @@
     </ol>
     
     <p>This fork is focused on Blender 2.92+, using the unified transformation API it introduced. For use with Blender 2.91 and below, please refer to a different fork.</p>
-    <p>Using the unified transformation API means that adding a transform strip is now unneceassy in most cases, as strips can be offset, scaled, rotated, cropped, ... using
-their own transform properties.</p>
+    <p>Using the unified transformation API means that adding a transform strip is now unneceassy in most cases, as strips can be offset, scaled, rotated, cropped, ... using their own transform properties.</p>
     <p>It means you can add a strip and immediately starts moving, scaling, transforming it with keyboard shortcuts without cluttering the VSE with extra transform strips.</p>
     <p>Expect some regressions due to this API change. Forks and PR are welcome to address them. Likewise, the rest of this documentation is partly obsolete, refering to some
     features which might be broken or useless thanks to improvement in Blender itself.</p>
