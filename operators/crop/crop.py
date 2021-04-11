@@ -5,7 +5,7 @@ import math
 from mathutils import Vector
 from mathutils.geometry import intersect_point_quad_2d
 
-from ..utils.geometry import get_preview_offset
+from ..utils.geometry import get_preview_offset, get_pos_x, get_pos_y
 from ..utils.geometry import rotate_point
 
 from ..utils.selection import get_highest_transform
@@ -178,8 +178,9 @@ class PREV_OT_crop(bpy.types.Operator):
                 active_strip.crop.min_y = crops[2]
                 active_strip.crop.max_y = crops[3]
 
-                active_strip.transform.offset_x = self.init_pos_x - self.init_crop_left + crops[0]
-                active_strip.transform.offset_y = self.init_pos_y - self.init_crop_bottom + crops[2]
+                # ZEO: I don't think it's still useful with the 2.92+ API
+                # active_strip.transform.offset_x = self.init_pos_x - self.init_crop_left + crops[0]
+                # active_strip.transform.offset_y = self.init_pos_y - self.init_crop_bottom + crops[2]
 
                 if scene.tool_settings.use_keyframe_insert_auto:
                     active_strip.crop.keyframe_insert(data_path='min_x')
@@ -187,8 +188,8 @@ class PREV_OT_crop(bpy.types.Operator):
                     active_strip.crop.keyframe_insert(data_path='min_y')
                     active_strip.crop.keyframe_insert(data_path='max_y')
 
-                    active_strip.transform.keyframe_insert(data_path="offset_x")
-                    active_strip.transform.keyframe_insert(data_path="offset_y")
+                    # active_strip.transform.keyframe_insert(data_path="offset_x")
+                    # active_strip.transform.keyframe_insert(data_path="offset_y")
 
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_crop, 'PREVIEW')
@@ -208,8 +209,9 @@ class PREV_OT_crop(bpy.types.Operator):
                 active_strip.crop.min_y = crops[2]
                 active_strip.crop.max_y = crops[3]
 
-                active_strip.transform.offset_x = crops[0]
-                active_strip.transform.offset_y = crops[2]
+                # ZEO I don't think it's useful with 2.92+ API
+                # active_strip.transform.offset_x = crops[0]
+                # active_strip.transform.offset_y = crops[2]
 
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_crop, 'PREVIEW')
@@ -238,8 +240,8 @@ class PREV_OT_crop(bpy.types.Operator):
             self.init_crop_bottom = strip.crop.min_y
             self.init_crop_top = strip.crop.max_y
 
-            self.init_pos_x = strip.transform.offset_x
-            self.init_pos_y = strip.transform.offset_y
+            self.init_pos_x = get_pos_x(strip)
+            self.init_pos_y = get_pos_y(strip)
 
             self.crop_left = strip.crop.min_x
             self.crop_right = strip.crop.max_x
@@ -251,8 +253,8 @@ class PREV_OT_crop(bpy.types.Operator):
             strip.crop.min_y = 0
             strip.crop.max_y = 0
 
-            strip.transform.offset_x -= self.init_crop_left
-            strip.transform.offset_y -= self.init_crop_bottom
+            # strip.transform.offset_x -= self.init_crop_left
+            # strip.transform.offset_y -= self.init_crop_bottom
 
             if event.alt:
                 return {'FINISHED'}
