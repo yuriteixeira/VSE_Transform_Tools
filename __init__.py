@@ -214,19 +214,23 @@ class vse_transform_tools_grab(WorkSpaceTool):
     @classmethod
     def poll(cls, context):
         if context.scene and context.scene.sequence_editor and context.scene.sequence_editor.active_strip:
-            return context.scene.sequence_editor.active_strip.type == 'TRANSFORM'
+            return context.scene.sequence_editor.active_strip.type != 'SOUND'
         else:
             return False
 
     def draw_settings(context, layout, tool):
         scene = context.scene
         strip = scene.sequence_editor.active_strip
-        if scene and strip and strip.type == 'TRANSFORM':
+        if scene and strip:
             tool.operator_properties("vse_transform_tools.grab")
-            layout.prop(strip, "interpolation")
-            layout.prop(strip, "translation_unit")
-            layout.prop(strip, "translate_start_x", text="X")
-            layout.prop(strip, "translate_start_y", text="Y")
+            if strip.type == 'TRANSFORM':
+                layout.prop(strip, "interpolation")
+                layout.prop(strip, "translation_unit")
+                layout.prop(strip, "translate_start_x", text="X")
+                layout.prop(strip, "translate_start_y", text="Y")
+            else:
+                layout.prop(strip.transform, "offset_x", text="X")
+                layout.prop(strip.transform, "offset_y", text="Y")
 
 
 class vse_transform_tools_rotate(WorkSpaceTool):
@@ -249,7 +253,7 @@ class vse_transform_tools_rotate(WorkSpaceTool):
     @classmethod
     def poll(cls, context):
         if context.scene and context.scene.sequence_editor and context.scene.sequence_editor.active_strip:
-            return context.scene.sequence_editor.active_strip.type == 'TRANSFORM'
+            return context.scene.sequence_editor.active_strip.type != 'SOUND'
         else:
             return False
 
@@ -257,9 +261,11 @@ class vse_transform_tools_rotate(WorkSpaceTool):
         tool.operator_properties("vse_transform_tools.rotate")
         scene = context.scene
         strip = scene.sequence_editor.active_strip
-        if scene and strip and strip.type == 'TRANSFORM':
-            layout.prop(strip, "rotation_start", text="Rotation")
-
+        if scene and strip:
+            if strip.type == 'TRANSFORM':
+                layout.prop(strip, "rotation_start", text="Rotation")
+            else:
+                layout.prop(strip.transform, "rotation", text="Rotation")
 
 class vse_transform_tools_scale(WorkSpaceTool):
     bl_space_type='SEQUENCE_EDITOR'
@@ -281,7 +287,7 @@ class vse_transform_tools_scale(WorkSpaceTool):
     @classmethod
     def poll(cls, context):
         if context.scene and context.scene.sequence_editor and context.scene.sequence_editor.active_strip:
-            return context.scene.sequence_editor.active_strip.type == 'TRANSFORM'
+            return context.scene.sequence_editor.active_strip.type != 'SOUND'
         else:
             return False
 
@@ -289,12 +295,15 @@ class vse_transform_tools_scale(WorkSpaceTool):
         tool.operator_properties("vse_transform_tools.scale")
         scene = context.scene
         strip = scene.sequence_editor.active_strip
-        if scene and strip and strip.type == 'TRANSFORM':
-            layout.prop(strip, "interpolation")
-            layout.prop(strip, "translation_unit")
-            layout.prop(strip, "scale_start_x", text="X")
-            layout.prop(strip, "scale_start_y", text="Y")
-
+        if scene and strip:
+            if strip.type == 'TRANSFORM':
+                layout.prop(strip, "interpolation")
+                layout.prop(strip, "translation_unit")
+                layout.prop(strip, "scale_start_x", text="X")
+                layout.prop(strip, "scale_start_y", text="Y")
+            else:
+                layout.prop(strip.transform, "scale_x", text="X")
+                layout.prop(strip.transform, "scale_y", text="Y")
 
 class vse_transform_tools_crop(WorkSpaceTool):
     bl_space_type='SEQUENCE_EDITOR'
