@@ -228,7 +228,7 @@ class vse_transform_tools_grab(WorkSpaceTool):
                 layout.prop(strip, "translation_unit")
                 layout.prop(strip, "translate_start_x", text="X")
                 layout.prop(strip, "translate_start_y", text="Y")
-            else:
+            elif strip.type != 'SOUND':
                 layout.prop(strip.transform, "offset_x", text="X")
                 layout.prop(strip.transform, "offset_y", text="Y")
 
@@ -264,7 +264,7 @@ class vse_transform_tools_rotate(WorkSpaceTool):
         if scene and strip:
             if strip.type == 'TRANSFORM':
                 layout.prop(strip, "rotation_start", text="Rotation")
-            else:
+            elif strip.type != 'SOUND':
                 layout.prop(strip.transform, "rotation", text="Rotation")
 
 class vse_transform_tools_scale(WorkSpaceTool):
@@ -301,7 +301,7 @@ class vse_transform_tools_scale(WorkSpaceTool):
                 layout.prop(strip, "translation_unit")
                 layout.prop(strip, "scale_start_x", text="X")
                 layout.prop(strip, "scale_start_y", text="Y")
-            else:
+            elif strip.type != 'SOUND':
                 layout.prop(strip.transform, "scale_x", text="X")
                 layout.prop(strip.transform, "scale_y", text="Y")
 
@@ -546,3 +546,9 @@ def unregister():
     bpy.utils.unregister_tool(vse_transform_tools_crop)
 
     bpy.types.SEQUENCER_MT_editor_menus.remove(Add_Menu)
+
+try:
+    import pydevd_pycharm
+    pydevd_pycharm.settrace('localhost', port=25614, stdoutToServer=True, stderrToServer=True, suspend=False)
+except:
+    print("Bypassing debug mode")

@@ -53,7 +53,9 @@ class PREV_OT_rotate(bpy.types.Operator):
         scene = context.scene
         if (scene.sequence_editor and
                 scene.sequence_editor.active_strip):
-            return True
+            for s in bpy.context.selected_sequences:
+                if s.type != 'SOUND':
+                    return True
         return False
 
     def modal(self, context, event):
@@ -151,6 +153,8 @@ class PREV_OT_rotate(bpy.types.Operator):
         if event.alt:
             selected = bpy.context.selected_sequences
             for strip in selected:
+                if strip.type == 'SOUND':
+                    continue
                 strip.select = True
                 set_rotation(strip, 0.0)
             return {'FINISHED'}
@@ -166,7 +170,7 @@ class PREV_OT_rotate(bpy.types.Operator):
             self.slow_additions = []
             rotated_count = 0
 
-            self.tab = bpy.context.selected_sequences
+            self.tab = [s for s in bpy.context.selected_sequences if s.type != 'SOUND']
             active_strip = scene.sequence_editor.active_strip
 
             for strip in self.tab:

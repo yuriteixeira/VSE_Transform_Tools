@@ -1,15 +1,16 @@
 import bpy
 from mathutils import Vector
 
+from ..utils import func_constrain_axis
+from ..utils import func_constrain_axis_mmb
+from ..utils import process_input
+from ..utils.draw import draw_px_point
+from ..utils.draw import draw_snap
+from ..utils.geometry import get_group_box
 from ..utils.geometry import get_pos_x
 from ..utils.geometry import get_pos_y
-from ..utils.geometry import get_res_factor
-from ..utils.geometry import get_group_box
 from ..utils.geometry import get_preview_offset
-
-from ..utils import func_constrain_axis_mmb
-from ..utils import func_constrain_axis
-from ..utils import process_input
+from ..utils.geometry import get_res_factor
 from ..utils.geometry.get_rotation import get_rotation
 from ..utils.geometry.get_scale_x import get_scale_x
 from ..utils.geometry.get_scale_y import get_scale_y
@@ -17,13 +18,8 @@ from ..utils.geometry.set_pos_x import set_pos_x
 from ..utils.geometry.set_pos_y import set_pos_y
 from ..utils.geometry.set_scale_x import set_scale_x
 from ..utils.geometry.set_scale_y import set_scale_y
-
 from ..utils.selection import get_visible_strips
-from ..utils.selection import ensure_transforms
-from ..utils.selection import get_highest_transform
 
-from ..utils.draw import draw_px_point
-from ..utils.draw import draw_snap
 
 class PREV_OT_scale(bpy.types.Operator):
     """
@@ -76,8 +72,10 @@ class PREV_OT_scale(bpy.types.Operator):
     def poll(cls, context):
         scene = context.scene
         if (scene.sequence_editor and
-           scene.sequence_editor.active_strip):
-            return True
+                scene.sequence_editor.active_strip):
+            for s in bpy.context.selected_sequences:
+                if s.type != 'SOUND':
+                    return True
         return False
 
     def modal(self, context, event):
@@ -372,7 +370,7 @@ class PREV_OT_scale(bpy.types.Operator):
             scaled_count = 0
 
             # self.tab = ensure_transforms()
-            self.tab = bpy.context.selected_sequences
+            self.tab = [s for s in bpy.context.selected_sequences if s.type != 'SOUND']
             visible_strips = get_visible_strips()
 
             for strip in visible_strips:

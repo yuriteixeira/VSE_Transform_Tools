@@ -73,8 +73,10 @@ class PREV_OT_grab(bpy.types.Operator):
     def poll(cls, context):
         scene = context.scene
         if (scene.sequence_editor and
-           scene.sequence_editor.active_strip):
-            return True
+                scene.sequence_editor.active_strip):
+            for s in bpy.context.selected_sequences:
+                if s.type != 'SOUND':
+                    return True
         return False
 
     def modal(self, context, event):
