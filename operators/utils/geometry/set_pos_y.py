@@ -26,6 +26,9 @@ def set_pos_y(strip, pos):
     :param strip: The strip
     :param pos:  the new Y position in pixels (or percent for transform strip using it)
     """
+    if strip.use_flip_y:
+        pos = -pos
+
     if strip.type == "TRANSFORM":
         strip.translate_start_y = pos
     else:
