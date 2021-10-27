@@ -6,6 +6,8 @@ from ..utils.geometry import prepare_set_pos_x
 from ..utils.geometry import prepare_set_pos_y
 from ..utils.geometry import rotate_point
 from ..utils.geometry import get_res_factor
+from ..utils.geometry.set_pos_x import set_pos_x
+from ..utils.geometry.set_pos_y import set_pos_y
 
 
 def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
@@ -85,8 +87,8 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
     elif pivot_type == '2':
         fac = get_res_factor()
 
-        pos_x = flip_x * bpy.context.scene.seq_cursor2d_loc[0]
-        pos_y = flip_y * bpy.context.scene.seq_cursor2d_loc[1]
+        pos_x = bpy.context.scene.seq_cursor2d_loc[0]
+        pos_y = bpy.context.scene.seq_cursor2d_loc[1]
 
         center_c2d = Vector([pos_x, pos_y])
         center_c2d /= fac
@@ -94,22 +96,17 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
         pos_init = Vector([init_t[0], init_t[1]])
         pos_init -= center_c2d
 
-        point_rot = flip_x * flip_y * math.radians(rot)
-
+        point_rot = flip_x * flip_y * math.radians(strip_rot - init_rot)
         np = rotate_point(pos_init, point_rot)
-        if event.ctrl:
-            p_rot_degs = math.radians(strip_rot - init_rot)
-            point_rot = flip_x * flip_y * p_rot_degs
-            np = rotate_point(pos_init, point_rot)
+
+        if strip.type == "TRANSFORM":
+            strip.rotation_start = strip_rot
+        else:
+            strip.transform.rotation = math.radians(strip_rot)
 
         pos_x = prepare_set_pos_x(strip, np.x + center_c2d.x)
         pos_y = prepare_set_pos_y(strip, np.y + center_c2d.y)
 
-        if strip.type == "TRANSFORM":
-            strip.rotation_start = strip_rot
-            strip.translate_start_x = pos_x
-            strip.translate_start_y = pos_y
-        else:
-            strip.transform.rotation = math.radians(strip_rot)
-            strip.transform.offset_x = pos_x
-            strip.transform.offset_y = pos_y
+        set_pos_x(strip, pos_x)
+        set_pos_y(strip, pos_y)
+
