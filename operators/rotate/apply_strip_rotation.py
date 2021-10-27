@@ -102,13 +102,14 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
             point_rot = flip_x * flip_y * p_rot_degs
             np = rotate_point(pos_init, point_rot)
 
-        if strip.type == "TRANSFORM":
-            strip.rotation_start = strip_rot
-        else:
-            strip.transform.rotation = strip_rot
-
         pos_x = prepare_set_pos_x(strip, np.x + center_c2d.x)
         pos_y = prepare_set_pos_y(strip, np.y + center_c2d.y)
 
-        strip.translate_start_x = pos_x
-        strip.translate_start_y = pos_y
+        if strip.type == "TRANSFORM":
+            strip.rotation_start = strip_rot
+            strip.translate_start_x = pos_x
+            strip.translate_start_y = pos_y
+        else:
+            strip.transform.rotation = math.radians(strip_rot)
+            strip.transform.offset_x = pos_x
+            strip.transform.offset_y = pos_y

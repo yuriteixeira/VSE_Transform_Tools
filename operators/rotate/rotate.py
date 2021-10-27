@@ -189,18 +189,8 @@ class PREV_OT_rotate(bpy.types.Operator):
                 self.tab_init.append(get_rotation(strip))
                 self.tab_init_t.append([pos_x, pos_y])
 
-                flip_x = 1
-                if strip.use_flip_x:
-                    flip_x = -1
-
-                flip_y = 1
-                if strip.use_flip_y:
-                    flip_y = -1
-
-                self.center_real += Vector((
-                    flip_x * pos_x, flip_y * pos_y))
-                self.center_area += Vector((
-                    flip_x * pos_x, flip_y * pos_y))
+                self.center_real += Vector((pos_x, pos_y))
+                self.center_area += Vector((pos_x, pos_y))
 
                 rotated_count += 1
 
@@ -212,22 +202,13 @@ class PREV_OT_rotate(bpy.types.Operator):
                     self.center_area = Vector(pos)
 
                 elif context.scene.seq_pivot_type == '3':
-                    flip_x = 1
-                    if strip.use_flip_x:
-                        flip_x = -1
-
-                    flip_y = 1
-                    if strip.use_flip_y:
-                        flip_y = -1
-
                     pos_x = get_pos_x(active_strip)
                     pos_y = get_pos_y(active_strip)
 
-                    self.center_real = Vector((
-                        flip_x * pos_x, flip_y * pos_y))
+                    self.center_real = Vector((pos_x, pos_y))
 
-                    pos_x *= flip_x * fac
-                    pos_y *= flip_y * fac
+                    pos_x *= fac
+                    pos_y *= fac
 
                     view_2d = context.region.view2d
                     pos = view_2d.view_to_region(pos_x, pos_y)
