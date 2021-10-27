@@ -291,14 +291,24 @@ class PREV_OT_scale(bpy.types.Operator):
                     pivot_type = context.scene.seq_pivot_type
                     if (pivot_type == '0' and len(self.tab) > 1) or pivot_type == '2':
                         for strip in self.tab:
-                            strip.keyframe_insert(data_path='translate_start_x')
-                            strip.keyframe_insert(data_path='translate_start_y')
-                            strip.keyframe_insert(data_path='scale_start_x')
-                            strip.keyframe_insert(data_path='scale_start_y')
+                            if strip.type == 'TRANSFORM':
+                                strip.keyframe_insert(data_path='translate_start_x')
+                                strip.keyframe_insert(data_path='translate_start_y')
+                                strip.keyframe_insert(data_path='scale_start_x')
+                                strip.keyframe_insert(data_path='scale_start_y')
+                            else:
+                                strip.transform.keyframe_insert(data_path='offset_x')
+                                strip.transform.keyframe_insert(data_path='offset_y')
+                                strip.transform.keyframe_insert(data_path='scale_x')
+                                strip.transform.keyframe_insert(data_path='scale_y')
                     elif pivot_type == '1' or pivot_type == '3' or (pivot_type == '0' and len(self.tab) == 1):
                         for strip in self.tab:
-                            strip.keyframe_insert(data_path='scale_start_x')
-                            strip.keyframe_insert(data_path='scale_start_y')
+                            if strip.type == 'TRANSFORM':
+                                strip.keyframe_insert(data_path='scale_start_x')
+                                strip.keyframe_insert(data_path='scale_start_y')
+                            else:
+                                strip.transform.keyframe_insert(data_path='scale_x')
+                                strip.transform.keyframe_insert(data_path='scale_y')
 
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')

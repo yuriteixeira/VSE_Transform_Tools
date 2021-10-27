@@ -117,12 +117,20 @@ class PREV_OT_rotate(bpy.types.Operator):
                 pivot_type = context.scene.seq_pivot_type
                 if (pivot_type == '0' and len(self.tab) > 1) or pivot_type == '2':
                     for strip in self.tab:
-                        strip.keyframe_insert(data_path='translate_start_x')
-                        strip.keyframe_insert(data_path='translate_start_y')
-                        strip.keyframe_insert(data_path='rotation_start')
+                        if strip.type == "TRANSFORM":
+                            strip.keyframe_insert(data_path='translate_start_x')
+                            strip.keyframe_insert(data_path='translate_start_y')
+                            strip.keyframe_insert(data_path='rotation_start')
+                        else:
+                            strip.transform.keyframe_insert(data_path='offset_x')
+                            strip.transform.keyframe_insert(data_path='offset_y')
+                            strip.transform.keyframe_insert(data_path='rotation')
                 elif pivot_type == '1' or pivot_type == '3' or (pivot_type == '0' and len(self.tab) == 1):
                     for strip in self.tab:
-                        strip.keyframe_insert(data_path='rotation_start')
+                        if strip.type == "TRANSFORM":
+                            strip.keyframe_insert(data_path='rotation_start')
+                        else:
+                            strip.transform.keyframe_insert(data_path='rotation')
 
             context.area.header_text_set(None)
             return {'FINISHED'}
