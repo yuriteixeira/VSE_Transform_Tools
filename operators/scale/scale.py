@@ -98,13 +98,10 @@ class PREV_OT_scale(bpy.types.Operator):
 
             self.vec_prev = Vector(self.vec_act)
 
-            func_constrain_axis_mmb(
-                self, context, event.type, event.value,
-                self.sign_rot * get_rotation(context.scene.sequence_editor.active_strip))
-
-            func_constrain_axis(
-                self, context, event.type, event.value,
-                self.sign_rot * get_rotation(context.scene.sequence_editor.active_strip))
+            active_strip = context.scene.sequence_editor.active_strip
+            rotation = get_rotation(context.scene.sequence_editor.active_strip) * (-1 if active_strip.use_flip_x != active_strip.use_flip_y else 1)
+            func_constrain_axis_mmb(self, context, event.type, event.value, rotation)
+            func_constrain_axis(self, context, event.type, event.value, rotation)
 
             process_input(self, event.type, event.value)
             if self.key_val != '':
@@ -260,17 +257,9 @@ class PREV_OT_scale(bpy.types.Operator):
                 set_scale_x(strip, init_s[0] * round(diff_x, precision))
                 set_scale_y(strip, init_s[1] * round(diff_y, precision))
 
-                flip_x = 1
-                if strip.use_flip_x:
-                    flip_x = -1
-
-                flip_y = 1
-                if strip.use_flip_y:
-                    flip_y = -1
-
                 if context.scene.seq_pivot_type in ['0', '3']:
-                    set_pos_x(strip, (init_t[0] - flip_x * self.center_real.x) * round(diff_x, precision) + flip_x * self.center_real.x)
-                    set_pos_y(strip, (init_t[1] - flip_y * self.center_real.y) * round(diff_y, precision) + flip_y * self.center_real.y)
+                    set_pos_x(strip, (init_t[0] - self.center_real.x) * round(diff_x, precision) + self.center_real.x)
+                    set_pos_y(strip, (init_t[1] - self.center_real.y) * round(diff_y, precision) + self.center_real.y)
 
                 if context.scene.seq_pivot_type == '2':
                     set_pos_x(strip, (init_t[0] - self.center_c2d.x) * round(diff_x, precision) + self.center_c2d.x)
@@ -291,14 +280,24 @@ class PREV_OT_scale(bpy.types.Operator):
                     pivot_type = context.scene.seq_pivot_type
                     if (pivot_type == '0' and len(self.tab) > 1) or pivot_type == '2':
                         for strip in self.tab:
-                            strip.keyframe_insert(data_path='translate_start_x')
-                            strip.keyframe_insert(data_path='translate_start_y')
-                            strip.keyframe_insert(data_path='scale_start_x')
-                            strip.keyframe_insert(data_path='scale_start_y')
+                            if strip.type == 'TRANSFORM':
+                                strip.keyframe_insert(data_path='translate_start_x')
+                                strip.keyframe_insert(data_path='translate_start_y')
+                                strip.keyframe_insert(data_path='scale_start_x')
+                                strip.keyframe_insert(data_path='scale_start_y')
+                            else:
+                                strip.transform.keyframe_insert(data_path='offset_x')
+                                strip.transform.keyframe_insert(data_path='offset_y')
+                                strip.transform.keyframe_insert(data_path='scale_x')
+                                strip.transform.keyframe_insert(data_path='scale_y')
                     elif pivot_type == '1' or pivot_type == '3' or (pivot_type == '0' and len(self.tab) == 1):
                         for strip in self.tab:
-                            strip.keyframe_insert(data_path='scale_start_x')
-                            strip.keyframe_insert(data_path='scale_start_y')
+                            if strip.type == 'TRANSFORM':
+                                strip.keyframe_insert(data_path='scale_start_x')
+                                strip.keyframe_insert(data_path='scale_start_y')
+                            else:
+                                strip.transform.keyframe_insert(data_path='scale_x')
+                                strip.transform.keyframe_insert(data_path='scale_y')
 
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_axes, 'PREVIEW')
@@ -388,18 +387,8 @@ class PREV_OT_scale(bpy.types.Operator):
                 self.tab_init_s.append([get_scale_x(strip), get_scale_y(strip)])
                 self.tab_init_t.append([get_pos_x(strip), get_pos_y(strip)])
 
-                flip_x = 1
-                if strip.use_flip_x:
-                    flip_x = -1
-
-                flip_y = 1
-                if strip.use_flip_y:
-                    flip_y = -1
-
-                self.sign_rot = flip_x * flip_y
-
-                center_x = flip_x * get_pos_x(strip)
-                center_y = flip_y * get_pos_y(strip)
+                center_x = get_pos_x(strip)
+                center_y = get_pos_y(strip)
                 self.center_real += Vector([center_x, center_y])
                 self.center_area += Vector([center_x, center_y])
 
@@ -412,21 +401,13 @@ class PREV_OT_scale(bpy.types.Operator):
                     cursor_pos = context.region.view2d.view_to_region(cursor_x, cursor_y)
                     self.center_area = Vector(cursor_pos)
 
-                    self.center_c2d = Vector((flip_x * context.scene.seq_cursor2d_loc[0], flip_y * context.scene.seq_cursor2d_loc[1])) / fac
+                    self.center_c2d = Vector((context.scene.seq_cursor2d_loc[0], context.scene.seq_cursor2d_loc[1])) / fac
 
                 elif scene.seq_pivot_type == '3':
                     active_strip = scene.sequence_editor.active_strip
 
-                    flip_x = 1
-                    if active_strip.use_flip_x:
-                        flip_x = -1
-
-                    flip_y = 1
-                    if active_strip.use_flip_y:
-                        flip_y = -1
-
-                    pos_x = flip_x * get_pos_x(active_strip)
-                    pos_y = flip_y * get_pos_y(active_strip)
+                    pos_x = get_pos_x(active_strip)
+                    pos_y = get_pos_y(active_strip)
 
                     self.center_real = Vector([pos_x, pos_y])
 

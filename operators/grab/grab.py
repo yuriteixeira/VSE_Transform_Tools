@@ -263,11 +263,11 @@ class PREV_OT_grab(bpy.types.Operator):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
 
                 for strip, init_pos in zip(self.tab, self.tab_init):
-                    pos_x = prepare_set_pos_x(strip, pos_x)
-                    pos_y = prepare_set_pos_y(strip, pos_y)
+                    pos_x = prepare_set_pos_x(strip, init_pos[0])
+                    pos_y = prepare_set_pos_y(strip, init_pos[1])
 
-                    set_pos_x(strip, init_pos[0])
-                    set_pos_y(strip, init_pos[1])
+                    set_pos_x(strip, pos_x)
+                    set_pos_y(strip, pos_y)
 
                 context.area.header_text_set(None)
                 return {'FINISHED'}
