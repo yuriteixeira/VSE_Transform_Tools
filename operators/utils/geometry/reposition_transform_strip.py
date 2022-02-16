@@ -1,11 +1,12 @@
-import bpy
-from operator import attrgetter
 import math
+from operator import attrgetter
 
-from .get_transform_box import get_transform_box
-from .get_strip_box import get_strip_box
+import bpy
+
 from .get_post_rot_bbox import get_post_rot_bbox
+from .get_strip_box import get_strip_box
 from .get_strip_corners import get_strip_corners
+from .get_transform_box import get_transform_box
 
 
 def reposition_transform_strip(strip, group_box):

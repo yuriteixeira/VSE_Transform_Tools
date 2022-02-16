@@ -1,13 +1,10 @@
-import bpy
 import math
+
+import bpy
 from mathutils import Vector
 
+from ..utils.geometry import get_strip_box, get_strip_corners, get_transform_box, rotate_point
 from ..utils.selection import get_visible_strips
-
-from ..utils.geometry import rotate_point
-from ..utils.geometry import get_transform_box
-from ..utils.geometry import get_strip_box
-from ..utils.geometry import get_strip_corners
 
 
 def get_important_edge_points():

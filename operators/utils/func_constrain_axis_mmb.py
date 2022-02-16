@@ -1,7 +1,7 @@
-import bpy
 import math
-from mathutils import Vector
-from mathutils import Quaternion
+
+import bpy
+from mathutils import Quaternion, Vector
 
 from .draw import draw_axes
 

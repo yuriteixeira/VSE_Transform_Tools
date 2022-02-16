@@ -1,5 +1,4 @@
 import bpy
-from .get_strip_box import get_strip_box
 
 
 def reposition_strip(strip, group_box):

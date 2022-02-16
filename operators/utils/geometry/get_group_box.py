@@ -1,9 +1,8 @@
-import bpy
-import math
 from operator import attrgetter
 
+import bpy
+
 from .get_strip_box import get_strip_box
-from .get_transform_box import get_transform_box
 from .get_strip_corners import get_strip_corners
 
 

@@ -1,6 +1,7 @@
 from mathutils import Vector
-from .draw_stippled_line import draw_stippled_line
+
 from .draw_arrows import draw_arrows
+from .draw_stippled_line import draw_stippled_line
 
 
 def draw_px_point(self, context):

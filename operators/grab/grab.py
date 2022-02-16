@@ -1,25 +1,13 @@
 import bpy
 from mathutils import Vector
 
-from ..utils import process_input
-from ..utils import func_constrain_axis_mmb
-from ..utils import func_constrain_axis
-
-from ..utils.geometry import get_pos_x, prepare_set_pos_x
-from ..utils.geometry import get_pos_y
-from ..utils.geometry import get_res_factor
-from ..utils.geometry import get_group_box
-from ..utils.geometry import get_strip_box
-from ..utils.geometry import mouse_to_res
-from ..utils.geometry import get_preview_offset
+from ..utils import func_constrain_axis, func_constrain_axis_mmb, process_input
+from ..utils.draw import draw_snap
+from ..utils.geometry import get_group_box, get_pos_x, prepare_set_pos_x, get_pos_y, get_preview_offset, get_res_factor, \
+    get_strip_box, mouse_to_res
 from ..utils.geometry.set_pos_x import set_pos_x
 from ..utils.geometry.set_pos_y import set_pos_y, prepare_set_pos_y
-
-from ..utils.selection import ensure_transforms
-from ..utils.selection import get_highest_transform
-from ..utils.selection import get_visible_strips
-
-from ..utils.draw import draw_snap
+from ..utils.selection import ensure_transforms, get_highest_transform, get_visible_strips
 
 
 class PREV_OT_grab(bpy.types.Operator):
@@ -113,7 +101,7 @@ class PREV_OT_grab(bpy.types.Operator):
             elif not self.initially_shifted and 'SHIFT' in event.type and event.value == 'RELEASE' and self.key_val == '':
                 self.vec_act = (self.pre_slow_vec - self.first_mouse_pos - self.reduction_vec) + self.slow_act_fm
                 self.reduction_vec = self.reduction_vec + (
-                            (self.mouse_pos - self.pre_slow_vec) * (self.slow_factor - 1)) / self.slow_factor
+                        (self.mouse_pos - self.pre_slow_vec) * (self.slow_factor - 1)) / self.slow_factor
 
             elif not self.initially_shifted and event.shift and self.key_val == '':
                 self.slow_act_fm = (self.mouse_pos - self.pre_slow_vec) / self.slow_factor
@@ -217,7 +205,7 @@ class PREV_OT_grab(bpy.types.Operator):
                     self.last_line_loc = line_loc
                 elif (
                         orientation != self.last_snap_orientation or line_loc != self.last_line_loc) and self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(
-                        self.handle_snap):
+                    self.handle_snap):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
                     self.last_snap_orientation = orientation
                     self.last_line_loc = line_loc

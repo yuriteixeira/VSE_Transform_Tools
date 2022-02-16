@@ -1,6 +1,8 @@
-import bpy
-from ..utils.selection import get_input_tree
 import math
+
+import bpy
+
+from ..utils.selection import get_input_tree
 
 
 class SEQUENCER_OT_track_transform(bpy.types.Operator):

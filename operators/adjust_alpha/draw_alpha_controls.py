@@ -1,7 +1,6 @@
-from ..utils.draw import draw_line
-from ..utils.draw import draw_square
-
 import blf
+
+from ..utils.draw import draw_line, draw_square
 
 
 def draw_alpha_controls(self, context):

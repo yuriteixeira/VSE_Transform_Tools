@@ -1,5 +1,6 @@
-import bpy
 from operator import attrgetter
+
+import bpy
 
 
 def get_vertical_translation(strips):

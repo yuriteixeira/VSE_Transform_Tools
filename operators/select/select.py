@@ -1,18 +1,10 @@
 import bpy
-
 from mathutils import Vector
 from mathutils.geometry import intersect_point_quad_2d
 
-from ..utils.geometry import get_strip_corners
-from ..utils.geometry import get_preview_offset
-from ..utils.geometry import mouse_to_res
-
-from ..utils.selection import get_visible_strips
-
-from ..utils.geometry import get_preview_offset
-from ..utils.geometry import get_strip_corners
-
 from ..utils.draw import draw_line
+from ..utils.geometry import get_preview_offset, get_strip_corners, mouse_to_res
+from ..utils.selection import get_visible_strips
 
 
 def draw_select(context, seconds, fadeout_duration):

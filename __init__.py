@@ -1,3 +1,10 @@
+import bpy
+from bpy.types import WorkSpaceTool
+from .operators import *
+from .operators.utils.draw import draw_line
+from bpy.utils import register_class
+from bpy.utils import unregister_class
+
 bl_info = {
     "name": "VSE Transform Tools",
     "description": "Quickly manipulate video strips in Blender's Video Sequence Editor",
@@ -23,14 +30,9 @@ Panel:    _PT_
 UIList:   _UL_
 """
 
-import bpy
-from bpy.types import WorkSpaceTool
-
-from .operators import *
 
 handle_2d_cursor = None
 
-from .operators.utils.draw import draw_line
 
 
 def draw_callback_px_2d_cursor(self, context):
@@ -460,7 +462,6 @@ addon_keymaps = []
 
 
 def register():
-    from bpy.utils import register_class
     for cls in classes:
         register_class(cls)
 
@@ -528,7 +529,6 @@ def register():
 
 
 def unregister():
-    from bpy.utils import unregister_class
     for cls in reversed(classes):
         unregister_class(cls)
 

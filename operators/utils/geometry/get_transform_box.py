@@ -1,10 +1,8 @@
 import bpy
-import os
 
 from .get_pos_x import get_pos_x
 from .get_pos_y import get_pos_y
 from .get_strip_box import get_strip_box
-from .get_res_factor import get_res_factor
 
 
 def get_transform_box(strip):

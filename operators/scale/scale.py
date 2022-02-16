@@ -1,16 +1,9 @@
 import bpy
 from mathutils import Vector
 
-from ..utils import func_constrain_axis
-from ..utils import func_constrain_axis_mmb
-from ..utils import process_input
-from ..utils.draw import draw_px_point
-from ..utils.draw import draw_snap
-from ..utils.geometry import get_group_box
-from ..utils.geometry import get_pos_x
-from ..utils.geometry import get_pos_y
-from ..utils.geometry import get_preview_offset
-from ..utils.geometry import get_res_factor
+from ..utils import func_constrain_axis, func_constrain_axis_mmb, process_input
+from ..utils.draw import draw_px_point, draw_snap
+from ..utils.geometry import get_group_box, get_pos_x, get_pos_y, get_preview_offset, get_res_factor
 from ..utils.geometry.get_rotation import get_rotation
 from ..utils.geometry.get_scale_x import get_scale_x
 from ..utils.geometry.get_scale_y import get_scale_y
@@ -240,7 +233,7 @@ class PREV_OT_scale(bpy.types.Operator):
                     self.last_line_loc = line_loc
                 elif (
                         orientation != self.last_snap_orientation or line_loc != self.last_line_loc) and self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(
-                        self.handle_snap):
+                    self.handle_snap):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
                     self.last_snap_orientation = orientation
                     self.last_line_loc = line_loc

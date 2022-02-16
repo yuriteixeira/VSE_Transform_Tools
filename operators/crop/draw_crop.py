@@ -3,7 +3,6 @@ from gpu_extras.batch import batch_for_shader
 
 from .set_corners import set_corners
 from .set_quads import set_quads
-
 from ..utils.draw import draw_line
 
 

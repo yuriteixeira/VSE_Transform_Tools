@@ -1,5 +1,7 @@
 import math
+
 from mathutils import Vector
+
 from ..utils.geometry import rotate_point
 
 

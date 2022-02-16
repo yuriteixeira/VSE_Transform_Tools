@@ -1,11 +1,11 @@
-import bpy
 import math
+
+import bpy
 from mathutils import Vector
 
 from .draw_pixelate_controls import draw_pixelate_controls
-
-from ..utils.selection import get_input_tree
 from ..utils import process_input
+from ..utils.selection import get_input_tree
 
 
 class PREV_OT_pixelate(bpy.types.Operator):

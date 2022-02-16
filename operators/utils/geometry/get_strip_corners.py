@@ -1,8 +1,8 @@
-import bpy
 import math
+
+import bpy
 from mathutils import Vector
 
-from .get_strip_box import get_strip_box
 from .get_transform_box import get_transform_box
 from .rotate_point import rotate_point
 

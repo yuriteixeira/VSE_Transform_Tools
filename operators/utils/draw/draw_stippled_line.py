@@ -1,7 +1,5 @@
 import math
 from math import sqrt
-import gpu
-from gpu_extras.batch import batch_for_shader
 
 from .draw_line import draw_line
 

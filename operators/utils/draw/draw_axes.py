@@ -1,12 +1,10 @@
 import bpy
 
-from ..geometry.get_group_box import get_group_box
-from ..geometry.get_preview_offset import get_preview_offset
-
+from .colors import get_color_axis_x, get_color_axis_y
 from .draw_line import draw_line
 from .draw_stippled_line import draw_stippled_line
-
-from .colors import get_color_axis_x, get_color_axis_y
+from ..geometry.get_group_box import get_group_box
+from ..geometry.get_preview_offset import get_preview_offset
 
 
 def draw_axes(self, context, angle):

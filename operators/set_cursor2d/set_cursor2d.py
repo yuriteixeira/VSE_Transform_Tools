@@ -1,5 +1,4 @@
 import bpy
-import math
 from mathutils import Vector
 
 from .get_important_edge_points import get_important_edge_points

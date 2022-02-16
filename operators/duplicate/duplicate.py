@@ -1,8 +1,7 @@
 import bpy
 
-from ..utils.selection import get_input_tree
-
 from .get_vertical_translation import get_vertical_translation
+from ..utils.selection import get_input_tree
 
 
 class PREV_OT_duplicate(bpy.types.Operator):

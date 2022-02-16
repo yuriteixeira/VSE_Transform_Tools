@@ -1,20 +1,16 @@
-import bpy
 import math
+
+import bpy
 from mathutils import Vector
 
+from .apply_strip_rotation import apply_strip_rotation
 from ..utils import process_input
-
-from ..utils.geometry import get_res_factor
-from ..utils.geometry import get_pos_x
-from ..utils.geometry import get_pos_y
+from ..utils.draw import draw_px_point
+from ..utils.geometry import get_pos_x, get_pos_y, get_res_factor
 from ..utils.geometry.get_rotation import get_rotation
 from ..utils.geometry.set_pos_x import set_pos_x
 from ..utils.geometry.set_pos_y import set_pos_y
 from ..utils.geometry.set_rotation import set_rotation
-
-from ..utils.draw import draw_px_point
-
-from .apply_strip_rotation import apply_strip_rotation
 
 
 class PREV_OT_rotate(bpy.types.Operator):

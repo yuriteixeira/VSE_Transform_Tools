@@ -1,6 +1,7 @@
+import math
+
 import bpy
 from mathutils import Vector
-import math
 
 from ..utils.geometry import mouse_to_res
 

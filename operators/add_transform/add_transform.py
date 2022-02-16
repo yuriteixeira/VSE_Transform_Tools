@@ -1,7 +1,6 @@
 import bpy
 
-from ..utils.geometry import get_transform_box
-from ..utils.geometry import get_strip_box
+from ..utils.geometry import get_strip_box, get_transform_box
 from ..utils.selection import get_input_tree
 
 

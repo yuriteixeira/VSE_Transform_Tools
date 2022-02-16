@@ -1,11 +1,9 @@
-import bpy
 import math
+
+import bpy
 from mathutils import Vector
 
-from ..utils.geometry import prepare_set_pos_x
-from ..utils.geometry import prepare_set_pos_y
-from ..utils.geometry import rotate_point
-from ..utils.geometry import get_res_factor
+from ..utils.geometry import get_res_factor, prepare_set_pos_x, prepare_set_pos_y, rotate_point
 from ..utils.geometry.set_pos_x import set_pos_x
 from ..utils.geometry.set_pos_y import set_pos_y
 

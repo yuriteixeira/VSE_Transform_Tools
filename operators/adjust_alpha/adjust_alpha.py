@@ -1,9 +1,7 @@
 import bpy
-
 from mathutils import Vector
 
 from .draw_alpha_controls import draw_alpha_controls
-
 from ..utils import process_input
 
 

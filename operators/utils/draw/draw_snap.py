@@ -1,6 +1,3 @@
-import bgl
-from mathutils import Vector
-
 from .draw_line import draw_line
 
 
