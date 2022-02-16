@@ -1,4 +1,4 @@
-# Blender CropBox
+# Blender Video Strip Crop
 
 **IMPORTANT**: ⚠️ WIP (just got started). Please come back soon 👷 🏗️
 
