@@ -9,6 +9,5 @@ from .meta_toggle import PREV_OT_meta_toggle
 from .mouse_track import PREV_OT_mouse_track
 from .pixelate import PREV_OT_pixelate
 from .rotate import PREV_OT_rotate
-from .scale import PREV_OT_scale
 from .set_cursor2d import PREV_OT_set_cursor_2d
 from .track_transform import SEQUENCER_OT_track_transform
