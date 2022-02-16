@@ -128,10 +128,6 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
         # if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
 
         layout.separator()
-        layout.operator("vse_transform_tools.rotate")
-        # layout.operator("vse_transform_tools.rotate", 'R', 'PRESS', alt=True)
-
-        layout.separator()
 
         layout.operator("vse_transform_tools.crop")
         layout.operator("vse_transform_tools.autocrop")
@@ -161,41 +157,6 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
         layout.operator("vse_transform_tools.meta_toggle")
 
         layout.operator_context = 'INVOKE_DEFAULT'
-
-
-class vse_transform_tools_rotate(WorkSpaceTool):
-    bl_space_type = 'SEQUENCE_EDITOR'
-    bl_context_mode = 'PREVIEW'
-    bl_idname = "transform_tool.rotate"
-    bl_label = "Rotate"
-    bl_description = (
-        "Rotate Strip in Preview"
-    )
-    bl_icon = "ops.transform.rotate"
-    bl_widget = None
-    operator = "transform.translate",
-    bl_keymap = (
-        ("vse_transform_tools.rotate", {"type": 'LEFTMOUSE', "value": 'PRESS'}, None),
-        ("vse_transform_tools.rotate", {"type": 'LEFTMOUSE', "value": 'PRESS', "ctrl": True},
-         {"properties": []}),
-    )
-
-    @classmethod
-    def poll(cls, context):
-        if context.scene and context.scene.sequence_editor and context.scene.sequence_editor.active_strip:
-            return context.scene.sequence_editor.active_strip.type != 'SOUND'
-        else:
-            return False
-
-    def draw_settings(context, layout, tool):
-        tool.operator_properties("vse_transform_tools.rotate")
-        scene = context.scene
-        strip = scene.sequence_editor.active_strip
-        if scene and strip:
-            if strip.type == 'TRANSFORM':
-                layout.prop(strip, "rotation_start", text="Rotation")
-            elif strip.type != 'SOUND':
-                layout.prop(strip.transform, "rotation", text="Rotation")
 
 
 class vse_transform_tools_crop(WorkSpaceTool):
@@ -324,7 +285,6 @@ def init_properties():
 classes = [
     PREV_OT_initialize_pivot,
     PREV_OT_set_cursor_2d,
-    PREV_OT_rotate,
     PREV_OT_autocrop,
     PREV_OT_delete,
     PREV_OT_duplicate,
@@ -353,9 +313,6 @@ def register():
 
     wm = bpy.context.window_manager
     km = wm.keyconfigs.addon.keymaps.new(name="SequencerPreview", space_type="SEQUENCE_EDITOR", region_type="WINDOW")
-
-    kmi = km.keymap_items.new("vse_transform_tools.rotate", 'R', 'PRESS', alt=True)
-    kmi = km.keymap_items.new("vse_transform_tools.rotate", 'R', 'PRESS')
 
     kmi = km.keymap_items.new("vse_transform_tools.autocrop", 'C', 'PRESS', shift=True)
 
@@ -387,7 +344,6 @@ def register():
 
     addon_keymaps.append(km)
 
-    bpy.utils.register_tool(vse_transform_tools_rotate)
     bpy.utils.register_tool(vse_transform_tools_crop)
 
     bpy.types.SEQUENCER_MT_editor_menus.append(Add_Menu)
@@ -410,7 +366,6 @@ def unregister():
     del bpy.types.Scene.vse_transform_tools_tracker_1
     del bpy.types.Scene.vse_transform_tools_tracker_2
 
-    bpy.utils.unregister_tool(vse_transform_tools_rotate)
     bpy.utils.unregister_tool(vse_transform_tools_crop)
 
     bpy.types.SEQUENCER_MT_editor_menus.remove(Add_Menu)
