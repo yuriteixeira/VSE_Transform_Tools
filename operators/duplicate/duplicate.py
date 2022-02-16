@@ -8,7 +8,6 @@ class PREV_OT_duplicate(bpy.types.Operator):
     """
     Duplicates all selected strips and any strips that are inputs
     of those strips.
-    Calls the Grab operator immediately after duplicating.
     """
     bl_idname = "vse_transform_tools.duplicate"
     bl_label = "Duplicate"
@@ -46,5 +45,3 @@ class PREV_OT_duplicate(bpy.types.Operator):
                     SEQUENCER_OT_duplicate={},
                     TRANSFORM_OT_seq_slide={
                         "value": (0, vertical_translation)})
-
-        return bpy.ops.vse_transform_tools.grab('INVOKE_DEFAULT')

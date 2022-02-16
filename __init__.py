@@ -127,8 +127,6 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
 
         # if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
 
-        layout.operator("vse_transform_tools.grab")
-        # layout.operator("vse_transform_tools.grab", 'G', 'PRESS', alt=True, shift=False)
         layout.operator("vse_transform_tools.scale")
         # layout.operator("vse_transform_tools.scale", 'S', 'PRESS', alt=True)
         layout.operator("vse_transform_tools.rotate")
@@ -164,44 +162,6 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
         layout.operator("vse_transform_tools.meta_toggle")
 
         layout.operator_context = 'INVOKE_DEFAULT'
-
-
-class vse_transform_tools_grab(WorkSpaceTool):
-    bl_space_type = 'SEQUENCE_EDITOR'
-    bl_context_mode = 'PREVIEW'
-    bl_idname = "transform_tool.grab"
-    bl_label = "Move"
-    bl_description = (
-        "Move Strip in Preview"
-    )
-    bl_icon = "ops.transform.translate"
-    bl_widget = None
-    operator = "transform.translate",
-    bl_keymap = (
-        ("vse_transform_tools.grab", {"type": 'LEFTMOUSE', "value": 'PRESS'},
-         {"properties": []}),
-    )
-
-    @classmethod
-    def poll(cls, context):
-        if context.scene and context.scene.sequence_editor and context.scene.sequence_editor.active_strip:
-            return context.scene.sequence_editor.active_strip.type != 'SOUND'
-        else:
-            return False
-
-    def draw_settings(context, layout, tool):
-        scene = context.scene
-        strip = scene.sequence_editor.active_strip
-        if scene and strip:
-            tool.operator_properties("vse_transform_tools.grab")
-            if strip.type == 'TRANSFORM':
-                layout.prop(strip, "interpolation")
-                layout.prop(strip, "translation_unit")
-                layout.prop(strip, "translate_start_x", text="X")
-                layout.prop(strip, "translate_start_y", text="Y")
-            elif strip.type != 'SOUND':
-                layout.prop(strip.transform, "offset_x", text="X")
-                layout.prop(strip.transform, "offset_y", text="Y")
 
 
 class vse_transform_tools_rotate(WorkSpaceTool):
@@ -404,7 +364,6 @@ def init_properties():
 classes = [
     PREV_OT_initialize_pivot,
     PREV_OT_set_cursor_2d,
-    PREV_OT_grab,
     PREV_OT_scale,
     PREV_OT_rotate,
     PREV_OT_autocrop,
@@ -435,9 +394,6 @@ def register():
 
     wm = bpy.context.window_manager
     km = wm.keyconfigs.addon.keymaps.new(name="SequencerPreview", space_type="SEQUENCE_EDITOR", region_type="WINDOW")
-
-    kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS', alt=True, shift=False)
-    kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS')
 
     kmi = km.keymap_items.new("vse_transform_tools.scale", 'S', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.scale", 'S', 'PRESS')
@@ -475,7 +431,6 @@ def register():
 
     addon_keymaps.append(km)
 
-    bpy.utils.register_tool(vse_transform_tools_grab)
     bpy.utils.register_tool(vse_transform_tools_rotate)
     bpy.utils.register_tool(vse_transform_tools_scale)
     bpy.utils.register_tool(vse_transform_tools_crop)
@@ -500,7 +455,6 @@ def unregister():
     del bpy.types.Scene.vse_transform_tools_tracker_1
     del bpy.types.Scene.vse_transform_tools_tracker_2
 
-    bpy.utils.unregister_tool(vse_transform_tools_grab)
     bpy.utils.unregister_tool(vse_transform_tools_rotate)
     bpy.utils.unregister_tool(vse_transform_tools_scale)
     bpy.utils.unregister_tool(vse_transform_tools_crop)

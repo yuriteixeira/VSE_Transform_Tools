@@ -4,7 +4,6 @@ from .call_menu import PREV_MT_menu_insert_keyframe, PREV_OT_call_menu, PREV_OT_
 from .crop import PREV_OT_crop
 from .delete import PREV_OT_delete
 from .duplicate import PREV_OT_duplicate
-from .grab import PREV_OT_grab
 from .group import PREV_OT_group
 from .meta_toggle import PREV_OT_meta_toggle
 from .mouse_track import PREV_OT_mouse_track
