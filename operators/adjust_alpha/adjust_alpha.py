@@ -116,8 +116,6 @@ class PREV_OT_adjust_alpha(bpy.types.Operator):
 
             self.alpha_init = max(opacities)
 
-            self.key_val != ''
-
             args = (self, context)
             self.handle_alpha = bpy.types.SpaceSequenceEditor.draw_handler_add(
                 draw_alpha_controls, args, 'PREVIEW', 'POST_PIXEL')

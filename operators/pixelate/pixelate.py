@@ -162,7 +162,6 @@ class PREV_OT_pixelate(bpy.types.Operator):
         self.first_mouse = Vector([mouse_x, mouse_y])
 
         self.pixel_factor = 0.0
-        self.key_val != ''
 
         args = (self, context)
         self.handle_pixelation = bpy.types.SpaceSequenceEditor.draw_handler_add(
