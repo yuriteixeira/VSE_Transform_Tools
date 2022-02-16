@@ -224,7 +224,6 @@ class PREV_OT_crop(bpy.types.Operator):
         scene.sequence_editor.active_strip = strip
 
         if not strip.type == "TRANSFORM":
-            #     bpy.ops.vse_transform_tools.add_transform()
             #     strip.select = False
             #     strip = scene.sequence_editor.active_strip
             #

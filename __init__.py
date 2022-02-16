@@ -127,10 +127,6 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
 
         # if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
 
-        layout.operator("vse_transform_tools.add_transform")
-
-        layout.separator()
-
         layout.operator("vse_transform_tools.grab")
         # layout.operator("vse_transform_tools.grab", 'G', 'PRESS', alt=True, shift=False)
         layout.operator("vse_transform_tools.scale")
@@ -408,7 +404,6 @@ def init_properties():
 classes = [
     PREV_OT_initialize_pivot,
     PREV_OT_set_cursor_2d,
-    PREV_OT_add_transform,
     PREV_OT_grab,
     PREV_OT_scale,
     PREV_OT_rotate,
@@ -440,8 +435,6 @@ def register():
 
     wm = bpy.context.window_manager
     km = wm.keyconfigs.addon.keymaps.new(name="SequencerPreview", space_type="SEQUENCE_EDITOR", region_type="WINDOW")
-
-    kmi = km.keymap_items.new("vse_transform_tools.add_transform", 'T', 'PRESS', shift=True)
 
     kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS', alt=True, shift=False)
     kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS')

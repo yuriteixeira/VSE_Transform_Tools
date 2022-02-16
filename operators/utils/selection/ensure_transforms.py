@@ -5,9 +5,7 @@ from .get_highest_transform import get_highest_transform
 
 def ensure_transforms():
     """
-    Check each selected strip. If it is not a transform strip, use
-    bpy.ops.vse_transform_tools.add_transform() to add a transform to
-    that strip.
+    Check each selected strip.
 
     Returns
         :final_selected: A list of all the transform strips related to
@@ -43,7 +41,6 @@ def ensure_transforms():
 
         if not strip.type == "TRANSFORM":
             strip.select = True
-            bpy.ops.vse_transform_tools.add_transform()
             active = scene.sequence_editor.active_strip
             final_selected.append(active)
 

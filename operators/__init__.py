@@ -1,4 +1,3 @@
-from .add_transform import PREV_OT_add_transform
 from .adjust_alpha import PREV_OT_adjust_alpha
 from .autocrop import PREV_OT_autocrop
 from .call_menu import PREV_MT_menu_insert_keyframe, PREV_OT_call_menu, PREV_OT_insert_keyframe
