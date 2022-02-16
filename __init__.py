@@ -552,11 +552,3 @@ def unregister():
     bpy.utils.unregister_tool(vse_transform_tools_crop)
 
     bpy.types.SEQUENCER_MT_editor_menus.remove(Add_Menu)
-
-
-try:
-    import pydevd_pycharm
-
-    pydevd_pycharm.settrace('localhost', port=25614, stdoutToServer=True, stderrToServer=True, suspend=False)
-except:
-    print("Bypassing debug mode")
