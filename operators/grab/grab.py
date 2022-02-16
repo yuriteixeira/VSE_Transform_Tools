@@ -112,7 +112,8 @@ class PREV_OT_grab(bpy.types.Operator):
 
             elif not self.initially_shifted and 'SHIFT' in event.type and event.value == 'RELEASE' and self.key_val == '':
                 self.vec_act = (self.pre_slow_vec - self.first_mouse_pos - self.reduction_vec) + self.slow_act_fm
-                self.reduction_vec = self.reduction_vec + ((self.mouse_pos - self.pre_slow_vec) * (self.slow_factor - 1)) / self.slow_factor
+                self.reduction_vec = self.reduction_vec + (
+                            (self.mouse_pos - self.pre_slow_vec) * (self.slow_factor - 1)) / self.slow_factor
 
             elif not self.initially_shifted and event.shift and self.key_val == '':
                 self.slow_act_fm = (self.mouse_pos - self.pre_slow_vec) / self.slow_factor
@@ -151,7 +152,7 @@ class PREV_OT_grab(bpy.types.Operator):
             if event.ctrl:
                 for line in self.horizontal_interests:
                     if (current_left < line + snap_distance and
-                       current_left > line - snap_distance):
+                            current_left > line - snap_distance):
                         trans_offset_x = line - current_left
 
                         line_locs.append((line * fac * preview_zoom) + offset_x)
@@ -159,7 +160,7 @@ class PREV_OT_grab(bpy.types.Operator):
 
                         break
                     if (current_right > line - snap_distance and
-                       current_right < line + snap_distance):
+                            current_right < line + snap_distance):
                         trans_offset_x = line - current_right
 
                         line_locs.append((line * fac * preview_zoom) + offset_x)
@@ -167,7 +168,7 @@ class PREV_OT_grab(bpy.types.Operator):
 
                 for line in self.vertical_interests:
                     if (current_bottom < line + snap_distance and
-                       current_bottom > line - snap_distance):
+                            current_bottom > line - snap_distance):
                         trans_offset_y = line - current_bottom
 
                         line_locs.append((line * fac * preview_zoom) + offset_y)
@@ -175,7 +176,7 @@ class PREV_OT_grab(bpy.types.Operator):
 
                         break
                     if (current_top > line - snap_distance and
-                       current_top < line + snap_distance):
+                            current_top < line + snap_distance):
                         trans_offset_y = line - current_top
 
                         line_locs.append((line * fac * preview_zoom) + offset_y)
@@ -193,7 +194,8 @@ class PREV_OT_grab(bpy.types.Operator):
                     orientation = orientations[0]
                     line_loc = line_locs[0]
 
-                elif len(orientations) > 1 and self.last_snap_orientation == "" and self.orientation_conflict_winner == -1:
+                elif len(
+                        orientations) > 1 and self.last_snap_orientation == "" and self.orientation_conflict_winner == -1:
                     self.orientation_conflict_winner = 0
                     orientation = orientations[0]
                     line_loc = line_locs[0]
@@ -213,7 +215,9 @@ class PREV_OT_grab(bpy.types.Operator):
                         draw_snap, args, 'PREVIEW', 'POST_PIXEL')
                     self.last_snap_orientation = orientation
                     self.last_line_loc = line_loc
-                elif (orientation != self.last_snap_orientation or line_loc != self.last_line_loc) and self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                elif (
+                        orientation != self.last_snap_orientation or line_loc != self.last_line_loc) and self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(
+                        self.handle_snap):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
                     self.last_snap_orientation = orientation
                     self.last_line_loc = line_loc
@@ -232,9 +236,9 @@ class PREV_OT_grab(bpy.types.Operator):
                 set_pos_y(strip, pos_y)
 
             if (event.type == 'LEFTMOUSE' or
-               event.type == 'RET' or
-               event.type == 'NUMPAD_ENTER' or
-               not self.tab):
+                    event.type == 'RET' or
+                    event.type == 'NUMPAD_ENTER' or
+                    not self.tab):
                 if self.handle_axes:
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(
                         self.handle_axes, 'PREVIEW')
@@ -318,7 +322,7 @@ class PREV_OT_grab(bpy.types.Operator):
 
             fac = get_res_factor()
 
-            #self.tab = ensure_transforms()
+            # self.tab = ensure_transforms()
 
             image_offset_strips = []
             selected = context.selected_sequences

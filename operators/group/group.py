@@ -3,6 +3,7 @@ import bpy
 from ..utils.geometry import get_group_box
 from ..utils.selection import get_input_tree
 
+
 class PREV_OT_group(bpy.types.Operator):
     bl_idname = "vse_transform_tools.group"
     bl_label = "Group"
@@ -49,6 +50,5 @@ class PREV_OT_group(bpy.types.Operator):
 
             active.transform.offset_x = left
             active.transform.offset_y = bottom
-
 
         return {"FINISHED"}

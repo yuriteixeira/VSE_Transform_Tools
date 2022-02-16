@@ -86,10 +86,14 @@ def get_strip_box(strip):
         cos_angle = math.cos(strip.transform.rotation)
         sin_angle = math.sin(strip.transform.rotation)
 
-        all_x = [distance_right * cos_angle - distance_top * sin_angle, distance_right * cos_angle + distance_bottom * sin_angle,
-                 - distance_left * cos_angle - distance_top * sin_angle, - distance_left * cos_angle + distance_bottom * sin_angle]
-        all_y = [distance_right * sin_angle + distance_top * cos_angle, - distance_left * sin_angle + distance_top * cos_angle,
-                 distance_right * sin_angle - distance_bottom * cos_angle, - distance_left * sin_angle - distance_bottom * cos_angle]
+        all_x = [distance_right * cos_angle - distance_top * sin_angle,
+                 distance_right * cos_angle + distance_bottom * sin_angle,
+                 - distance_left * cos_angle - distance_top * sin_angle,
+                 - distance_left * cos_angle + distance_bottom * sin_angle]
+        all_y = [distance_right * sin_angle + distance_top * cos_angle,
+                 - distance_left * sin_angle + distance_top * cos_angle,
+                 distance_right * sin_angle - distance_bottom * cos_angle,
+                 - distance_left * sin_angle - distance_bottom * cos_angle]
 
         right = max(all_x) + res_x / 2 + strip.transform.offset_x
         left = min(all_x) + res_x / 2 + strip.transform.offset_x

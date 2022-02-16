@@ -113,7 +113,8 @@ def make_shortcuts_table(op_dict):
     for i in range(len(shortcuts)):
         hotkeys = shortcuts[i].split(' ')
         for x in range(len(hotkeys)):
-            hotkeys[x] = '<img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/' + hotkeys[x].strip().upper() + '.png" alt="' + hotkeys[x].strip().upper() + '">'
+            hotkeys[x] = '<img src="https://cdn.rawgit.com/doakey3/Keyboard-SVGs/master/images/' + hotkeys[
+                x].strip().upper() + '.png" alt="' + hotkeys[x].strip().upper() + '">'
         shortcuts[i] = ''.join(hotkeys)
 
     hotkeys_width = str(int((888 - 256) * 0.33)) + 'px'
@@ -134,7 +135,8 @@ def make_shortcuts_table(op_dict):
         table.append('        <td>' + markdown(functions[i]) + '</td>')
 
         if i == 0 and demo != '':
-            table.append('        <td align="center" rowspan="' + str(len(shortcuts)) + '">' + '<img src="' + demo + '"></td>')
+            table.append(
+                '        <td align="center" rowspan="' + str(len(shortcuts)) + '">' + '<img src="' + demo + '"></td>')
 
         table.append('    </tr>')
     table.append('</table>')
@@ -191,7 +193,10 @@ Use the correct release for your Blender version. Add-ons for Blender 2.80 and a
         'vse_transform_tools.adjust_alpha': {
             'name': 'Adjust Alpha',
             'description': "",
-            'shortcuts': ['Q; Begin alpha adjusting', 'Ctrl; Round to nearest tenth', 'RIGHTMOUSE; Escape alpha adjust mode', 'LEFTMOUSE; Set alpha, end alpha adjust mode', 'RET; Set Alpha, end alpha adjust mode', 'ZERO ONE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE PERIOD; Set alpha to value entered'],
+            'shortcuts': ['Q; Begin alpha adjusting', 'Ctrl; Round to nearest tenth',
+                          'RIGHTMOUSE; Escape alpha adjust mode', 'LEFTMOUSE; Set alpha, end alpha adjust mode',
+                          'RET; Set Alpha, end alpha adjust mode',
+                          'ZERO ONE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE PERIOD; Set alpha to value entered'],
             'demo': 'https://i.imgur.com/PNsjamH.gif',
         },
         'vse_transform_tools.autocrop': {
@@ -209,13 +214,15 @@ Use the correct release for your Blender version. Add-ons for Blender 2.80 and a
         'vse_transform_tools.crop': {
             'name': 'Crop',
             'description': "",
-            'shortcuts': ['C; Begin/Set cropping, adding a transform if needed', 'ESC; Escape crop mode', 'LEFTMOUSE; Click the handles to drag', 'RET; Set crop, end cropping', 'Alt C; Uncrop'],
+            'shortcuts': ['C; Begin/Set cropping, adding a transform if needed', 'ESC; Escape crop mode',
+                          'LEFTMOUSE; Click the handles to drag', 'RET; Set crop, end cropping', 'Alt C; Uncrop'],
             'demo': 'https://i.imgur.com/k4r2alY.gif',
         },
         'vse_transform_tools.delete': {
             'name': 'Delete',
             'description': "Deletes all selected strips as well as any strips that are inputs of those strips. For example, deleting a transform strip with this operator will also delete the strip it was transforming.",
-            'shortcuts': ['DEL; Delete', 'Shift DEL; Delete strips and remove any other strips in the timeline with the same source. For scene strips, the scenes themselves will also be deleted.'],
+            'shortcuts': ['DEL; Delete',
+                          'Shift DEL; Delete strips and remove any other strips in the timeline with the same source. For scene strips, the scenes themselves will also be deleted.'],
             'demo': 'https://i.imgur.com/B0L7XoV.gif',
         },
         'vse_transform_tools.duplicate': {
@@ -227,7 +234,12 @@ Use the correct release for your Blender version. Add-ons for Blender 2.80 and a
         'vse_transform_tools.grab': {
             'name': 'Grab',
             'description': "",
-            'shortcuts': ['G; Grab', 'Shift; Hold to enable fine tuning', 'Ctrl; Hold to enable snapping', 'RIGHTMOUSE; Escape grab mode', 'Esc; Escape grab mode', 'LEFTMOUSE; Set position, end grab mode', 'RET; Set position, end grab mode', 'ZERO ONE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE PERIOD; Set position by value entered', 'X Y; Constrain grabbing to the respective axis', 'MIDDLEMOUSE; Constrain grabbing to axis', 'ALT G; Set position to 0,0'],
+            'shortcuts': ['G; Grab', 'Shift; Hold to enable fine tuning', 'Ctrl; Hold to enable snapping',
+                          'RIGHTMOUSE; Escape grab mode', 'Esc; Escape grab mode',
+                          'LEFTMOUSE; Set position, end grab mode', 'RET; Set position, end grab mode',
+                          'ZERO ONE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE PERIOD; Set position by value entered',
+                          'X Y; Constrain grabbing to the respective axis', 'MIDDLEMOUSE; Constrain grabbing to axis',
+                          'ALT G; Set position to 0,0'],
             'demo': 'https://i.imgur.com/yQCFI0s.gif',
         },
         'vse_transform_tools.group': {
@@ -257,13 +269,24 @@ Use the correct release for your Blender version. Add-ons for Blender 2.80 and a
         'vse_transform_tools.rotate': {
             'name': 'Rotate',
             'description': "",
-            'shortcuts': ['R; Begin rotating, adding transform if needed.', 'Shift; Hold to enable fine tuning', 'Ctrl; Hold to enable stepwise rotation', 'RIGHTMOUSE; Escape rotate mode', 'Esc; Escape rotate mode', 'LEFTMOUSE; Set rotation, end rotate mode', 'RET; Set rotation, end rotate mode', 'ZERO ONE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE PERIOD; Set rotation to value entered', 'ALT R; Set rotation to 0 degrees'],
+            'shortcuts': ['R; Begin rotating, adding transform if needed.', 'Shift; Hold to enable fine tuning',
+                          'Ctrl; Hold to enable stepwise rotation', 'RIGHTMOUSE; Escape rotate mode',
+                          'Esc; Escape rotate mode', 'LEFTMOUSE; Set rotation, end rotate mode',
+                          'RET; Set rotation, end rotate mode',
+                          'ZERO ONE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE PERIOD; Set rotation to value entered',
+                          'ALT R; Set rotation to 0 degrees'],
             'demo': 'https://i.imgur.com/3ru1Xl6.gif',
         },
         'vse_transform_tools.scale': {
             'name': 'Scale',
             'description': "",
-            'shortcuts': ['S; Begin scaling, adding transform if needed.', 'Shift; hold to enable fine tuning', 'Ctrl; Hold to enable snapping', 'RIGHTMOUSE; Escape scaling mode', 'ESC; escape scaling mode', 'LEFTMOUSE; Set scale, end scaling mode', 'RET; Set scale, end scaling mode', 'ZERO ONE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE PERIOD; Set scale by value entered', 'X Y; Constrain scaling to respective axis', 'MIDDLEMOUSE; Constrain scaling to axis', 'Alt S; Unscale'],
+            'shortcuts': ['S; Begin scaling, adding transform if needed.', 'Shift; hold to enable fine tuning',
+                          'Ctrl; Hold to enable snapping', 'RIGHTMOUSE; Escape scaling mode',
+                          'ESC; escape scaling mode', 'LEFTMOUSE; Set scale, end scaling mode',
+                          'RET; Set scale, end scaling mode',
+                          'ZERO ONE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE PERIOD; Set scale by value entered',
+                          'X Y; Constrain scaling to respective axis', 'MIDDLEMOUSE; Constrain scaling to axis',
+                          'Alt S; Unscale'],
             'demo': 'https://i.imgur.com/oAxSEYB.gif',
         },
         'vse_transform_tools.select': {
@@ -275,7 +298,8 @@ Use the correct release for your Blender version. Add-ons for Blender 2.80 and a
         'vse_transform_tools.set_cursor2d': {
             'name': 'Set Cursor 2D',
             'description': "Set the pivot point (point of origin) location. This will affect how strips are rotated and scaled.",
-            'shortcuts': ['LEFTMOUSE; Cusor 2D to mouse position', 'Ctrl LEFTMOUSE; Snap cursor 2D to nearest strip corner or mid-point'],
+            'shortcuts': ['LEFTMOUSE; Cusor 2D to mouse position',
+                          'Ctrl LEFTMOUSE; Snap cursor 2D to nearest strip corner or mid-point'],
             'demo': 'https://i.imgur.com/1uTD9C1.gif',
         },
         'vse_transform_tools.track_transform': {
@@ -302,6 +326,7 @@ Use the correct release for your Blender version. Add-ons for Blender 2.80 and a
 
     with open(readme_path, 'w') as f:
         f.write(readme)
+
 
 if __name__ == "__main__":
     make_readme()

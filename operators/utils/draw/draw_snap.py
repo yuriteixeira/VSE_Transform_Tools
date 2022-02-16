@@ -19,5 +19,5 @@ def draw_snap(self, loc, orientation):
         v1 = [-10000, loc]
         v2 = [10000, loc]
 
-    draw_line(v1, v2, 1.5, outline_color)   
+    draw_line(v1, v2, 1.5, outline_color)
     draw_line(v1, v2, 0.5, color)

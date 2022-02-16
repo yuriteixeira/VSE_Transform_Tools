@@ -53,14 +53,14 @@ def Add_Icon_Pivot_Point(self, context):
     layout = self.layout
     layout.prop(
         context.scene, "seq_pivot_type", text='',
-        expand=False,  icon_only=True
+        expand=False, icon_only=True
     )
 
 
 def Add_Menu(self, context):
     layout = self.layout
     st = context.space_data
-    
+
     if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
         layout.menu("SEQUENCER_MT_transform_tools_menu")
 
@@ -121,9 +121,9 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
     def draw(self, context):
         layout = self.layout
         layout.operator_context = 'INVOKE_REGION_PREVIEW'
-        #st = context.space_data
-        
-        #if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
+        # st = context.space_data
+
+        # if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
 
         layout.operator("vse_transform_tools.add_transform")
 
@@ -152,7 +152,7 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
 
         layout.operator("vse_transform_tools.call_menu", text="Insert Keyframe")
         layout.operator("vse_transform_tools.mouse_track")
-        
+
         layout.separator()
 
         layout.operator("vse_transform_tools.adjust_alpha")
@@ -169,8 +169,8 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
 
 
 class vse_transform_tools_select(WorkSpaceTool):
-    bl_space_type='SEQUENCE_EDITOR'
-    bl_context_mode='PREVIEW'
+    bl_space_type = 'SEQUENCE_EDITOR'
+    bl_context_mode = 'PREVIEW'
     bl_idname = "transform_tool.select"
     bl_label = "Select"
     bl_description = (
@@ -178,7 +178,7 @@ class vse_transform_tools_select(WorkSpaceTool):
     )
     bl_icon = "ops.generic.select"
     bl_widget = None
-    operator="transform.translate",
+    operator = "transform.translate",
     bl_keymap = (
         ("vse_transform_tools.select", {"type": 'LEFTMOUSE', "value": 'PRESS'},
          {"properties": []}),
@@ -195,9 +195,10 @@ class vse_transform_tools_select(WorkSpaceTool):
         if scene and strip and strip.type == 'TRANSFORM':
             layout.label(text=strip.name)
 
+
 class vse_transform_tools_grab(WorkSpaceTool):
-    bl_space_type='SEQUENCE_EDITOR'
-    bl_context_mode='PREVIEW'
+    bl_space_type = 'SEQUENCE_EDITOR'
+    bl_context_mode = 'PREVIEW'
     bl_idname = "transform_tool.grab"
     bl_label = "Move"
     bl_description = (
@@ -205,7 +206,7 @@ class vse_transform_tools_grab(WorkSpaceTool):
     )
     bl_icon = "ops.transform.translate"
     bl_widget = None
-    operator="transform.translate",
+    operator = "transform.translate",
     bl_keymap = (
         ("vse_transform_tools.grab", {"type": 'LEFTMOUSE', "value": 'PRESS'},
          {"properties": []}),
@@ -234,8 +235,8 @@ class vse_transform_tools_grab(WorkSpaceTool):
 
 
 class vse_transform_tools_rotate(WorkSpaceTool):
-    bl_space_type='SEQUENCE_EDITOR'
-    bl_context_mode='PREVIEW'
+    bl_space_type = 'SEQUENCE_EDITOR'
+    bl_context_mode = 'PREVIEW'
     bl_idname = "transform_tool.rotate"
     bl_label = "Rotate"
     bl_description = (
@@ -243,7 +244,7 @@ class vse_transform_tools_rotate(WorkSpaceTool):
     )
     bl_icon = "ops.transform.rotate"
     bl_widget = None
-    operator="transform.translate",
+    operator = "transform.translate",
     bl_keymap = (
         ("vse_transform_tools.rotate", {"type": 'LEFTMOUSE', "value": 'PRESS'}, None),
         ("vse_transform_tools.rotate", {"type": 'LEFTMOUSE', "value": 'PRESS', "ctrl": True},
@@ -267,9 +268,10 @@ class vse_transform_tools_rotate(WorkSpaceTool):
             elif strip.type != 'SOUND':
                 layout.prop(strip.transform, "rotation", text="Rotation")
 
+
 class vse_transform_tools_scale(WorkSpaceTool):
-    bl_space_type='SEQUENCE_EDITOR'
-    bl_context_mode='PREVIEW'
+    bl_space_type = 'SEQUENCE_EDITOR'
+    bl_context_mode = 'PREVIEW'
     bl_idname = "transform_tool.scale"
     bl_label = "Scale"
     bl_description = (
@@ -277,7 +279,7 @@ class vse_transform_tools_scale(WorkSpaceTool):
     )
     bl_icon = "ops.transform.resize"
     bl_widget = None
-    operator="transform.translate",
+    operator = "transform.translate",
     bl_keymap = (
         ("vse_transform_tools.scale", {"type": 'LEFTMOUSE', "value": 'PRESS'}, None),
         ("vse_transform_tools.scale", {"type": 'LEFTMOUSE', "value": 'PRESS', "ctrl": True},
@@ -305,9 +307,10 @@ class vse_transform_tools_scale(WorkSpaceTool):
                 layout.prop(strip.transform, "scale_x", text="X")
                 layout.prop(strip.transform, "scale_y", text="Y")
 
+
 class vse_transform_tools_crop(WorkSpaceTool):
-    bl_space_type='SEQUENCE_EDITOR'
-    bl_context_mode='PREVIEW'
+    bl_space_type = 'SEQUENCE_EDITOR'
+    bl_context_mode = 'PREVIEW'
     bl_idname = "transform_tool.crop"
     bl_label = "Crop"
     bl_description = (
@@ -315,7 +318,7 @@ class vse_transform_tools_crop(WorkSpaceTool):
     )
     bl_icon = "ops.sequencer.blade"
     bl_widget = None
-    operator="transform.translate",
+    operator = "transform.translate",
     bl_keymap = (
         ("vse_transform_tools.crop", {"type": 'LEFTMOUSE', "value": 'PRESS'}, None),
         ("vse_transform_tools.crop", {"type": 'LEFTMOUSE', "value": 'PRESS', "ctrl": True},
@@ -420,12 +423,13 @@ def init_properties():
     bpy.types.Scene.vse_transform_tools_tracker_1 = bpy.props.EnumProperty(
         name="Tracker 1",
         items=get_tracker_list
-        )
+    )
 
     bpy.types.Scene.vse_transform_tools_tracker_2 = bpy.props.EnumProperty(
         name="Tracker 2",
         items=get_tracker_list
-        )
+    )
+
 
 classes = [
     PREV_OT_initialize_pivot,
@@ -454,6 +458,7 @@ classes = [
 
 addon_keymaps = []
 
+
 def register():
     from bpy.utils import register_class
     for cls in classes:
@@ -468,39 +473,39 @@ def register():
 
     kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS', alt=True, shift=False)
     kmi = km.keymap_items.new("vse_transform_tools.grab", 'G', 'PRESS')
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.scale", 'S', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.scale", 'S', 'PRESS')
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.rotate", 'R', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.rotate", 'R', 'PRESS')
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.autocrop", 'C', 'PRESS', shift=True)
 
     kmi = km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS')
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.delete", "DEL", "PRESS", shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.delete", "DEL", "PRESS")
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.duplicate", "D", 'PRESS', shift=True)
 
     kmi = km.keymap_items.new("vse_transform_tools.group", 'G', 'PRESS', ctrl=False, alt=True, shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.group", 'G', 'PRESS', ctrl=True)
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.meta_toggle", "TAB", "PRESS")
 
     kmi = km.keymap_items.new("vse_transform_tools.adjust_alpha", 'Q', 'PRESS', alt=True)
     kmi = km.keymap_items.new("vse_transform_tools.adjust_alpha", 'Q', 'PRESS')
-    
+
     kmi = km.keymap_items.new("vse_transform_tools.call_menu", 'I', 'PRESS')
 
     kmi = km.keymap_items.new("vse_transform_tools.pixelate", 'P', 'PRESS')
 
     kmi = km.keymap_items.new("vse_transform_tools.mouse_track", 'M', 'PRESS')
 
-    #smb = bpy.data.window_managers["WinMan"].keyconfigs.active.preferences.select_mouse
-    #smb = bpy.context.user_preferences.inputs.select_mouse
+    # smb = bpy.data.window_managers["WinMan"].keyconfigs.active.preferences.select_mouse
+    # smb = bpy.context.user_preferences.inputs.select_mouse
 
     smb = "RIGHT"
     kmi = km.keymap_items.new("vse_transform_tools.select", smb + 'MOUSE', 'PRESS')
@@ -512,14 +517,15 @@ def register():
     kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", omb + 'MOUSE', 'PRESS', ctrl=True)
 
     addon_keymaps.append(km)
- 
+
     bpy.utils.register_tool(vse_transform_tools_select, after={"builtin.sample"}, separator=True, group=False)
     bpy.utils.register_tool(vse_transform_tools_grab)
     bpy.utils.register_tool(vse_transform_tools_rotate)
     bpy.utils.register_tool(vse_transform_tools_scale)
     bpy.utils.register_tool(vse_transform_tools_crop)
- 
+
     bpy.types.SEQUENCER_MT_editor_menus.append(Add_Menu)
+
 
 def unregister():
     from bpy.utils import unregister_class
@@ -547,8 +553,10 @@ def unregister():
 
     bpy.types.SEQUENCER_MT_editor_menus.remove(Add_Menu)
 
+
 try:
     import pydevd_pycharm
+
     pydevd_pycharm.settrace('localhost', port=25614, stdoutToServer=True, stderrToServer=True, suspend=False)
 except:
     print("Bypassing debug mode")

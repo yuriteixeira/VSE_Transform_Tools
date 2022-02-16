@@ -99,7 +99,8 @@ class PREV_OT_scale(bpy.types.Operator):
             self.vec_prev = Vector(self.vec_act)
 
             active_strip = context.scene.sequence_editor.active_strip
-            rotation = get_rotation(context.scene.sequence_editor.active_strip) * (-1 if active_strip.use_flip_x != active_strip.use_flip_y else 1)
+            rotation = get_rotation(context.scene.sequence_editor.active_strip) * (
+                -1 if active_strip.use_flip_x != active_strip.use_flip_y else 1)
             func_constrain_axis_mmb(self, context, event.type, event.value, rotation)
             func_constrain_axis(self, context, event.type, event.value, rotation)
 
@@ -216,7 +217,8 @@ class PREV_OT_scale(bpy.types.Operator):
                     orientation = orientations[0]
                     line_loc = line_locs[0]
 
-                elif len(orientations) > 1 and self.last_snap_orientation == "" and self.orientation_conflict_winner == -1:
+                elif len(
+                        orientations) > 1 and self.last_snap_orientation == "" and self.orientation_conflict_winner == -1:
                     self.orientation_conflict_winner = 0
                     orientation = orientations[0]
                     line_loc = line_locs[0]
@@ -236,7 +238,9 @@ class PREV_OT_scale(bpy.types.Operator):
                         draw_snap, args, 'PREVIEW', 'POST_PIXEL')
                     self.last_snap_orientation = orientation
                     self.last_line_loc = line_loc
-                elif (orientation != self.last_snap_orientation or line_loc != self.last_line_loc) and self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(self.handle_snap):
+                elif (
+                        orientation != self.last_snap_orientation or line_loc != self.last_line_loc) and self.handle_snap != None and not "RNA_HANDLE_REMOVED" in str(
+                        self.handle_snap):
                     bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_snap, 'PREVIEW')
                     self.last_snap_orientation = orientation
                     self.last_line_loc = line_loc
@@ -250,7 +254,7 @@ class PREV_OT_scale(bpy.types.Operator):
                 context.area.header_text_set("Scale: %.4f along local Y" % info_y)
             if not self.axis_y:
                 context.area.header_text_set("Scale: %.4f along local X" % info_x)
-            if self.axis_x and self.axis_y :
+            if self.axis_x and self.axis_y:
                 context.area.header_text_set("Scale X:%.4f Y: %.4f" % (info_x, info_y))
 
             for strip, init_s, init_t in zip(self.tab, self.tab_init_s, self.tab_init_t):
@@ -266,9 +270,9 @@ class PREV_OT_scale(bpy.types.Operator):
                     set_pos_y(strip, (init_t[1] - self.center_c2d.y) * round(diff_y, precision) + self.center_c2d.y)
 
             if (event.type == 'LEFTMOUSE' or
-               event.type == 'RET' or
-               event.type == 'NUMPAD_ENTER' or
-               not self.tab):
+                    event.type == 'RET' or
+                    event.type == 'NUMPAD_ENTER' or
+                    not self.tab):
 
                 bpy.types.SpaceSequenceEditor.draw_handler_remove(self.handle_line, 'PREVIEW')
 
@@ -337,7 +341,7 @@ class PREV_OT_scale(bpy.types.Operator):
         self.horizontal_interests = [0, res_x]
         self.vertical_interests = [0, res_y]
 
-        if event.alt :
+        if event.alt:
             selected = context.selected_sequences
             for strip in selected:
                 if strip.type == "TRANSFORM":
@@ -401,7 +405,8 @@ class PREV_OT_scale(bpy.types.Operator):
                     cursor_pos = context.region.view2d.view_to_region(cursor_x, cursor_y)
                     self.center_area = Vector(cursor_pos)
 
-                    self.center_c2d = Vector((context.scene.seq_cursor2d_loc[0], context.scene.seq_cursor2d_loc[1])) / fac
+                    self.center_c2d = Vector(
+                        (context.scene.seq_cursor2d_loc[0], context.scene.seq_cursor2d_loc[1])) / fac
 
                 elif scene.seq_pivot_type == '3':
                     active_strip = scene.sequence_editor.active_strip
@@ -419,7 +424,7 @@ class PREV_OT_scale(bpy.types.Operator):
 
                     pos_x = self.center_area.x * fac
                     pos_y = self.center_area.y * fac
-                    pos = context.region.view2d.view_to_region(pos_x, pos_y,clip=False)
+                    pos = context.region.view2d.view_to_region(pos_x, pos_y, clip=False)
                     self.center_area = Vector(pos)
 
                 self.vec_init = Vector(

@@ -20,7 +20,7 @@ class PREV_OT_duplicate(bpy.types.Operator):
     def poll(cls, context):
         scene = context.scene
         if (scene.sequence_editor and
-           scene.sequence_editor.active_strip):
+                scene.sequence_editor.active_strip):
             return True
         return False
 
@@ -44,8 +44,8 @@ class PREV_OT_duplicate(bpy.types.Operator):
                     context.selected_sequences)
 
                 bpy.ops.sequencer.duplicate_move(
-                        SEQUENCER_OT_duplicate={},
-                        TRANSFORM_OT_seq_slide={
-                            "value": (0, vertical_translation)})
+                    SEQUENCER_OT_duplicate={},
+                    TRANSFORM_OT_seq_slide={
+                        "value": (0, vertical_translation)})
 
         return bpy.ops.vse_transform_tools.grab('INVOKE_DEFAULT')

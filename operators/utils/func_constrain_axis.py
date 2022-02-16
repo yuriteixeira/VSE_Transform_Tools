@@ -5,7 +5,7 @@ from .draw import draw_axes
 def func_constrain_axis(self, context, key, value, angle):
     if len(self.tab) > 1:
         angle = 0
-    if key in ['X','Y']:
+    if key in ['X', 'Y']:
         if self.handle_axes == None:
             args = (self, context, angle)
             self.handle_axes = bpy.types.SpaceSequenceEditor.draw_handler_add(

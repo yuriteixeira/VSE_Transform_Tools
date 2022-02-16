@@ -33,7 +33,7 @@ class PREV_OT_rotate(bpy.types.Operator):
 
     center_area = Vector([0, 0])
     center_real = Vector([0, 0])
-    
+
     mouse_pos = Vector([-1, -1])
 
     rot_prev = 0
@@ -63,7 +63,7 @@ class PREV_OT_rotate(bpy.types.Operator):
 
         if self.tab:
             self.mouse_pos = Vector([event.mouse_region_x, event.mouse_region_y])
-            
+
             self.vec_act = Vector([event.mouse_region_x, event.mouse_region_y])
             self.vec_act -= self.center_area
 
@@ -106,9 +106,9 @@ class PREV_OT_rotate(bpy.types.Operator):
             context.area.header_text_set("Rotation %.4f " % info_rot)
 
         if (event.type == 'LEFTMOUSE' or
-           event.type == 'RET' or
-           event.type == 'NUMPAD_ENTER' or
-           not self.tab):
+                event.type == 'RET' or
+                event.type == 'NUMPAD_ENTER' or
+                not self.tab):
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_line, 'PREVIEW')
 

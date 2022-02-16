@@ -50,5 +50,3 @@ def get_visible_strips():
             output.append(strip)
 
     return output
-
-

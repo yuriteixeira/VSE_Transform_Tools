@@ -27,9 +27,9 @@ def get_vertical_translation(strips):
     channel_count = (max_channel - min_channel) + 1
 
     frame_start = min(strips,
-        key=attrgetter('frame_start')).frame_start
+                      key=attrgetter('frame_start')).frame_start
     frame_end = max(strips,
-        key=attrgetter('frame_final_end')).frame_final_end
+                    key=attrgetter('frame_final_end')).frame_final_end
 
     all_sequences = list(sorted(scene.sequence_editor.sequences,
                                 key=lambda x: x.frame_start))

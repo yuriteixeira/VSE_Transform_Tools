@@ -17,7 +17,7 @@ def func_constrain_axis_mmb(self, context, key, value, angle):
                     draw_axes, args, 'PREVIEW', 'POST_PIXEL')
             self.choose_axis = True
             self.pos_clic = self.mouse_pos
-        if value == 'RELEASE' :
+        if value == 'RELEASE':
             self.choose_axis = False
             if self.pos_clic == self.mouse_pos:
                 self.axis_x = self.axis_y = True
@@ -45,6 +45,6 @@ def func_constrain_axis_mmb(self, context, key, value, angle):
         if ang_x < ang_y:
             self.axis_x = True
             self.axis_y = False
-        else :
+        else:
             self.axis_x = False
             self.axis_y = True

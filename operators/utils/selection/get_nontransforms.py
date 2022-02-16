@@ -9,4 +9,3 @@ def get_nontransforms(strips):
             nontransforms.append(strips[i])
 
     return nontransforms
-

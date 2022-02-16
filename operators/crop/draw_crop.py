@@ -6,6 +6,7 @@ from .set_quads import set_quads
 
 from ..utils.draw import draw_line
 
+
 def draw_crop(self, context):
     active_strip = context.scene.sequence_editor.active_strip
 

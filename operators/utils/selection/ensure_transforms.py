@@ -50,4 +50,3 @@ def ensure_transforms():
             final_selected.append(strip)
 
     return final_selected
-

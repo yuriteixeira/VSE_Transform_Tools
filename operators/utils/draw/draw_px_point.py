@@ -2,14 +2,15 @@ from mathutils import Vector
 from .draw_stippled_line import draw_stippled_line
 from .draw_arrows import draw_arrows
 
+
 def draw_px_point(self, context):
     """
     Draws the handle seen when rotating or scaling
     """
     # Stopped working after API change --> theme = context.user_preferences.themes['Default']
-    #active_color = theme.view_3d.object_active
+    # active_color = theme.view_3d.object_active
 
-    #color = (active_color[0], active_color[1], active_color[2], 1.0)
+    # color = (active_color[0], active_color[1], active_color[2], 1.0)
 
     color = (0, 0, 0, 1.0)
 

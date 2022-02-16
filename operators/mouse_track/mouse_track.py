@@ -2,7 +2,8 @@ import bpy
 from mathutils import Vector
 import math
 
-from ..utils.geometry import  mouse_to_res
+from ..utils.geometry import mouse_to_res
+
 
 class PREV_OT_mouse_track(bpy.types.Operator):
     """

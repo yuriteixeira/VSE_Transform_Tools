@@ -16,8 +16,8 @@ class PREV_OT_call_menu(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         if (context.scene.sequence_editor and
-           context.space_data.type == 'SEQUENCE_EDITOR' and
-           context.region.type == 'PREVIEW'):
+                context.space_data.type == 'SEQUENCE_EDITOR' and
+                context.region.type == 'PREVIEW'):
             return True
         return False
 

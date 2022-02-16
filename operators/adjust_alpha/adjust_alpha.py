@@ -30,8 +30,8 @@ class PREV_OT_adjust_alpha(bpy.types.Operator):
     def poll(cls, context):
         scene = context.scene
         if (scene.sequence_editor and
-           scene.sequence_editor.active_strip and
-           scene.sequence_editor.active_strip.select):
+                scene.sequence_editor.active_strip and
+                scene.sequence_editor.active_strip.select):
             return True
         return False
 
@@ -71,8 +71,8 @@ class PREV_OT_adjust_alpha(bpy.types.Operator):
             strip.blend_alpha = self.fac
 
         if (event.type == 'LEFTMOUSE' or
-           event.type == 'RET' or
-           event.type == 'NUMPAD_ENTER'):
+                event.type == 'RET' or
+                event.type == 'NUMPAD_ENTER'):
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_alpha, 'PREVIEW')
 

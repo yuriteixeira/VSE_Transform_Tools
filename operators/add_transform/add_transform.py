@@ -4,6 +4,7 @@ from ..utils.geometry import get_transform_box
 from ..utils.geometry import get_strip_box
 from ..utils.selection import get_input_tree
 
+
 class PREV_OT_add_transform(bpy.types.Operator):
     """
     Adds a transform modifier to the selected strip(s)
@@ -12,7 +13,7 @@ class PREV_OT_add_transform(bpy.types.Operator):
     bl_label = "Add Transform"
     bl_description = "Add transform modifier to the selected strip(s)"
     bl_options = {'REGISTER', 'UNDO'}
-    
+
     @classmethod
     def poll(cls, context):
         if context.scene.sequence_editor:

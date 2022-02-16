@@ -14,6 +14,7 @@ from ..utils.geometry import get_strip_corners
 
 from ..utils.draw import draw_line
 
+
 def draw_select(context, seconds, fadeout_duration):
     active_color = context.preferences.themes[0].sequence_editor.active_strip
     select_color = context.preferences.themes[0].sequence_editor.selected_strip
@@ -85,7 +86,7 @@ class PREV_OT_select(bpy.types.Operator):
         return {'PASS_THROUGH'}
 
     def invoke(self, context, event):
-        #bpy.ops.vse_transform_tools.initialize_pivot()
+        # bpy.ops.vse_transform_tools.initialize_pivot()
 
         scene = context.scene
 

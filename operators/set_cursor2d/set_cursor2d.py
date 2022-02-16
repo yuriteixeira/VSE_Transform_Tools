@@ -32,7 +32,7 @@ class PREV_OT_set_cursor_2d(bpy.types.Operator):
 
         if event.ctrl:
             snap_points = get_important_edge_points()
-            point = min(snap_points, key = lambda x: (x - mouse_pos).length)
+            point = min(snap_points, key=lambda x: (x - mouse_pos).length)
             point.x = round(point.x)
             point.y = round(point.y)
 

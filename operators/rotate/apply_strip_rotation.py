@@ -42,7 +42,7 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
     pivot_type = bpy.context.scene.seq_pivot_type
 
     if (pivot_type == '1' or
-       pivot_type in ['0', '3'] and len(self.tab) == 1):
+            pivot_type in ['0', '3'] and len(self.tab) == 1):
         if strip.type == "TRANSFORM":
             strip.rotation_start = strip_rot
         else:
@@ -109,4 +109,3 @@ def apply_strip_rotation(self, strip, rot, init_rot, init_t, event):
 
         set_pos_x(strip, pos_x)
         set_pos_y(strip, pos_y)
-

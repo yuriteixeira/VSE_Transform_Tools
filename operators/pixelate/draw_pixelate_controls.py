@@ -3,6 +3,7 @@ from ..utils.draw import draw_square
 
 import blf
 
+
 def draw_pixelate_controls(self, context):
     """
     Draws the line, 2 boxes, and the control square
@@ -20,7 +21,7 @@ def draw_pixelate_controls(self, context):
     color = (0, 0.75, 1, 1)
 
     draw_line(v1, v2, 1, color)
-    
+
     vertex = [x - (w / 10) + self.pos.x, y]
     draw_square(vertex, 10, color)
 

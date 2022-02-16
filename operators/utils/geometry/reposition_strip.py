@@ -1,6 +1,7 @@
 import bpy
 from .get_strip_box import get_strip_box
 
+
 def reposition_strip(strip, group_box):
     """
     Reposition a (non-transform) strip.
@@ -30,7 +31,7 @@ def reposition_strip(strip, group_box):
 
     strip.transform.offset_x -= min_left
     strip.transform.offset_y -= min_bottom
-    
+
     # While this part works, it makes the strip blurry. Users shouldn't use this technique.
     """
     if strip.type == "META":
@@ -97,7 +98,7 @@ def reposition_strip(strip, group_box):
 
             strip.use_translation = False
     """
-    
+
     if not hasattr(strip, 'elements'):
         if strip.crop.min_x < available_width:
             available_width -= strip.crop.min_x

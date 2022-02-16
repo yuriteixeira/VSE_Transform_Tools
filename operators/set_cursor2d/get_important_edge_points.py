@@ -52,7 +52,6 @@ def get_important_edge_points():
         vec.x -= (res_x / 2)
         vec.y -= (res_y / 2)
 
-
     important_edge_points = vectors
     for strip in strips:
         if strip.type == "TRANSFORM":
@@ -61,7 +60,7 @@ def get_important_edge_points():
         else:
             left, right, bottom, top = get_strip_box(strip)
 
-        mid_x = left+ ((right - left) / 2)
+        mid_x = left + ((right - left) / 2)
         mid_y = bottom + ((top - bottom) / 2)
 
         l = Vector([left, mid_y])

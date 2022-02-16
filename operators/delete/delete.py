@@ -18,7 +18,7 @@ class PREV_OT_delete(bpy.types.Operator):
     def poll(cls, context):
         scene = context.scene
         if (scene.sequence_editor and
-           scene.sequence_editor.active_strip):
+                scene.sequence_editor.active_strip):
             return True
         return False
 

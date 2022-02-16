@@ -51,11 +51,10 @@ class PREV_OT_crop(bpy.types.Operator):
     def poll(cls, context):
         scene = context.scene
         if (scene.sequence_editor and
-           scene.sequence_editor.active_strip and
-           scene.sequence_editor.active_strip.select):
+                scene.sequence_editor.active_strip and
+                scene.sequence_editor.active_strip.select):
             return True
         return False
-
 
     def modal(self, context, event):
         context.area.tag_redraw()
@@ -229,11 +228,11 @@ class PREV_OT_crop(bpy.types.Operator):
         scene.sequence_editor.active_strip = strip
 
         if not strip.type == "TRANSFORM":
-        #     bpy.ops.vse_transform_tools.add_transform()
-        #     strip.select = False
-        #     strip = scene.sequence_editor.active_strip
-        #
-        # elif not strip.type == "TRANSFORM" and strip.use_translation:
+            #     bpy.ops.vse_transform_tools.add_transform()
+            #     strip.select = False
+            #     strip = scene.sequence_editor.active_strip
+            #
+            # elif not strip.type == "TRANSFORM" and strip.use_translation:
 
             self.init_crop_left = strip.crop.min_x
             self.init_crop_right = strip.crop.max_x
