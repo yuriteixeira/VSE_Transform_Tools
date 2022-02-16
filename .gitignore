@@ -4,3 +4,7 @@ __pycache__/
 *$py.class
 
 _addon_linker.py
+
+# Editors
+tags 
+.idea
