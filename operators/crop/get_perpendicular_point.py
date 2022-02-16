@@ -32,6 +32,8 @@ def get_perpendicular_point(pt, bl, tl, tr, br):
     max_y = max([tl.y, tr.y])
     min_y = min([bl.y, br.y])
 
+    intersection = None
+
     # pt left of left side
     if (pt.x <= tl.x or pt.x <= bl.x) and (pt.y >= bl.y and pt.y <= tl.y):
         right = Vector([max_x, pt.y])

@@ -8,6 +8,9 @@ def draw_snap(self, loc, orientation):
     color = (1.0, 1.0, 0.0, 0.5)
     outline_color = (0, 0, 0, 0.2)
 
+    v1 = []
+    v2 = []
+
     if orientation == "VERTICAL":
         v1 = [loc, -10000]
         v2 = [loc, 10000]

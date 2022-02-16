@@ -177,6 +177,7 @@ class PREV_OT_rotate(bpy.types.Operator):
             self.tab = [s for s in bpy.context.selected_sequences if s.type != 'SOUND']
             active_strip = scene.sequence_editor.active_strip
 
+            strip = None
             for strip in self.tab:
                 strip.select = True
                 pos_x = get_pos_x(strip)

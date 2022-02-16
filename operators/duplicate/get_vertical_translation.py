@@ -46,6 +46,8 @@ def get_vertical_translation(strips):
 
     i = max_channel + 1
     while True:
+        conflict = None
+        x = None
         for x in range(i, i + channel_count):
             conflict = False
             if x in blocked_channels:

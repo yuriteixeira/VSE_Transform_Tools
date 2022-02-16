@@ -39,6 +39,7 @@ class SEQUENCER_OT_track_transform(bpy.types.Operator):
         res_y = scene.render.resolution_y
 
         tracker_names = []
+        pos_track = None
 
         for movieclip in bpy.data.movieclips:
             for track in movieclip.tracking.tracks:
@@ -73,6 +74,7 @@ class SEQUENCER_OT_track_transform(bpy.types.Operator):
         active.scale_start_x = active.scale_start_x / 2
         active.scale_start_y = active.scale_start_y / 2
 
+        strip = None
         for strip in context.selected_sequences:
             if not strip == active:
                 strip.select = False
@@ -108,6 +110,7 @@ class SEQUENCER_OT_track_transform(bpy.types.Operator):
                         break
 
         if scene.vse_transform_tools_use_rotation and ref_track:
+            offset_angle = None
             for marker in ref_track.markers:
                 if marker.frame == start_frame:
 
@@ -142,6 +145,7 @@ class SEQUENCER_OT_track_transform(bpy.types.Operator):
                     data_path="rotation_start", frame=scene.frame_current)
 
         if scene.vse_transform_tools_use_scale and ref_track:
+            init_distance = None
             for marker in ref_track.markers:
                 if marker.frame == start_frame:
 
