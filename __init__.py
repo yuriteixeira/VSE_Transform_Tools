@@ -10,8 +10,8 @@ bl_info = {
     "author": "yuriteixeira",
     "version": (0, 0, 1),
     "blender": (3, 0, 0),
-    "wiki_url": "https://github.com/doakey3/VSE_Transform_Tools",
-    "tracker_url": "https://github.com/doakey3/VSE_Transform_Tools/issues",
+    "wiki_url": "https://github.com/yuriteixeira/blender-vsc#readme",
+    "tracker_url": "https://github.com/yuriteixeira/blender-vsc/discussions",
     "category": "Sequencer"
 }
 
