@@ -170,34 +170,6 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
         layout.operator_context = 'INVOKE_DEFAULT'
 
 
-class vse_transform_tools_select(WorkSpaceTool):
-    bl_space_type = 'SEQUENCE_EDITOR'
-    bl_context_mode = 'PREVIEW'
-    bl_idname = "transform_tool.select"
-    bl_label = "Select"
-    bl_description = (
-        "Move Strip in the Preview"
-    )
-    bl_icon = "ops.generic.select"
-    bl_widget = None
-    operator = "transform.translate",
-    bl_keymap = (
-        ("vse_transform_tools.select", {"type": 'LEFTMOUSE', "value": 'PRESS'},
-         {"properties": []}),
-        ("vse_transform_tools.select", {"type": 'LEFTMOUSE', "value": 'PRESS', "shift": True},
-         {"properties": []}),
-        ("vse_transform_tools.select", {"type": 'A', "value": 'PRESS'},
-         {"properties": []}),
-    )
-
-    def draw_settings(context, layout, tool):
-        tool.operator_properties("vse_transform_tools.select")
-        scene = context.scene
-        strip = scene.sequence_editor.active_strip
-        if scene and strip and strip.type == 'TRANSFORM':
-            layout.label(text=strip.name)
-
-
 class vse_transform_tools_grab(WorkSpaceTool):
     bl_space_type = 'SEQUENCE_EDITOR'
     bl_context_mode = 'PREVIEW'
@@ -437,7 +409,6 @@ classes = [
     PREV_OT_initialize_pivot,
     PREV_OT_set_cursor_2d,
     PREV_OT_add_transform,
-    PREV_OT_select,
     PREV_OT_grab,
     PREV_OT_scale,
     PREV_OT_rotate,
@@ -505,21 +476,12 @@ def register():
 
     kmi = km.keymap_items.new("vse_transform_tools.mouse_track", 'M', 'PRESS')
 
-    # smb = bpy.data.window_managers["WinMan"].keyconfigs.active.preferences.select_mouse
-    # smb = bpy.context.user_preferences.inputs.select_mouse
-
-    smb = "RIGHT"
-    kmi = km.keymap_items.new("vse_transform_tools.select", smb + 'MOUSE', 'PRESS')
-    kmi = km.keymap_items.new("vse_transform_tools.select", smb + 'MOUSE', 'PRESS', shift=True)
-    kmi = km.keymap_items.new("vse_transform_tools.select", 'A', 'PRESS')
-
     omb = "LEFT"
     kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", omb + 'MOUSE', 'PRESS', shift=True)
     kmi = km.keymap_items.new("vse_transform_tools.set_cursor2d", omb + 'MOUSE', 'PRESS', ctrl=True)
 
     addon_keymaps.append(km)
 
-    bpy.utils.register_tool(vse_transform_tools_select, after={"builtin.sample"}, separator=True, group=False)
     bpy.utils.register_tool(vse_transform_tools_grab)
     bpy.utils.register_tool(vse_transform_tools_rotate)
     bpy.utils.register_tool(vse_transform_tools_scale)
@@ -545,7 +507,6 @@ def unregister():
     del bpy.types.Scene.vse_transform_tools_tracker_1
     del bpy.types.Scene.vse_transform_tools_tracker_2
 
-    bpy.utils.unregister_tool(vse_transform_tools_select)
     bpy.utils.unregister_tool(vse_transform_tools_grab)
     bpy.utils.unregister_tool(vse_transform_tools_rotate)
     bpy.utils.unregister_tool(vse_transform_tools_scale)
