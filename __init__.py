@@ -1,8 +1,9 @@
 import bpy
 from bpy.types import WorkSpaceTool
-from .operators import *
 from bpy.utils import register_class
 from bpy.utils import unregister_class
+
+from .operators import *
 
 bl_info = {
     "name": "Video Strip Crop (VSC)",

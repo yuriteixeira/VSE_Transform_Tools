@@ -1,5 +1,6 @@
 import bpy
 
+
 def get_pos_y(strip):
     """
     Get the Y position of a transform strip. Note that a transform

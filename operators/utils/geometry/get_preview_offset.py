@@ -2,6 +2,7 @@ import bpy
 
 from .get_res_factor import get_res_factor
 
+
 def get_preview_offset():
     """
     Get the number of pixels (x and y) that the preview is offset in the
