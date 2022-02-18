@@ -10,8 +10,7 @@ Based on the most up-to-date fork of [VSE_Transform_Tools](https://github.com/ad
 
 ## Installing
 
-1. [Go to the latest release](https://github.com/yuriteixeira/blender-vsc/releases)
-2. Download the zip file
-3. Insider Blender, go to Preferences > Add-ons (sidebar) > Install, importing the zipfile you just downloaded
-4. After importing, the add on should be list in the Add-ons section. Enable it by clicking in it's checkbox
-5. You should see a "blade" icon now in the Preview whenever you start a Blender project in Video Editing mode.
+1. [Go to the latest release](https://github.com/yuriteixeira/blender-vsc/releases) & download the `blender-vsc.zip` file
+2. Insider Blender, go to `Preferences > Add-ons (sidebar) > Install`, importing the zip file you just downloaded, making it appear listed in the `Add-ons` section. **Enable it by clicking in it's checkbox**
+
+**That's it!** You should see a "blade" icon now in the Preview whenever you start a Blender project in Video Editing mode
