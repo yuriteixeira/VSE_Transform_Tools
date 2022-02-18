@@ -4,7 +4,6 @@ import bpy
 
 from ..utils.geometry import get_pos_x
 from ..utils.geometry import get_pos_y
-from ..utils.geometry import get_preview_offset
 from ..utils.geometry import get_transform_box
 from ..utils.geometry.set_pos_x import set_pos_x
 from ..utils.geometry.set_pos_y import set_pos_y
@@ -140,7 +139,6 @@ def crop_scale(self, strip, crops):
     self.init_crop_bottom = crop_yb
     self.init_crop_top = crop_yt
 
-    offset_x, offset_y, fac, preview_zoom = get_preview_offset()
     self.crop_left = crop_xl * self.scale_factor_x
     self.crop_right = crop_xr * self.scale_factor_x
     self.crop_bottom = crop_yb * self.scale_factor_y

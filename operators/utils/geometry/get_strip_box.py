@@ -28,22 +28,6 @@ def get_strip_box(strip):
         'PROXY_25': 0.25
     }
 
-    proxy_key = bpy.context.space_data.proxy_render_size
-    proxy_fac = proxy_facs[proxy_key]
-
-    # if not strip.use_translation and not strip.use_crop:
-    #     left = 0
-    #     right = res_x
-    #     bottom = 0
-    #     top = res_y
-    #
-    # elif strip.use_crop and not strip.use_translation:
-    #     left = 0
-    #     right = res_x
-    #     bottom = 0
-    #     top = res_y
-    #
-    # el
     if not hasattr(strip, 'elements'):
         len_crop_x = res_x
         len_crop_y = res_y
@@ -61,22 +45,10 @@ def get_strip_box(strip):
         if len_crop_y < 0:
             len_crop_y = 0
 
-        # left = 0
-        # right = res_x
-        # bottom = 0
-        # top = res_y
-
         left = strip.transform.offset_x
         right = left + len_crop_x
         bottom = strip.transform.offset_y
         top = strip.transform.offset_y + len_crop_y
-
-    # elif strip.use_translation and not strip.use_crop:
-    #     left = strip.transform.offset_x
-    #     right = left + (strip.elements[0].orig_width / proxy_fac)
-    #     bottom = strip.transform.offset_y
-    #     top = bottom + (strip.elements[0].orig_height / proxy_fac)
-
     else:
         distance_right = (strip.elements[0].orig_width / 2 - strip.crop.max_x) * strip.transform.scale_x
         distance_left = (strip.elements[0].orig_width / 2 - strip.crop.min_x) * strip.transform.scale_x

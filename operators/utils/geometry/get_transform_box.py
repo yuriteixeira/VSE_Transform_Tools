@@ -16,12 +16,9 @@ def get_transform_box(strip):
     """
     scene = bpy.context.scene
 
-    left, right, bottom, top = get_strip_box(strip.input_1)
-
     res_x = scene.render.resolution_x
     res_y = scene.render.resolution_y
 
-    strip_in = strip.input_1
     left = 0
     right = res_x
     bottom = 0
@@ -34,9 +31,7 @@ def get_transform_box(strip):
     t_pos_y = get_pos_y(strip)
 
     world_left = left + t_pos_x
-    world_right = right + t_pos_x
     world_bottom = bottom + t_pos_y
-    world_top = top + t_pos_y
 
     origin_x = world_left + (width / 2)
     origin_y = world_bottom + (height / 2)
@@ -56,9 +51,6 @@ def get_transform_box(strip):
     right = left + (width * scl_x)
     bottom = world_bottom + diff_y
     top = bottom + (height * scl_y)
-
-    width = right - left
-    height = top - bottom
 
     if right - left <= 0 or top - bottom <= 0:
         left = right = bottom = top = 0

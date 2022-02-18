@@ -7,8 +7,6 @@ from ..utils.draw import draw_line
 
 
 def draw_crop(self, context):
-    active_strip = context.scene.sequence_editor.active_strip
-
     active_color = context.preferences.themes[0].sequence_editor.active_strip
     active_color = (active_color[0], active_color[1], active_color[2], 1.0)
     color = context.preferences.themes[0].sequence_editor.frame_current

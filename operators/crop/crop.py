@@ -142,8 +142,6 @@ class PREV_OT_crop(bpy.types.Operator):
             return {'PASS_THROUGH'}
 
         elif event.type in ['C', 'RET', 'NUMPAD_ENTER'] and event.value == 'PRESS':
-            offset_x, offset_y, fac, preview_zoom = get_preview_offset()
-
             active_strip = context.scene.sequence_editor.active_strip
             crops = [self.crop_left / self.scale_factor_x,
                      self.crop_right / self.scale_factor_x,
@@ -176,21 +174,15 @@ class PREV_OT_crop(bpy.types.Operator):
                 active_strip.crop.min_y = crops[2]
                 active_strip.crop.max_y = crops[3]
 
-                # ZEO: I don't think it's still useful with the 2.92+ API
-                # active_strip.transform.offset_x = self.init_pos_x - self.init_crop_left + crops[0]
-                # active_strip.transform.offset_y = self.init_pos_y - self.init_crop_bottom + crops[2]
-
                 if scene.tool_settings.use_keyframe_insert_auto:
                     active_strip.crop.keyframe_insert(data_path='min_x')
                     active_strip.crop.keyframe_insert(data_path='max_x')
                     active_strip.crop.keyframe_insert(data_path='min_y')
                     active_strip.crop.keyframe_insert(data_path='max_y')
 
-                    # active_strip.transform.keyframe_insert(data_path="offset_x")
-                    # active_strip.transform.keyframe_insert(data_path="offset_y")
-
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_crop, 'PREVIEW')
+
             return {'FINISHED'}
 
         elif (event.alt and event.type == 'C') or event.type == 'ESC':
@@ -207,31 +199,19 @@ class PREV_OT_crop(bpy.types.Operator):
                 active_strip.crop.min_y = crops[2]
                 active_strip.crop.max_y = crops[3]
 
-                # ZEO I don't think it's useful with 2.92+ API
-                # active_strip.transform.offset_x = crops[0]
-                # active_strip.transform.offset_y = crops[2]
-
             bpy.types.SpaceSequenceEditor.draw_handler_remove(
                 self.handle_crop, 'PREVIEW')
+
             return {'FINISHED'}
 
         return {'RUNNING_MODAL'}
 
     def invoke(self, context, event):
         scene = context.scene
-
-        res_x = scene.render.resolution_x
-        res_y = scene.render.resolution_y
-
         strip = get_highest_transform(scene.sequence_editor.active_strip)
         scene.sequence_editor.active_strip = strip
 
         if not strip.type == "TRANSFORM":
-            #     strip.select = False
-            #     strip = scene.sequence_editor.active_strip
-            #
-            # elif not strip.type == "TRANSFORM" and strip.use_translation:
-
             self.init_crop_left = strip.crop.min_x
             self.init_crop_right = strip.crop.max_x
             self.init_crop_bottom = strip.crop.min_y
@@ -249,9 +229,6 @@ class PREV_OT_crop(bpy.types.Operator):
             strip.crop.max_x = 0
             strip.crop.min_y = 0
             strip.crop.max_y = 0
-
-            # strip.transform.offset_x -= self.init_crop_left
-            # strip.transform.offset_y -= self.init_crop_bottom
 
             if event.alt:
                 return {'FINISHED'}
@@ -271,8 +248,10 @@ class PREV_OT_crop(bpy.types.Operator):
             crop_scale(self, strip, [0, 0, 0, 0])
 
         args = (self, context)
+
         self.handle_crop = bpy.types.SpaceSequenceEditor.draw_handler_add(
             draw_crop, args, 'PREVIEW', 'POST_PIXEL')
+
         context.window_manager.modal_handler_add(self)
 
         return {'RUNNING_MODAL'}

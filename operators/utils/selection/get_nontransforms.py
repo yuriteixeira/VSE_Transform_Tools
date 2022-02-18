@@ -4,6 +4,7 @@ def get_nontransforms(strips):
     strips.
     """
     nontransforms = []
+
     for i in range(len(strips)):
         if strips[i].type != "TRANSFORM" and strips[i].type != "SOUND":
             nontransforms.append(strips[i])

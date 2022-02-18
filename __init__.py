@@ -30,8 +30,6 @@ Panel:    _PT_
 UIList:   _UL_
 """
 
-handle_2d_cursor = None
-
 
 def Add_Menu(self, context):
     layout = self.layout
@@ -53,10 +51,6 @@ class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
     def draw(self, context):
         layout = self.layout
         layout.operator_context = 'INVOKE_REGION_PREVIEW'
-        # st = context.space_data
-
-        # if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
-
         layout.separator()
         layout.operator("vse_transform_tools.crop")
         layout.operator("vse_transform_tools.autocrop")
@@ -87,21 +81,6 @@ class vse_transform_tools_crop(WorkSpaceTool):
         else:
             return False
 
-    def draw_settings(context, layout, tool):
-        tool.operator_properties("vse_transform_tools.crop")
-        scene = context.scene
-        strip = scene.sequence_editor.active_strip
-        if scene and strip and strip.type == 'TRANSFORM':
-            layout.label(text=strip.name)
-
-
-def get_tracker_list(self, context):
-    tracks = [("None", "None", "")]
-    for movieclip in bpy.data.movieclips:
-        for track in movieclip.tracking.tracks:
-            tracks.append((track.name, track.name, ""))
-    return tracks
-
 
 classes = [
     PREV_OT_autocrop,
@@ -119,15 +98,12 @@ def register():
     wm = bpy.context.window_manager
     km = wm.keyconfigs.addon.keymaps.new(name="SequencerPreview", space_type="SEQUENCE_EDITOR", region_type="WINDOW")
 
-    kmi = km.keymap_items.new("vse_transform_tools.autocrop", 'C', 'PRESS', shift=True)
-
-    kmi = km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS', alt=True)
-    kmi = km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS')
-
+    km.keymap_items.new("vse_transform_tools.autocrop", 'C', 'PRESS', shift=True)
+    km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS', alt=True)
+    km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS')
     addon_keymaps.append(km)
 
     bpy.utils.register_tool(vse_transform_tools_crop)
-
     bpy.types.SEQUENCER_MT_editor_menus.append(Add_Menu)
 
 
@@ -136,10 +112,10 @@ def unregister():
         unregister_class(cls)
 
     wm = bpy.context.window_manager
+
     for km in addon_keymaps:
         wm.keyconfigs.addon.keymaps.remove(km)
+
     addon_keymaps.clear()
-
     bpy.utils.unregister_tool(vse_transform_tools_crop)
-
     bpy.types.SEQUENCER_MT_editor_menus.remove(Add_Menu)

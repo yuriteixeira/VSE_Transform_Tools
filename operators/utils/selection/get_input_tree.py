@@ -13,6 +13,7 @@ def get_input_tree(strip):
 
     if hasattr(strip, 'input_1'):
         inputs.extend(get_input_tree(strip.input_1))
+
     if hasattr(strip, 'input_2'):
         inputs.extend(get_input_tree(strip.input_2))
 
