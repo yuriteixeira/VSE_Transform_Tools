@@ -11,7 +11,7 @@ bl_info = {
     "author": "yuriteixeira",
     "version": (0, 0, 1),
     "blender": (3, 0, 0),
-    "wiki_url": "https://github.com/yuriteixeira/blender-vsc#readme",
+    "wiki_url": "http://www.yuriteixeira.com.br/blender-vsc/",
     "tracker_url": "https://github.com/yuriteixeira/blender-vsc/discussions",
     "category": "Sequencer"
 }
