@@ -8,7 +8,7 @@ from ..utils.selection import get_transforms
 from ..utils.selection import get_visible_strips
 
 
-class PREV_OT_autocrop(bpy.types.Operator):
+class AutoCropOperator(bpy.types.Operator):
     """
     Sets the scene resolution to fit all visible content in
     the preview window without changing strip sizes.

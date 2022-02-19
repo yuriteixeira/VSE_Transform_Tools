@@ -1,2 +1,2 @@
-from .autocrop import PREV_OT_autocrop
+from .autocrop import AutoCropOperator
 from .crop import CropOperator
