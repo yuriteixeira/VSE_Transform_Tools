@@ -36,12 +36,12 @@ def addon_sequencer_menu(self, context):
     st = context.space_data
 
     if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
-        layout.menu("SEQUENCER_MT_transform_tools_menu")
+        layout.menu("AddonSequencerPreviewToolbar")
 
 
-class SEQUENCER_MT_transform_tools_menu(bpy.types.Menu):
+class AddonSequencerPreviewToolbar(bpy.types.Menu):
     bl_label = "Transform"
-    bl_idname = "SEQUENCER_MT_transform_tools_menu"
+    bl_idname = "AddonSequencerPreviewToolbar"
 
     @classmethod
     def poll(cls, context):
@@ -85,7 +85,7 @@ class vse_transform_tools_crop(WorkSpaceTool):
 classes = [
     AutoCropOperator,
     CropOperator,
-    SEQUENCER_MT_transform_tools_menu,
+    AddonSequencerPreviewToolbar,
 ]
 
 addon_keymaps = []
