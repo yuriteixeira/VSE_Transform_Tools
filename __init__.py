@@ -3,7 +3,7 @@ from bpy.types import WorkSpaceTool
 from bpy.utils import register_class
 from bpy.utils import unregister_class
 
-from .operators import CropOperator, AutoCropOperator
+from .addon import CropOperator, AutoCropOperator
 
 bl_info = {
     "name": "Video Strip Crop (VSC)",
