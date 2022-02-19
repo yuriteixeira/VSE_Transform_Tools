@@ -1,10 +1,11 @@
 import bpy
 from bpy.utils import register_class, unregister_class
 
-from addon import CropOperator, AutoCropOperator
-from addon.crop.keymap_registration import keymaps_register, keymaps_unregister
-from addon.crop.menu_registration import AddonSequencerPreviewCropMenu, addon_sequencer_preview_crop_menu_registration
-from addon.crop.toolbar_registration import AddonSequencerPreviewCropTool
+from .addon.crop.autocrop_operator import AutoCropOperator
+from .addon.crop.crop_operator import CropOperator
+from .addon.crop.keymap_registration import keymaps_register, keymaps_unregister
+from .addon.crop.menu_registration import AddonSequencerPreviewCropMenu, addon_sequencer_preview_crop_menu_registration
+from .addon.crop.toolbar_registration import AddonSequencerPreviewCropTool
 
 bl_info = {
     "name": "Video Strip Crop (VSC)",

@@ -2,7 +2,7 @@ import math
 
 from mathutils import Vector
 
-from ..utils.geometry import rotate_point
+from ...utils.geometry import rotate_point
 
 
 def set_quads(self, context):

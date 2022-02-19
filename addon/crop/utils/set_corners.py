@@ -3,7 +3,7 @@ import math
 from mathutils import Vector
 
 from .get_perpendicular_point import get_perpendicular_point
-from ..utils.geometry import get_preview_offset, get_strip_corners, rotate_point
+from ...utils.geometry import get_preview_offset, get_strip_corners, rotate_point
 
 
 def set_corners(self, context):
