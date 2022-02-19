@@ -14,12 +14,9 @@ from ..utils.selection import get_highest_transform
 
 
 class CropOperator(bpy.types.Operator):
-    """
-    Crop the active strip
-    """
-    bl_idname = "vse_transform_tools.crop"
+    bl_idname = "vsc.crop_operator"
     bl_label = "Crop"
-    bl_description = "Crop a strip in the Image Preview"
+    bl_description = "Crop active strip"
     bl_options = {'REGISTER', 'UNDO'}
 
     init_pos_x = 0

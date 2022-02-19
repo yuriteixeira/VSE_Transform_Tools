@@ -3,7 +3,7 @@ from bpy.types import WorkSpaceTool
 from bpy.utils import register_class
 from bpy.utils import unregister_class
 
-from .operators import *
+from .operators import CropOperator, AutoCropOperator
 
 bl_info = {
     "name": "Video Strip Crop (VSC)",
@@ -17,17 +17,17 @@ bl_info = {
 }
 
 
-def addon_sequencer_menu(self, context):
+def addon_sequencer_preview_crop_menu_registration(self, context):
     layout = self.layout
     st = context.space_data
 
     if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
-        layout.menu("AddonSequencerPreviewToolbar")
+        layout.menu("vsc.crop_menu")
 
 
-class AddonSequencerPreviewToolbar(bpy.types.Menu):
-    bl_label = "Transform"
-    bl_idname = "AddonSequencerPreviewToolbar"
+class AddonSequencerPreviewCropMenu(bpy.types.Menu):
+    bl_label = "Crop (VSC)"
+    bl_idname = "vsc.crop_menu"
 
     @classmethod
     def poll(cls, context):
@@ -38,25 +38,25 @@ class AddonSequencerPreviewToolbar(bpy.types.Menu):
         layout = self.layout
         layout.operator_context = 'INVOKE_REGION_PREVIEW'
         layout.separator()
-        layout.operator("vse_transform_tools.crop")
-        layout.operator("vse_transform_tools.autocrop")
+        layout.operator("vsc.crop_operator")
+        layout.operator("vsc.autocrop_operator")
         layout.operator_context = 'INVOKE_DEFAULT'
 
 
 class AddonSequencerPreviewCropTool(WorkSpaceTool):
     bl_space_type = 'SEQUENCE_EDITOR'
     bl_context_mode = 'PREVIEW'
-    bl_idname = "transform_tool.crop"
-    bl_label = "Crop"
+    bl_idname = "vsc.crop_tool"
+    bl_label = "Crop Tool (VSC)"
     bl_description = (
-        "Crop Strip in Preview"
+        "Crop active strip"
     )
     bl_icon = "ops.sequencer.blade"
     bl_widget = None
     operator = "transform.translate",
     bl_keymap = (
-        ("vse_transform_tools.crop", {"type": 'LEFTMOUSE', "value": 'PRESS'}, None),
-        ("vse_transform_tools.crop", {"type": 'LEFTMOUSE', "value": 'PRESS', "ctrl": True},
+        ("vsc.crop_operator", {"type": 'LEFTMOUSE', "value": 'PRESS'}, None),
+        ("vsc.crop_operator", {"type": 'LEFTMOUSE', "value": 'PRESS', "ctrl": True},
          {"properties": []}),
     )
 
@@ -71,7 +71,7 @@ class AddonSequencerPreviewCropTool(WorkSpaceTool):
 classes = [
     AutoCropOperator,
     CropOperator,
-    AddonSequencerPreviewToolbar,
+    AddonSequencerPreviewCropMenu,
 ]
 
 addon_keymaps = []
@@ -84,13 +84,13 @@ def register():
     wm = bpy.context.window_manager
     km = wm.keyconfigs.addon.keymaps.new(name="SequencerPreview", space_type="SEQUENCE_EDITOR", region_type="WINDOW")
 
-    km.keymap_items.new("vse_transform_tools.autocrop", 'C', 'PRESS', shift=True)
-    km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS', alt=True)
-    km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS')
+    km.keymap_items.new("vsc.autocrop_operator", 'C', 'PRESS', shift=True)
+    km.keymap_items.new("vsc.crop_operator", 'C', 'PRESS', alt=True)
+    km.keymap_items.new("vsc.crop_operator", 'C', 'PRESS')
     addon_keymaps.append(km)
 
     bpy.utils.register_tool(AddonSequencerPreviewCropTool)
-    bpy.types.SEQUENCER_MT_editor_menus.append(addon_sequencer_menu)
+    bpy.types.SEQUENCER_MT_editor_menus.append(addon_sequencer_preview_crop_menu_registration)
 
 
 def unregister():
@@ -104,4 +104,4 @@ def unregister():
 
     addon_keymaps.clear()
     bpy.utils.unregister_tool(AddonSequencerPreviewCropTool)
-    bpy.types.SEQUENCER_MT_editor_menus.remove(addon_sequencer_menu)
+    bpy.types.SEQUENCER_MT_editor_menus.remove(addon_sequencer_preview_crop_menu_registration)

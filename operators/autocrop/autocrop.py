@@ -9,13 +9,9 @@ from ..utils.selection import get_visible_strips
 
 
 class AutoCropOperator(bpy.types.Operator):
-    """
-    Sets the scene resolution to fit all visible content in
-    the preview window without changing strip sizes.
-    """
-    bl_idname = "vse_transform_tools.autocrop"
-    bl_label = "Autocrop"
-    bl_description = "Collapse canvas to fit visible content"
+    bl_idname = "vsc.autocrop_operator"
+    bl_label = "Auto-crop Operator"
+    bl_description = "Fit all visible content into the scene by changing its resolution"
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
