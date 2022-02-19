@@ -13,7 +13,7 @@ from ..utils.geometry import rotate_point
 from ..utils.selection import get_highest_transform
 
 
-class PREV_OT_crop(bpy.types.Operator):
+class CropOperator(bpy.types.Operator):
     """
     Crop the active strip
     """

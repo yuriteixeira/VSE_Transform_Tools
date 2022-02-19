@@ -84,7 +84,7 @@ class vse_transform_tools_crop(WorkSpaceTool):
 
 classes = [
     PREV_OT_autocrop,
-    PREV_OT_crop,
+    CropOperator,
     SEQUENCER_MT_transform_tools_menu,
 ]
 
