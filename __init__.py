@@ -1,9 +1,9 @@
 import bpy
-from bpy.types import WorkSpaceTool
-from bpy.utils import register_class
-from bpy.utils import unregister_class
+from bpy.utils import register_class, unregister_class
 
-from .addon import CropOperator, AutoCropOperator
+from addon import CropOperator, AutoCropOperator
+from addon.crop.menu_registration import AddonSequencerPreviewCropMenu, addon_sequencer_preview_crop_menu_registration
+from addon.crop.toolbar_registration import AddonSequencerPreviewCropTool
 
 bl_info = {
     "name": "Video Strip Crop (VSC)",
@@ -15,58 +15,6 @@ bl_info = {
     "tracker_url": "https://github.com/yuriteixeira/blender-vsc/discussions",
     "category": "Sequencer"
 }
-
-
-def addon_sequencer_preview_crop_menu_registration(self, context):
-    layout = self.layout
-    st = context.space_data
-
-    if st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}:
-        layout.menu("vsc.crop_menu")
-
-
-class AddonSequencerPreviewCropMenu(bpy.types.Menu):
-    bl_label = "Crop (VSC)"
-    bl_idname = "vsc.crop_menu"
-
-    @classmethod
-    def poll(cls, context):
-        st = context.space_data
-        return st.view_type in {'PREVIEW', 'SEQUENCER_PREVIEW'}
-
-    def draw(self, context):
-        layout = self.layout
-        layout.operator_context = 'INVOKE_REGION_PREVIEW'
-        layout.separator()
-        layout.operator("vsc.crop_operator")
-        layout.operator("vsc.autocrop_operator")
-        layout.operator_context = 'INVOKE_DEFAULT'
-
-
-class AddonSequencerPreviewCropTool(WorkSpaceTool):
-    bl_space_type = 'SEQUENCE_EDITOR'
-    bl_context_mode = 'PREVIEW'
-    bl_idname = "vsc.crop_tool"
-    bl_label = "Crop Tool (VSC)"
-    bl_description = (
-        "Crop active strip"
-    )
-    bl_icon = "ops.sequencer.blade"
-    bl_widget = None
-    operator = "transform.translate",
-    bl_keymap = (
-        ("vsc.crop_operator", {"type": 'LEFTMOUSE', "value": 'PRESS'}, None),
-        ("vsc.crop_operator", {"type": 'LEFTMOUSE', "value": 'PRESS', "ctrl": True},
-         {"properties": []}),
-    )
-
-    @classmethod
-    def poll(cls, context):
-        if context.scene and context.scene.sequence_editor and context.scene.sequence_editor.active_strip:
-            return context.scene.sequence_editor.active_strip.type == 'TRANSFORM'
-        else:
-            return False
-
 
 classes = [
     AutoCropOperator,
