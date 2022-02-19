@@ -57,7 +57,7 @@ class AddonSequencerPreviewToolbar(bpy.types.Menu):
         layout.operator_context = 'INVOKE_DEFAULT'
 
 
-class vse_transform_tools_crop(WorkSpaceTool):
+class AddonSequencerPreviewCropTool(WorkSpaceTool):
     bl_space_type = 'SEQUENCE_EDITOR'
     bl_context_mode = 'PREVIEW'
     bl_idname = "transform_tool.crop"
@@ -103,7 +103,7 @@ def register():
     km.keymap_items.new("vse_transform_tools.crop", 'C', 'PRESS')
     addon_keymaps.append(km)
 
-    bpy.utils.register_tool(vse_transform_tools_crop)
+    bpy.utils.register_tool(AddonSequencerPreviewCropTool)
     bpy.types.SEQUENCER_MT_editor_menus.append(addon_sequencer_menu)
 
 
@@ -117,5 +117,5 @@ def unregister():
         wm.keyconfigs.addon.keymaps.remove(km)
 
     addon_keymaps.clear()
-    bpy.utils.unregister_tool(vse_transform_tools_crop)
+    bpy.utils.unregister_tool(AddonSequencerPreviewCropTool)
     bpy.types.SEQUENCER_MT_editor_menus.remove(addon_sequencer_menu)
