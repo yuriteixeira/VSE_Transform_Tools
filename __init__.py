@@ -31,7 +31,7 @@ UIList:   _UL_
 """
 
 
-def Add_Menu(self, context):
+def addon_sequencer_menu(self, context):
     layout = self.layout
     st = context.space_data
 
@@ -104,7 +104,7 @@ def register():
     addon_keymaps.append(km)
 
     bpy.utils.register_tool(vse_transform_tools_crop)
-    bpy.types.SEQUENCER_MT_editor_menus.append(Add_Menu)
+    bpy.types.SEQUENCER_MT_editor_menus.append(addon_sequencer_menu)
 
 
 def unregister():
@@ -118,4 +118,4 @@ def unregister():
 
     addon_keymaps.clear()
     bpy.utils.unregister_tool(vse_transform_tools_crop)
-    bpy.types.SEQUENCER_MT_editor_menus.remove(Add_Menu)
+    bpy.types.SEQUENCER_MT_editor_menus.remove(addon_sequencer_menu)
