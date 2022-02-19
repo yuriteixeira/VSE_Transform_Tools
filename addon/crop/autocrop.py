@@ -1,11 +1,7 @@
 import bpy
 
-from addon.utils.geometry import get_group_box
-from addon.utils.geometry import reposition_strip
-from addon.utils.geometry import reposition_transform_strip
-from addon.utils.selection import get_nontransforms
-from addon.utils.selection import get_transforms
-from addon.utils.selection import get_visible_strips
+from ..utils.geometry import get_group_box, reposition_strip, reposition_transform_strip
+from ..utils.selection import get_nontransforms, get_transforms, get_visible_strips
 
 
 class AutoCropOperator(bpy.types.Operator):

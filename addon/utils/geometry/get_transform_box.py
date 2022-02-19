@@ -2,7 +2,6 @@ import bpy
 
 from .get_pos_x import get_pos_x
 from .get_pos_y import get_pos_y
-from .get_strip_box import get_strip_box
 
 
 def get_transform_box(strip):

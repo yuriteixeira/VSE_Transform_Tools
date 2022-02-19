@@ -1,6 +1,5 @@
 from mathutils import Vector
-from mathutils.geometry import intersect_line_line_2d
-from mathutils.geometry import intersect_point_quad_2d
+from mathutils.geometry import intersect_line_line_2d, intersect_point_quad_2d
 
 
 def get_perpendicular_point(pt, bl, tl, tr, br):
