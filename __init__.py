@@ -16,20 +16,6 @@ bl_info = {
     "category": "Sequencer"
 }
 
-"""
-RegEx Classname
-===============
-[A-Z][A-Z0-9_]*_{ABBREV}_[A-Za-z0-9_]+
-
-Abbrev
-------
-Header:   _HT_
-Menu:     _MT_
-Operator: _OT_
-Panel:    _PT_
-UIList:   _UL_
-"""
-
 
 def addon_sequencer_menu(self, context):
     layout = self.layout
