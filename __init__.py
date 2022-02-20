@@ -41,5 +41,3 @@ def unregister():
     keymaps_unregister()
     bpy.utils.unregister_tool(AddonSequencerPreviewCropTool)
     bpy.types.SEQUENCER_MT_editor_menus.remove(addon_sequencer_preview_crop_menu_registration)
-
-
